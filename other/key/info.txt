@@ -1,0 +1,3 @@
+Key Alias: greenwallet
+KeyStore Password: 2kAaiXC3NM57jh45kpLupmeR4pBg1gyhSLMufKRZF0o
+Key Password: 20200921

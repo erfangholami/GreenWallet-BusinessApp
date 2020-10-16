@@ -1,0 +1,81 @@
+package com.greenwallet.business.scenes.login
+
+import android.content.Context
+import android.util.Log
+import com.greenwallet.business.helper.keystore.CipherStorageFactory
+import com.greenwallet.business.helper.keystore.KeystoreKeys
+import com.greenwallet.business.helper.network.InteractorFactory
+import com.greenwallet.business.helper.network.Subscriber
+import com.greenwallet.business.helper.network.login.LoginResponse
+import com.greenwallet.business.scenes.base.BasePresenter
+import com.greenwallet.business.scenes.login.ui.LoginFragment
+import com.greenwallet.business.scenes.login.ui.LoginView
+import com.greenwallet.business.scenes.onboarding.ui.OnboardingView
+import kotlinx.android.synthetic.main.fragment_login.*
+
+class LoginPresenter(var context: Context) :
+    BasePresenter<LoginView, LoginProcessHandler>(), LoginView.Presenter {
+
+    enum class State {
+        LOGIN,
+        SHOP_GREEN,
+        LOADING,
+        ERROR
+    }
+
+    var state: State = State.LOGIN
+        set(value) {
+            field = value
+            activityHandler?.let {
+                when (state) {
+                    State.LOGIN -> it.showLoginScreen()
+                    State.SHOP_GREEN -> it.showShopGreenScreen()
+                    State.LOADING -> it.showLoadingScreen()
+                    State.ERROR -> it.showErrorMessage()
+                }
+            }
+        }
+
+    override fun onActivityHandlerSubscribed() {
+        state = state
+    }
+
+    override fun onViewSubscribed(view: LoginView) {
+        state = State.LOGIN
+    }
+
+    override fun onLoginButtonClicked(email: String, password: String) {
+        Log.e("LoginPresenter", "email: $email, password: $password")
+
+        state = State.LOADING
+
+        val interactor = InteractorFactory(this.context).createLoginInteractor()
+
+        interactor.login(
+            email = email,
+            password = password,
+            listener = object :
+                Subscriber<LoginResponse> {
+                override fun onRequestSuccess(response: LoginResponse) {
+                    if (response.response == LoginResponse.Result.SUCCESS) {
+                        val cipherStorage = CipherStorageFactory.newInstance(context)
+                        cipherStorage.encrypt(KeystoreKeys.merchantId.name, response.merchant_id)
+
+                        state = State.SHOP_GREEN
+
+                        Log.e("Login Request", "Success")
+                    } else {
+                        state = State.ERROR
+
+                        Log.e("Login Request", "Error")
+                    }
+                }
+
+                override fun onRequestFailure(t: Throwable) {
+                    state = State.ERROR
+
+                    Log.e("Login Request", "onRequestFailure")
+                }
+            })
+    }
+}

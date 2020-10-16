@@ -1,0 +1,159 @@
+{
+  "project_info": {
+    "project_number": "955738195714",
+    "firebase_url": "https://spiralpay.firebaseio.com",
+    "project_id": "spiralpay",
+    "storage_bucket": "spiralpay.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955738195714:android:fc1d92e8e8499ffd30e41b",
+        "android_client_info": {
+          "package_name": "com.greenwallet.business"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe7Vb4vOKKfy3fVANsX6XJ7yhMebO6TOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "955738195714-jpe3h1amt7sfns5k5bpucou9jip4vetf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenwallet.business.dev",
+                "app_store_id": "1512524951"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955738195714:android:b4c7801b26352e7730e41b",
+        "android_client_info": {
+          "package_name": "com.greenwallet.business.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe7Vb4vOKKfy3fVANsX6XJ7yhMebO6TOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "955738195714-jpe3h1amt7sfns5k5bpucou9jip4vetf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenwallet.business.dev",
+                "app_store_id": "1512524951"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955738195714:android:2ddbb0495623083430e41b",
+        "android_client_info": {
+          "package_name": "com.greenwallet.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe7Vb4vOKKfy3fVANsX6XJ7yhMebO6TOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "955738195714-jpe3h1amt7sfns5k5bpucou9jip4vetf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenwallet.business.dev",
+                "app_store_id": "1512524951"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955738195714:android:8574595539f69a1c30e41b",
+        "android_client_info": {
+          "package_name": "com.greenwallet.customer.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDe7Vb4vOKKfy3fVANsX6XJ7yhMebO6TOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955738195714-60stlcq5b9olg6m3ifvegua22a3tpn73.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "955738195714-jpe3h1amt7sfns5k5bpucou9jip4vetf.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.greenwallet.business.dev",
+                "app_store_id": "1512524951"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
