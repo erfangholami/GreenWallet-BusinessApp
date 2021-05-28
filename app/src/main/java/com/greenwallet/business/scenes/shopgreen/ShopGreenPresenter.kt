@@ -70,7 +70,11 @@ class ShopGreenPresenter(var context: Context) :
                 Subscriber<CategoriesResponse> {
                 override fun onRequestSuccess(response: CategoriesResponse) {
                     if (response.response == CategoriesResponse.Result.SUCCESS) {
-                        response.result?.forEach { i -> Log.e("Categories Request", i.category ) }
+                        response.result?.forEach { i -> i.category?.let {
+                            Log.e("Categories Request",
+                                it
+                            )
+                        } }
 
                         state = State.SHOP_GREEN
 
