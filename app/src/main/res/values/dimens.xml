@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="text_small_xxxx">8sp</dimen>
+    <dimen name="text_small_xxx">9sp</dimen>
+    <dimen name="text_small_xx">10sp</dimen>
+    <dimen name="text_small_x">12sp</dimen>
+    <dimen name="text_small">14sp</dimen>
+    <dimen name="text_default">16sp</dimen>
+    <dimen name="text_big">20sp</dimen>
+    <dimen name="text_large_x">24sp</dimen>
+    <dimen name="text_large_xx">28sp</dimen>
+    <dimen name="text_large_xxx">32sp</dimen>
+    <dimen name="text_large_xxxx">36sp</dimen>
+    <dimen name="text_large_xxxxx">48sp</dimen>
+    <dimen name="text_dialog_button_size">15sp</dimen>
+    <dimen name="text_title">15sp</dimen>
+
+    <dimen name="margin_small_x">4dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_big">20dp</dimen>
+    <dimen name="margin_large">24dp</dimen>
+    <dimen name="margin_large_xx">28dp</dimen>
+    <dimen name="margin_large_xxx">32dp</dimen>
+    <dimen name="margin_large_xxxx">36dp</dimen>
+    <dimen name="margin_large_xxxxx">48dp</dimen>
+
+    <dimen name="corner_radius_small_x">4dp</dimen>
+    <dimen name="corner_radius_small">8dp</dimen>
+    <dimen name="corner_radius_medium">12dp</dimen>
+    <dimen name="corner_radius_default">16dp</dimen>
+    <dimen name="corner_radius_big">20dp</dimen>
+    <dimen name="corner_radius_large">24dp</dimen>
+    <dimen name="corner_radius_large_xx">28dp</dimen>
+    <dimen name="corner_radius_large_xxx">32dp</dimen>
+    <dimen name="corner_radius_large_xxxx">36dp</dimen>
+
+    <dimen name="padding_small_x">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_medium">12dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="padding_big">20dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_large_xx">28dp</dimen>
+    <dimen name="padding_large_xxx">32dp</dimen>
+    <dimen name="padding_large_xxxx">36dp</dimen>
+</resources>
