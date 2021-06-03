@@ -3,7 +3,6 @@ package com.greenwallet.business.scenes.shopgreen.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,14 +12,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.greenwallet.business.R
+import com.greenwallet.business.databinding.FragmentShopGreenBinding
 import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
-import kotlinx.android.synthetic.main.fragment_shop_green.*
 import java.util.ArrayList
 
 class ShopGreenFragment : Fragment(), ShopGreenView {
 
     private lateinit var presenter: ShopGreenView.Presenter
+    private lateinit var binding: FragmentShopGreenBinding
 
     private var mAdapterCategories: ShopGreenCategoriesAdapter? = null
 
@@ -32,7 +31,8 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_shop_green, container, false)
+        binding = FragmentShopGreenBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,10 +55,10 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     }
 
     override fun showCategories(categories: ArrayList<String>) {
-        mAdapterCategories = ShopGreenCategoriesAdapter(categories, context!!)
+        mAdapterCategories = ShopGreenCategoriesAdapter(categories)
 
-        rv_categories.layoutManager = GridLayoutManager(context, 3)
-        rv_categories.adapter = mAdapterCategories
+        binding.rvCategories.layoutManager = GridLayoutManager(context, 3)
+        binding.rvCategories.adapter = mAdapterCategories
 
         mAdapterCategories?.onItemClick = { it ->
             Log.e("Value", ": $it")
@@ -68,12 +68,12 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     }
 
     override fun showCampaigns(campaigns: Array<Pair<CampaingsResponseModel, Bitmap?>>) {
-        mAdapterCampaigns = ShopGreenCampaignsAdapter(campaigns, context!!)
+        mAdapterCampaigns = ShopGreenCampaignsAdapter(campaigns)
 
-        rv_campaigns.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rv_campaigns.adapter = mAdapterCampaigns
+        binding.rvCampaigns.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCampaigns.adapter = mAdapterCampaigns
 
-        rv_campaigns.addItemDecoration(object : RecyclerView.ItemDecoration() {
+        binding.rvCampaigns.addItemDecoration(object : RecyclerView.ItemDecoration() {
 
             override fun getItemOffsets(
                 outRect: Rect,

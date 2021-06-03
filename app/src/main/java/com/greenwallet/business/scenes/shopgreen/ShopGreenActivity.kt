@@ -3,15 +3,14 @@ package com.greenwallet.business.scenes.shopgreen
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.greenwallet.business.R
-import com.greenwallet.business.app.Application
+import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
+import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenFragment
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
-import kotlinx.android.synthetic.main.activity_login.*
 
-class ShopGreenActivity : AppCompatActivity(), ShopGreenProcessHandler,
+class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
     ShopGreenFragment.ShopGreenPresenterProvider {
 
     companion object {
@@ -20,12 +19,14 @@ class ShopGreenActivity : AppCompatActivity(), ShopGreenProcessHandler,
     }
 
     lateinit var presenter: ShopGreenPresenter
+    lateinit var binding: ActivityShopGreenBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         presenter = ShopGreenPresenter(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_shop_green)
+        binding = ActivityShopGreenBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
@@ -44,20 +45,9 @@ class ShopGreenActivity : AppCompatActivity(), ShopGreenProcessHandler,
     }
 
     override fun showShopGreenScreen() {
-        toolbar.visibility = View.GONE
+        binding.toolbar.visibility = View.GONE
 
-        val fragment = supportFragmentManager.findFragmentByTag(FRAGMENT_SHOP_GREEN)
-        if (fragment == null) {
-
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.container, ShopGreenFragment(), FRAGMENT_SHOP_GREEN)
-                .addToBackStack(FRAGMENT_SHOP_GREEN)
-                .commit()
-
-        } else if (!fragment.isVisible) {
-            supportFragmentManager.popBackStack(FRAGMENT_SHOP_GREEN, 0)
-        }
+        replaceFragment(ShopGreenFragment(), FRAGMENT_SHOP_GREEN)
     }
 
     override fun showLoadingScreen() {

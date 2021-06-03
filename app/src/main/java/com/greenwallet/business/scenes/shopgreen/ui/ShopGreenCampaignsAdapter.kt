@@ -1,38 +1,29 @@
 package com.greenwallet.business.scenes.shopgreen.ui
 
-import android.content.Context
 import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.greenwallet.business.R
+import com.greenwallet.business.databinding.ShopgreenRvCampaignsItemBinding
 import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
-import kotlinx.android.synthetic.main.shopgreen_rv_campaigns_item.view.*
 
-class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, Bitmap?>>, var context: Context) :
+class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, Bitmap?>>) :
     RecyclerView.Adapter<ShopGreenCampaignsAdapter.ViewHolder>() {
 
     var onItemClick: ((String) -> Unit)? = null
-
-    class ViewHolder(val layout: LinearLayout) :
-        RecyclerView.ViewHolder(layout)
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val constraintLayout = LayoutInflater.from(parent.context)
-            .inflate(R.layout.shopgreen_rv_campaigns_item, parent, false) as LinearLayout
+        val itemBinding = ShopgreenRvCampaignsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return ViewHolder(
-            constraintLayout
-        )
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.layout.tv_description_campaign.text = mModels[position].first.name
-        holder.layout.iv_icon_campaign.setImageBitmap(mModels[position].second)
+        holder.setDescription(mModels[position].first.name)
+        holder.setImageBitmap(mModels[position].second)
 
         //holder.itemView.setOnClickListener {
         //    onItemClick?.invoke(mModels[position])
@@ -40,4 +31,16 @@ class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, 
     }
 
     override fun getItemCount(): Int = mModels.size
+
+    class ViewHolder(private val itemBinding:  ShopgreenRvCampaignsItemBinding) :
+        RecyclerView.ViewHolder(itemBinding.root) {
+
+        fun setDescription(description: String?) {
+            itemBinding.tvDescriptionCampaign.text = description
+        }
+
+        fun setImageBitmap(bitmap: Bitmap?) {
+            itemBinding.ivIconCampaign.setImageBitmap(bitmap)
+        }
+    }
 }
