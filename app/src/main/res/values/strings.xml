@@ -1,2 +1,4 @@
 <resources>
+    <string name="label_email_address">Email Address</string>
+    <string name="label_password">Password</string>
 </resources>
