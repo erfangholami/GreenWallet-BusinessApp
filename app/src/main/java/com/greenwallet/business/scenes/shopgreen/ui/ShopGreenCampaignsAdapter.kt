@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.greenwallet.business.R
-import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
 import kotlinx.android.synthetic.main.shopgreen_rv_campaigns_item.view.*
 
 class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, Bitmap?>>, var context: Context) :

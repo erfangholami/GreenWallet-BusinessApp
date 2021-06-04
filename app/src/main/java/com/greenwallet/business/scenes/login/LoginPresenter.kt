@@ -4,14 +4,11 @@ import android.content.Context
 import android.util.Log
 import com.greenwallet.business.helper.keystore.CipherStorageFactory
 import com.greenwallet.business.helper.keystore.KeystoreKeys
-import com.greenwallet.business.helper.network.InteractorFactory
-import com.greenwallet.business.helper.network.Subscriber
-import com.greenwallet.business.helper.network.login.LoginResponse
+import com.greenwallet.business.network.InteractorFactory
+import com.greenwallet.business.network.Subscriber
+import com.greenwallet.business.network.login.LoginResponse
 import com.greenwallet.business.scenes.base.BasePresenter
-import com.greenwallet.business.scenes.login.ui.LoginFragment
 import com.greenwallet.business.scenes.login.ui.LoginView
-import com.greenwallet.business.scenes.onboarding.ui.OnboardingView
-import kotlinx.android.synthetic.main.fragment_login.*
 
 class LoginPresenter(var context: Context) :
     BasePresenter<LoginView, LoginProcessHandler>(), LoginView.Presenter {

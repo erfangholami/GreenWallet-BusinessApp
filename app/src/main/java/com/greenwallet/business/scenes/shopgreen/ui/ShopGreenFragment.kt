@@ -3,7 +3,6 @@ package com.greenwallet.business.scenes.shopgreen.ui
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Rect
-import android.media.Image
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.greenwallet.business.R
-import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
 import kotlinx.android.synthetic.main.fragment_shop_green.*
 import java.util.ArrayList
 

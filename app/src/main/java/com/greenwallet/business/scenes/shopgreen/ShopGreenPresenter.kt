@@ -2,16 +2,15 @@ package com.greenwallet.business.scenes.shopgreen
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.media.Image
 import android.util.Log
 import com.greenwallet.business.helper.keystore.CipherStorageFactory
 import com.greenwallet.business.helper.keystore.KeystoreKeys
-import com.greenwallet.business.helper.network.InteractorFactory
-import com.greenwallet.business.helper.network.Subscriber
-import com.greenwallet.business.helper.network.campaings.CampaignsResponse
-import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
-import com.greenwallet.business.helper.network.dealsNoDeals.CategoriesResponse
-import com.greenwallet.business.helper.network.files.FileResponse
+import com.greenwallet.business.network.InteractorFactory
+import com.greenwallet.business.network.Subscriber
+import com.greenwallet.business.network.campaings.CampaignsResponse
+import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.dealsNoDeals.CategoriesResponse
+import com.greenwallet.business.network.files.FileResponse
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 import java.util.ArrayList
