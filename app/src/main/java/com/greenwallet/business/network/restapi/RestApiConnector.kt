@@ -1,6 +1,6 @@
 package com.greenwallet.business.network.restapi
 
-import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
@@ -28,7 +28,7 @@ interface RestApiConnector {
     ): Call<Array<ProductResponseModel>>
 
     @GET("campaigns/loyalty_reward")
-    fun campaigns(): Call<Array<CampaingsResponseModel>>
+    fun campaigns(): Call<Array<CampaignsResponseModel>>
 
     @GET("file/{fileId}")
     fun file(@Path("fileId") fileId: String): Call<ResponseBody>

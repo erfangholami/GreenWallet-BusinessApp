@@ -2,7 +2,7 @@ package com.greenwallet.business.network.restapi
 
 import com.greenwallet.business.network.Disposable
 import com.greenwallet.business.network.Subscriber
-import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
@@ -21,7 +21,7 @@ interface IRestApi {
         size: Int,
     ): NetworkCall<Array<ProductResponseModel>>
 
-    fun campaigns(): NetworkCall<Array<CampaingsResponseModel>>
+    fun campaigns(): NetworkCall<Array<CampaignsResponseModel>>
 
     fun file(id: String): NetworkCall<ResponseBody>
 

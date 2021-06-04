@@ -1,6 +1,6 @@
 package com.greenwallet.business.network.campaings.response
 
-class CampaingsResponseModel {
+class CampaignsResponseModel {
     val status: String? = null
     val name: String? = null
     val merchant_id: String? = null

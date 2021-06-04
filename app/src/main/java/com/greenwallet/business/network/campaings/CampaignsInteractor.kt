@@ -5,7 +5,7 @@ import com.greenwallet.business.network.Disposable
 import com.greenwallet.business.network.RequestSubscriber
 import com.greenwallet.business.network.ResponseError
 import com.greenwallet.business.network.Subscriber
-import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.restapi.IRestApi
 
 
@@ -15,7 +15,7 @@ open class CampaignsInteractor(private var api: IRestApi?) : ICampaignsInteracto
         listener: Subscriber<CampaignsResponse>
     ): Disposable? {
         return api?.campaigns()
-            ?.execute(object : RequestSubscriber<Array<CampaingsResponseModel>>() {
+            ?.execute(object : RequestSubscriber<Array<CampaignsResponseModel>>() {
                 override fun onUnprocessableEntity() {
                     val result = CampaignsResponse(null, CampaignsResponse.Result.ERROR)
 
@@ -24,7 +24,7 @@ open class CampaignsInteractor(private var api: IRestApi?) : ICampaignsInteracto
                     Log.e("Request", "onUnprocessableEntity")
                 }
 
-                override fun onSuccess(response: Array<CampaingsResponseModel>) {
+                override fun onSuccess(response: Array<CampaignsResponseModel>) {
                     val result = CampaignsResponse(response, CampaignsResponse.Result.SUCCESS)
 
                     listener.onRequestSuccess(result)

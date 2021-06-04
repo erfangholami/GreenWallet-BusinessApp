@@ -5,7 +5,7 @@ import com.google.gson.JsonSyntaxException
 import com.greenwallet.business.network.Disposable
 import com.greenwallet.business.network.NetworkException
 import com.greenwallet.business.network.Subscriber
-import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
@@ -40,7 +40,7 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
         )
     }
 
-    override fun campaigns(): IRestApi.NetworkCall<Array<CampaingsResponseModel>> {
+    override fun campaigns(): IRestApi.NetworkCall<Array<CampaignsResponseModel>> {
         return RetrofitNetworkCall(api.campaigns())
     }
 

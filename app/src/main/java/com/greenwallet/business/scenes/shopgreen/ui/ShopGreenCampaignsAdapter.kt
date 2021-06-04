@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.greenwallet.business.databinding.ShopgreenRvCampaignsItemBinding
-import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 
-class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, Bitmap?>>) :
+class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaignsResponseModel, Bitmap?>>) :
     RecyclerView.Adapter<ShopGreenCampaignsAdapter.ViewHolder>() {
 
     var onItemClick: ((String) -> Unit)? = null
