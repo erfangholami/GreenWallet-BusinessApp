@@ -9,4 +9,11 @@ interface IProductInteractor {
         merchantId: String,
         listener: Subscriber<CategoriesResponse>
     ): Disposable?
+
+    fun hotDeals(
+        merchantId: String,
+        offset: Int,
+        size: Int,
+        listener: Subscriber<ProductResponse>
+    ): Disposable?
 }

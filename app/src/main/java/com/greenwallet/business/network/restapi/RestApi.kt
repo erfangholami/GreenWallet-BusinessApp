@@ -9,6 +9,7 @@ import com.greenwallet.business.network.campaings.response.CampaingsResponseMode
 import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
+import com.greenwallet.business.network.product.response.ProductResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -23,6 +24,20 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
 
     override fun categories(merchantId: String): IRestApi.NetworkCall<Array<CategoriesResponseModel>> {
         return RetrofitNetworkCall(api.categories(merchantId))
+    }
+
+    override fun productsHotDeals(
+        merchantId: String,
+        offset: Int,
+        size: Int,
+    ): IRestApi.NetworkCall<Array<ProductResponseModel>> {
+        return RetrofitNetworkCall(
+            api.productsHotDeals(
+                offset = offset.toString(),
+                size = size.toString(),
+                query = merchantId
+            )
+        )
     }
 
     override fun campaigns(): IRestApi.NetworkCall<Array<CampaingsResponseModel>> {

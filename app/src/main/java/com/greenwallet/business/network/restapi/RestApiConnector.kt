@@ -4,6 +4,7 @@ import com.greenwallet.business.network.campaings.response.CampaingsResponseMode
 import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
+import com.greenwallet.business.network.product.response.ProductResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -15,6 +16,16 @@ interface RestApiConnector {
 
     @GET("merchant/search/products/categories")
     fun categories(@Query("merchant_id") merchantId: String): Call<Array<CategoriesResponseModel>>
+
+    @GET("merchant/search/products")
+    fun productsHotDeals(
+        @Query("name") name: String = "merchant_id",
+        @Query("query") query: String,
+        @Query("type") type: String = "EQ",
+        @Query("offset") offset: String,
+        @Query("size") size: String,
+        @Query("is_published") isPublished: Boolean = false
+    ): Call<Array<ProductResponseModel>>
 
     @GET("campaigns/loyalty_reward")
     fun campaigns(): Call<Array<CampaingsResponseModel>>
