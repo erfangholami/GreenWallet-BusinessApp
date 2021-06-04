@@ -27,6 +27,8 @@ abstract class RequestSubscriber<T> : Subscriber<T> {
         onSuccess(response)
     }
 
+    override fun onUserUnauthorized() {}
+
     abstract fun onSuccess(response: T)
     abstract fun onExpectedError(response: String)
     abstract fun onServerError()
