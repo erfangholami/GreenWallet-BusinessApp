@@ -73,6 +73,10 @@ class LoginPresenter(var context: Context) :
 
                     Log.e("Login Request", "onRequestFailure")
                 }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
             })
     }
 }

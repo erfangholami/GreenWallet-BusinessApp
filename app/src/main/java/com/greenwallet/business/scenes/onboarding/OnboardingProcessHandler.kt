@@ -1,6 +1,8 @@
 package com.greenwallet.business.scenes.onboarding
 
-interface OnboardingProcessHandler {
+import com.greenwallet.business.scenes.base.BaseProcessHandler
+
+interface OnboardingProcessHandler: BaseProcessHandler {
 
     fun showOnboardingScreen()
 

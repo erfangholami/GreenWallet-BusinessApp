@@ -92,6 +92,10 @@ class ShopGreenPresenter(var context: Context) :
 
                     Log.e("Categories Request", "onRequestFailure")
                 }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
             })
     }
 
@@ -136,6 +140,10 @@ class ShopGreenPresenter(var context: Context) :
 
                     Log.e("Campaigns Request", "onRequestFailure")
                 }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
             })
     }
 
@@ -166,6 +174,10 @@ class ShopGreenPresenter(var context: Context) :
                     }
 
                     Log.e("Files Request", "onRequestFailure")
+                }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
                 }
             })
     }

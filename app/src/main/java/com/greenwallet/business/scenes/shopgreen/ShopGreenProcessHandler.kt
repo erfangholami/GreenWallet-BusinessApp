@@ -1,6 +1,8 @@
 package com.greenwallet.business.scenes.shopgreen
 
-interface ShopGreenProcessHandler {
+import com.greenwallet.business.scenes.base.BaseProcessHandler
+
+interface ShopGreenProcessHandler: BaseProcessHandler {
 
     fun showShopGreenScreen()
 
