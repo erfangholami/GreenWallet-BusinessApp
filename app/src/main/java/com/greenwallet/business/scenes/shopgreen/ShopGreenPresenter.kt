@@ -58,7 +58,7 @@ class ShopGreenPresenter(var context: Context) :
     private fun requestCategories() {
         state = State.LOADING
 
-        val interactor = InteractorFactory(this.context).createDealsNoDealsInteractor()
+        val interactor = InteractorFactory(this.context).createProductInteractor()
 
         val cipherStorage = CipherStorageFactory.newInstance(context)
         val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
