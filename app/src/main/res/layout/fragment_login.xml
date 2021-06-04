@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/setup"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".scenes.login.LoginActivity">
+    tools:context=".scenes.login.LoginActivity"
+    android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
 
     <ImageView
         android:id="@+id/imageView"
@@ -41,15 +43,13 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti_email"
+                style="@style/DefaultInputTextLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:hint="Email address"
-                android:textColorHint="@color/colorPrimaryDark">
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:hint="@string/label_email_address">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
@@ -57,28 +57,30 @@
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
+                    style="@style/DefaultInputEditTextStyle"
                     android:textColor="@color/colorPrimaryDark"
                     android:textColorHint="@color/colorPrimaryDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/ti_password"
+                style="@style/DefaultInputTextLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="25dp"
-                android:layout_marginRight="25dp"
-                android:hint="Password"
-                android:textColorHint="@color/colorPrimaryDark">
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginEnd="@dimen/margin_large"
+                android:hint="@string/label_password"
+                android:textColorHint="@color/colorPrimaryDark"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword|text"
+                    android:inputType="textPassword"
                     android:maxLines="1"
+                    style="@style/DefaultInputEditTextStyle"
                     android:textColorHint="@color/colorPrimaryDark" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,21 +89,17 @@
                 layout="@layout/button_default"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="30dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp" />
+                android:layout_marginStart="@dimen/margin_large"
+                android:layout_marginTop="@dimen/margin_large"
+                android:layout_marginEnd="@dimen/margin_large" />
 
             <TextView
                 android:id="@+id/tv_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginRight="40dp"
+                android:layout_marginStart="@dimen/margin_large_xxxx"
+                android:layout_marginTop="@dimen/margin_big"
+                android:layout_marginEnd="@dimen/margin_large_xxxx"
                 android:clickable="false"
                 android:fontFamily="@font/maison_neue_medium"
                 android:gravity="center"
