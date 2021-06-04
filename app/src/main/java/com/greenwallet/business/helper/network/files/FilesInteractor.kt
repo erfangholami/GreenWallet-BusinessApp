@@ -1,7 +1,6 @@
 package com.greenwallet.business.helper.network.files
 
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.util.Log
 import com.greenwallet.business.helper.network.Disposable
 import com.greenwallet.business.helper.network.RequestSubscriber
@@ -10,7 +9,7 @@ import com.greenwallet.business.helper.network.Subscriber
 import com.greenwallet.business.helper.network.restapi.IRestApi
 import okhttp3.ResponseBody
 
-open class FilesInteractor(private var api : IRestApi?) : IFilesInteractor {
+open class FilesInteractor(private var api: IRestApi?) : IFilesInteractor {
 
     override fun file(
         id: String,
@@ -43,7 +42,13 @@ open class FilesInteractor(private var api : IRestApi?) : IFilesInteractor {
                 }
 
                 override fun onServerError() {
-                    listener.onRequestSuccess(FileResponse(null, FileResponse.Result.ERROR, ResponseError.ERROR_SERVER_500))
+                    listener.onRequestSuccess(
+                        FileResponse(
+                            null,
+                            FileResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
 
                     Log.e("Request", "onServerError")
                 }

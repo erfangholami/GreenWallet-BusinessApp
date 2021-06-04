@@ -1,11 +1,9 @@
 package com.greenwallet.business.helper.network.restapi
 
 import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
-import com.greenwallet.business.helper.network.login.request.LoginRequestModel
 import com.greenwallet.business.helper.network.dealsNoDeals.response.CategoriesResponseModel
-import com.greenwallet.business.helper.network.files.response.FilesResponseModel
+import com.greenwallet.business.helper.network.login.request.LoginRequestModel
 import com.greenwallet.business.helper.network.login.response.LoginResponseModel
-import okhttp3.Response
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*

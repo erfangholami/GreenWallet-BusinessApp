@@ -16,13 +16,17 @@ class ShopGreenCategoriesAdapter(var mModels: ArrayList<String>) :
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val itemBinding = ShopgreenRvCategoriesItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = ShopgreenRvCategoriesItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
 
         return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val value = mModels[position].toLowerCase().replace(" ", "")
+        val value = mModels[position].lowercase(Locale.getDefault()).replace(" ", "")
 
         when {
             value == "accessories" -> {
@@ -61,13 +65,13 @@ class ShopGreenCategoriesAdapter(var mModels: ArrayList<String>) :
     class ViewHolder(private val itemBinding: ShopgreenRvCategoriesItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-            fun setText(text: String) {
-                itemBinding.tvTitle.text = text
-            }
-
-            fun setImage(imageIconId: Int) {
-                itemBinding.ivIcon.setImageResource(imageIconId)
-            }
+        fun setText(text: String) {
+            itemBinding.tvTitle.text = text
         }
+
+        fun setImage(imageIconId: Int) {
+            itemBinding.ivIcon.setImageResource(imageIconId)
+        }
+    }
 
 }

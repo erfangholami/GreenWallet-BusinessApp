@@ -2,7 +2,6 @@ package com.greenwallet.business.scenes.shopgreen
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.media.Image
 import android.util.Log
 import com.greenwallet.business.helper.keystore.CipherStorageFactory
 import com.greenwallet.business.helper.keystore.KeystoreKeys
@@ -14,7 +13,7 @@ import com.greenwallet.business.helper.network.dealsNoDeals.CategoriesResponse
 import com.greenwallet.business.helper.network.files.FileResponse
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
-import java.util.ArrayList
+import java.util.*
 
 class ShopGreenPresenter(var context: Context) :
     BasePresenter<ShopGreenView, ShopGreenProcessHandler>(), ShopGreenView.Presenter {
@@ -62,7 +61,9 @@ class ShopGreenPresenter(var context: Context) :
         val interactor = InteractorFactory(this.context).createDealsNoDealsInteractor()
 
         val cipherStorage = CipherStorageFactory.newInstance(context)
-        val merchantId = if(!cipherStorage.decrypt(KeystoreKeys.merchantId.name).isNullOrEmpty()) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
+        val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
+                .isNullOrEmpty()
+        ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
 
         interactor.categories(
             merchantId = merchantId!!,
@@ -70,11 +71,14 @@ class ShopGreenPresenter(var context: Context) :
                 Subscriber<CategoriesResponse> {
                 override fun onRequestSuccess(response: CategoriesResponse) {
                     if (response.response == CategoriesResponse.Result.SUCCESS) {
-                        response.result?.forEach { i -> i.category?.let {
-                            Log.e("Categories Request",
-                                it
-                            )
-                        } }
+                        response.result?.forEach { i ->
+                            i.category?.let {
+                                Log.e(
+                                    "Categories Request",
+                                    it
+                                )
+                            }
+                        }
 
                         state = State.SHOP_GREEN
 
@@ -114,11 +118,14 @@ class ShopGreenPresenter(var context: Context) :
 
                         for (index in 0 until response.result.count()) {
                             if (response.result[index].default_file_id != null) {
-                                getImage(response.result[index].default_file_id!!, response.result[index])
+                                getImage(
+                                    response.result[index].default_file_id!!,
+                                    response.result[index]
+                                )
                             } else {
                                 campaigns.add((response.result[index] to null))
 
-                                if(campaigns.count() == numberCampaigns) {
+                                if (campaigns.count() == numberCampaigns) {
                                     shopGreenView?.showCampaigns(campaigns.toTypedArray())
                                 }
                             }
@@ -140,7 +147,7 @@ class ShopGreenPresenter(var context: Context) :
             })
     }
 
-    private fun getImage(fileId: String, campaingsResponseModel: CampaingsResponseModel){
+    private fun getImage(fileId: String, campaingsResponseModel: CampaingsResponseModel) {
         val interactor = InteractorFactory(this.context).createFilesInteractor()
 
         interactor.file(
@@ -151,7 +158,7 @@ class ShopGreenPresenter(var context: Context) :
                     if (response.response == FileResponse.Result.SUCCESS) {
                         campaigns.add((campaingsResponseModel to response.image))
 
-                        if(campaigns.count() == numberCampaigns) {
+                        if (campaigns.count() == numberCampaigns) {
                             shopGreenView?.showCampaigns(campaigns.toTypedArray())
                         }
 
@@ -162,7 +169,7 @@ class ShopGreenPresenter(var context: Context) :
                 override fun onRequestFailure(t: Throwable) {
                     campaigns.add((campaingsResponseModel to null))
 
-                    if(campaigns.count() == numberCampaigns) {
+                    if (campaigns.count() == numberCampaigns) {
                         shopGreenView?.showCampaigns(campaigns.toTypedArray())
                     }
 

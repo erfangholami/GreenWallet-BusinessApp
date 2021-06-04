@@ -10,8 +10,8 @@ class Authenticated(private val token: String) : IAuthenticator {
 
     override fun addAuthHeaders(original: Request): Request {
         return original.newBuilder()
-                .addHeader("Authorization", "Bearer $token")
-                .build()
+            .addHeader("Authorization", "Bearer $token")
+            .build()
     }
 
     override fun refreshAuthentication(): Boolean {

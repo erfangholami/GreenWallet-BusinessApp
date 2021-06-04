@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.greenwallet.business.R
 import com.greenwallet.business.scenes.login.LoginActivity
 
-open class BaseActivity: AppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
     companion object {
         const val FRAGMENT_LOADING = "fragment_loading"

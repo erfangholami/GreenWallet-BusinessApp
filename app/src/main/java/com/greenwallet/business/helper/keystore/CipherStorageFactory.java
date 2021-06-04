@@ -25,7 +25,6 @@ public final class CipherStorageFactory {
      * @param context used for api 22 and bellow to access the keystore and
      *                access the Android Shared preferences, on api 23 and above
      *                it's only used for Android Shared Preferences access
-     *
      * @param storage abstraction for store the key and value bytes into the system
      *                you can implement your own version of the storage to fit your needs
      * @return a new {@link CipherStorage} based on the current api level

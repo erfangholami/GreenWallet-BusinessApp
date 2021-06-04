@@ -6,9 +6,8 @@ import com.greenwallet.business.helper.network.Disposable
 import com.greenwallet.business.helper.network.NetworkException
 import com.greenwallet.business.helper.network.Subscriber
 import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
-import com.greenwallet.business.helper.network.login.request.LoginRequestModel
 import com.greenwallet.business.helper.network.dealsNoDeals.response.CategoriesResponseModel
-import com.greenwallet.business.helper.network.files.response.FilesResponseModel
+import com.greenwallet.business.helper.network.login.request.LoginRequestModel
 import com.greenwallet.business.helper.network.login.response.LoginResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -36,7 +35,8 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
 
     private val gson = GsonBuilder().create()
 
-    private inner class RetrofitNetworkCall<V>(private val call: Call<V>) : IRestApi.NetworkCall<V> {
+    private inner class RetrofitNetworkCall<V>(private val call: Call<V>) :
+        IRestApi.NetworkCall<V> {
 
         override fun executeSynchronous(subscriber: Subscriber<V>) {
             this.subscriber = subscriber
@@ -88,14 +88,20 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
                         try {
                             subscriber.onRequestFailure(NetworkException(NetworkException.REASON_400))
                         } catch (ex: JsonSyntaxException) {
-                            subscriber.onRequestFailure(IOException("While trying to handle a " + response.raw().code() + " response a JsonSyntaxException occurred: " + ex.message))
+                            subscriber.onRequestFailure(
+                                IOException(
+                                    "While trying to handle a " + response.raw()
+                                        .code() + " response a JsonSyntaxException occurred: " + ex.message
+                                )
+                            )
                         }
 
                     }
                 }
                 response.raw().code() >= 500 -> subscriber.onRequestFailure(
                     NetworkException(
-                        NetworkException.REASON_500)
+                        NetworkException.REASON_500
+                    )
                 )
                 response.raw().code() == 401 -> {
                     try {
@@ -112,8 +118,13 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
                         subscriber.onRequestFailure(NetworkException(NetworkException.REASON_403))
                     }
                 }
-                response.raw().code() != 200 -> subscriber.onRequestFailure(IOException("" + response.raw().code()))
-                response.raw().code() == 200 && response.body() == null -> subscriber.onRequestFailure(
+                response.raw().code() != 200 -> subscriber.onRequestFailure(
+                    IOException(
+                        "" + response.raw().code()
+                    )
+                )
+                response.raw()
+                    .code() == 200 && response.body() == null -> subscriber.onRequestFailure(
                     NetworkException(NetworkException.REASON_500)
                 )
                 else -> subscriber.onRequestSuccess(response.body()!!)

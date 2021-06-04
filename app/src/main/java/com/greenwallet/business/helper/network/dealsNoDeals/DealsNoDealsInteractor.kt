@@ -8,7 +8,7 @@ import com.greenwallet.business.helper.network.Subscriber
 import com.greenwallet.business.helper.network.dealsNoDeals.response.CategoriesResponseModel
 import com.greenwallet.business.helper.network.restapi.IRestApi
 
-open class DealsNoDealsInteractor(private var api : IRestApi?) : IDealsNoDealsInteractor {
+open class DealsNoDealsInteractor(private var api: IRestApi?) : IDealsNoDealsInteractor {
 
     override fun categories(
         merchantId: String,
@@ -39,7 +39,13 @@ open class DealsNoDealsInteractor(private var api : IRestApi?) : IDealsNoDealsIn
                 }
 
                 override fun onServerError() {
-                    listener.onRequestSuccess(CategoriesResponse(null, CategoriesResponse.Result.ERROR, ResponseError.ERROR_SERVER_500))
+                    listener.onRequestSuccess(
+                        CategoriesResponse(
+                            null,
+                            CategoriesResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
 
                     Log.e("Request", "onServerError")
                 }

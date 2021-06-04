@@ -23,7 +23,7 @@ import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentShopGreenBinding
 import com.greenwallet.business.helper.kotlin.hideKeyboard
 import com.greenwallet.business.helper.network.campaings.response.CampaingsResponseModel
-import java.util.ArrayList
+import java.util.*
 import kotlin.math.abs
 
 class ShopGreenFragment : Fragment(), ShopGreenView {
@@ -178,7 +178,8 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     override fun showCampaigns(campaigns: Array<Pair<CampaingsResponseModel, Bitmap?>>) {
         mAdapterCampaigns = ShopGreenCampaignsAdapter(campaigns)
 
-        binding.rvCampaigns.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCampaigns.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         binding.rvCampaigns.adapter = mAdapterCampaigns
 
         binding.rvCampaigns.addItemDecoration(object : RecyclerView.ItemDecoration() {

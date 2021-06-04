@@ -16,7 +16,11 @@ class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, 
         parent: ViewGroup,
         viewType: Int
     ): ViewHolder {
-        val itemBinding = ShopgreenRvCampaignsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val itemBinding = ShopgreenRvCampaignsItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
 
         return ViewHolder(itemBinding)
     }
@@ -32,7 +36,7 @@ class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaingsResponseModel, 
 
     override fun getItemCount(): Int = mModels.size
 
-    class ViewHolder(private val itemBinding:  ShopgreenRvCampaignsItemBinding) :
+    class ViewHolder(private val itemBinding: ShopgreenRvCampaignsItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun setDescription(description: String?) {
