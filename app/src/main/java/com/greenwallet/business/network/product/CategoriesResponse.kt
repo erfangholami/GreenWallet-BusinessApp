@@ -1,7 +1,7 @@
-package com.greenwallet.business.network.dealsNoDeals
+package com.greenwallet.business.network.product
 
 import com.greenwallet.business.network.ResponseError
-import com.greenwallet.business.network.dealsNoDeals.response.CategoriesResponseModel
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 
 class CategoriesResponse(val result: Array<CategoriesResponseModel>?, val response : Result, val error: ResponseError = ResponseError.NONE) {
 

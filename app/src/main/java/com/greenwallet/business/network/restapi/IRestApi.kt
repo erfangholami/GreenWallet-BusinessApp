@@ -4,7 +4,7 @@ import com.greenwallet.business.network.Disposable
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
 import com.greenwallet.business.network.login.request.LoginRequestModel
-import com.greenwallet.business.network.dealsNoDeals.response.CategoriesResponseModel
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
 import okhttp3.ResponseBody
 

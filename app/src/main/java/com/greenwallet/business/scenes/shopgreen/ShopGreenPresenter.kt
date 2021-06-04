@@ -9,7 +9,7 @@ import com.greenwallet.business.network.InteractorFactory
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.campaings.CampaignsResponse
 import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
-import com.greenwallet.business.network.dealsNoDeals.CategoriesResponse
+import com.greenwallet.business.network.product.CategoriesResponse
 import com.greenwallet.business.network.files.FileResponse
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView

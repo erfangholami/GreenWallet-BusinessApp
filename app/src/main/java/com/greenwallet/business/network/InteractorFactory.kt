@@ -3,8 +3,7 @@ package com.greenwallet.business.network
 import android.content.Context
 import com.greenwallet.business.network.campaings.CampaignsInteractor
 import com.greenwallet.business.network.campaings.ICampaignsInteractor
-import com.greenwallet.business.network.dealsNoDeals.DealsNoDealsInteractor
-import com.greenwallet.business.network.dealsNoDeals.IDealsNoDealsInteractor
+import com.greenwallet.business.network.product.ProductInteractor
 import com.greenwallet.business.network.files.FilesInteractor
 import com.greenwallet.business.network.files.IFilesInteractor
 import com.greenwallet.business.network.login.ILoginInteractor
@@ -20,8 +19,8 @@ class InteractorFactory(val context: Context) : IInteractorFactory {
         return LoginInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
     }
 
-    override fun createDealsNoDealsInteractor(): IDealsNoDealsInteractor {
-        return DealsNoDealsInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
+    override fun createDealsNoDealsInteractor(): ProductInteractor {
+        return ProductInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
     }
 
     override fun createCampaignsInteractor(): ICampaignsInteractor {
