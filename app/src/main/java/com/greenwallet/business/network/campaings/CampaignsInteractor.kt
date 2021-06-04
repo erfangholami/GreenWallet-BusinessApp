@@ -9,7 +9,7 @@ import com.greenwallet.business.network.campaings.response.CampaingsResponseMode
 import com.greenwallet.business.network.restapi.IRestApi
 
 
-open class CampaignsInteractor(private var api : IRestApi?) : ICampaignsInteractor {
+open class CampaignsInteractor(private var api: IRestApi?) : ICampaignsInteractor {
 
     override fun campaigns(
         listener: Subscriber<CampaignsResponse>
@@ -39,7 +39,13 @@ open class CampaignsInteractor(private var api : IRestApi?) : ICampaignsInteract
                 }
 
                 override fun onServerError() {
-                    listener.onRequestSuccess(CampaignsResponse(null, CampaignsResponse.Result.ERROR, ResponseError.ERROR_SERVER_500))
+                    listener.onRequestSuccess(
+                        CampaignsResponse(
+                            null,
+                            CampaignsResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
 
                     Log.e("Request", "onServerError")
                 }

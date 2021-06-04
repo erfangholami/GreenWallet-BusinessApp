@@ -20,6 +20,16 @@ abstract class BaseCipherStorage implements CipherStorage {
         this.storage = storage;
     }
 
+    static KeyStore getKeyStoreAndLoad() {
+        try {
+            KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
+            keyStore.load(null);
+            return keyStore;
+        } catch (NoSuchAlgorithmException | CertificateException | KeyStoreException | IOException e) {
+            throw new KeyStoreAccessException("Could not access Keystore", e);
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -47,16 +57,6 @@ abstract class BaseCipherStorage implements CipherStorage {
             }
         } catch (KeyStoreException e) {
             throw new KeyStoreAccessException("Failed to access Keystore", e);
-        }
-    }
-
-    static KeyStore getKeyStoreAndLoad() {
-        try {
-            KeyStore keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
-            keyStore.load(null);
-            return keyStore;
-        } catch (NoSuchAlgorithmException | CertificateException | KeyStoreException | IOException e) {
-            throw new KeyStoreAccessException("Could not access Keystore", e);
         }
     }
 }

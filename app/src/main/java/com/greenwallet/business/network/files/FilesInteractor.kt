@@ -9,7 +9,7 @@ import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.restapi.IRestApi
 import okhttp3.ResponseBody
 
-open class FilesInteractor(private var api : IRestApi?) : IFilesInteractor {
+open class FilesInteractor(private var api: IRestApi?) : IFilesInteractor {
 
     override fun file(
         id: String,
@@ -42,7 +42,13 @@ open class FilesInteractor(private var api : IRestApi?) : IFilesInteractor {
                 }
 
                 override fun onServerError() {
-                    listener.onRequestSuccess(FileResponse(null, FileResponse.Result.ERROR, ResponseError.ERROR_SERVER_500))
+                    listener.onRequestSuccess(
+                        FileResponse(
+                            null,
+                            FileResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
 
                     Log.e("Request", "onServerError")
                 }

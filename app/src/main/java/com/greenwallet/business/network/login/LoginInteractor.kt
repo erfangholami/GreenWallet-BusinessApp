@@ -8,8 +8,9 @@ import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
 import com.greenwallet.business.network.restapi.IRestApi
+import java.util.*
 
-open class LoginInteractor(private var api : IRestApi?) : ILoginInteractor {
+open class LoginInteractor(private var api: IRestApi?) : ILoginInteractor {
 
     override fun login(
         email: String,
@@ -18,7 +19,7 @@ open class LoginInteractor(private var api : IRestApi?) : ILoginInteractor {
     ): Disposable? {
         val request = LoginRequestModel()
 
-        request.email = email.toLowerCase()
+        request.email = email.lowercase(Locale.getDefault())
         request.password = password
 
         return api?.login(request)
@@ -32,7 +33,11 @@ open class LoginInteractor(private var api : IRestApi?) : ILoginInteractor {
                 }
 
                 override fun onSuccess(response: LoginResponseModel) {
-                    val result = LoginResponse(response.user_id, response.merchant_id, LoginResponse.Result.SUCCESS)
+                    val result = LoginResponse(
+                        response.user_id,
+                        response.merchant_id,
+                        LoginResponse.Result.SUCCESS
+                    )
 
                     listener.onRequestSuccess(result)
 
@@ -46,7 +51,14 @@ open class LoginInteractor(private var api : IRestApi?) : ILoginInteractor {
                 }
 
                 override fun onServerError() {
-                    listener.onRequestSuccess(LoginResponse(null, null, LoginResponse.Result.ERROR, ResponseError.ERROR_SERVER_500))
+                    listener.onRequestSuccess(
+                        LoginResponse(
+                            null,
+                            null,
+                            LoginResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
 
                     Log.e("Request", "onServerError")
                 }

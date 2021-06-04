@@ -45,4 +45,5 @@
     <dimen name="padding_large_xx">28dp</dimen>
     <dimen name="padding_large_xxx">32dp</dimen>
     <dimen name="padding_large_xxxx">36dp</dimen>
+    <dimen name="view_edit_text_height">36dp</dimen>
 </resources>

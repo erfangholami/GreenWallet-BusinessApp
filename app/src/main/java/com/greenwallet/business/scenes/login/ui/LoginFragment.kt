@@ -59,7 +59,8 @@ class LoginFragment : Fragment(), LoginView {
         btnLogin.alpha = 0.8f
 
         btnLogin.text = "Login"
-        binding.tvDescription.text = "You must be a Green Wallet seller to login.\n\n\nNot a Green Wallet seller yet?\nVisit greenwallet.com/signup to create an account."
+        binding.tvDescription.text =
+            "You must be a Green Wallet seller to login.\n\n\nNot a Green Wallet seller yet?\nVisit greenwallet.com/signup to create an account."
 
         btnLogin.setOnClickListener {
             Log.i("LoginFragment Fragment:", "Login button!")
@@ -68,7 +69,10 @@ class LoginFragment : Fragment(), LoginView {
             cipherStorage.encrypt(KeystoreKeys.email.name, binding.etEmail.text.toString())
             cipherStorage.encrypt(KeystoreKeys.password.name, binding.etPassword.text.toString())
 
-            presenter.onLoginButtonClicked(binding.etEmail.text.toString(), binding.etPassword.text.toString())
+            presenter.onLoginButtonClicked(
+                binding.etEmail.text.toString(),
+                binding.etPassword.text.toString()
+            )
         }
 
         binding.etEmail.addTextChangedListener(object : TextWatcher {
@@ -132,11 +136,11 @@ class LoginFragment : Fragment(), LoginView {
     private fun loadValuesIfAvailable() {
         val cipherStorage = CipherStorageFactory.newInstance(context)
 
-        if(!cipherStorage.decrypt(KeystoreKeys.email.name).isNullOrEmpty()) {
+        if (!cipherStorage.decrypt(KeystoreKeys.email.name).isNullOrEmpty()) {
             binding.etEmail.setText(cipherStorage.decrypt(KeystoreKeys.email.name))
         }
 
-        if(!cipherStorage.decrypt(KeystoreKeys.password.name).isNullOrEmpty()) {
+        if (!cipherStorage.decrypt(KeystoreKeys.password.name).isNullOrEmpty()) {
             binding.etPassword.setText(cipherStorage.decrypt(KeystoreKeys.password.name))
         }
     }

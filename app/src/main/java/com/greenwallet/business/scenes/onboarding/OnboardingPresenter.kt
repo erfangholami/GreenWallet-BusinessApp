@@ -1,7 +1,6 @@
 package com.greenwallet.business.scenes.onboarding
 
 import android.content.Context
-import android.util.Log
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.onboarding.ui.OnboardingView
 

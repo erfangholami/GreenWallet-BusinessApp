@@ -2,7 +2,7 @@ package com.greenwallet.business.scenes.shopgreen.ui
 
 import android.graphics.Bitmap
 import com.greenwallet.business.network.campaings.response.CampaingsResponseModel
-import java.util.ArrayList
+import java.util.*
 
 interface ShopGreenView {
 

@@ -2,9 +2,9 @@ package com.greenwallet.business.scenes.onboarding
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.greenwallet.business.R
 import com.greenwallet.business.app.Application
 import com.greenwallet.business.helper.ui.LoadingFragment

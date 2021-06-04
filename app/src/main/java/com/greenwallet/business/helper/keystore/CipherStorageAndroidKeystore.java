@@ -14,6 +14,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -38,60 +39,13 @@ final class CipherStorageAndroidKeystore extends BaseCipherStorage {
     private static final String ENCRYPTION_PADDING = KeyProperties.ENCRYPTION_PADDING_PKCS7;
     private static final String ENCRYPTION_TRANSFORMATION =
             ENCRYPTION_ALGORITHM + "/" +
-            ENCRYPTION_BLOCK_MODE + "/" +
-            ENCRYPTION_PADDING;
+                    ENCRYPTION_BLOCK_MODE + "/" +
+                    ENCRYPTION_PADDING;
     private static final int ENCRYPTION_KEY_SIZE = 256;
-    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 
     CipherStorageAndroidKeystore(Context context, Storage storage) {
         super(context, storage);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void encrypt(String alias, String value) {
-        try {
-            KeyStore keyStore = getKeyStoreAndLoad();
-
-            KeyGenerator generator = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, ANDROID_KEY_STORE);
-            generator.init(generateParameterSpec(alias));
-            generator.generateKey();
-
-            Key key = keyStore.getKey(alias, null);
-            byte[] encryptedData = encryptString(key, value);
-            storage.saveKeyBytes(alias, encryptedData);
-        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException |
-                NoSuchProviderException | UnrecoverableKeyException e) {
-            throw new CryptoFailedException("Could not encrypt data", e);
-        } catch (KeyStoreException | KeyStoreAccessException e) {
-            throw new CryptoFailedException("Could not access Keystore", e);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Nullable
-    @Override
-    public String decrypt(String alias) {
-        try {
-            byte[] storedData = storage.getKeyBytes(alias);
-            if (storedData == null) {
-                return null;
-            }
-            KeyStore keyStore = getKeyStoreAndLoad();
-            Key key = keyStore.getKey(alias, null);
-            if (key == null) {
-                /* Well this should not happen if you do not have a stored byte data, but just in case */
-                return null;
-            }
-            return decryptBytes(key, storedData);
-        } catch (KeyStoreException | UnrecoverableKeyException |
-                NoSuchAlgorithmException | KeyStoreAccessException e) {
-            return null;
-        }
     }
 
     private static AlgorithmParameterSpec generateParameterSpec(String alias) {
@@ -152,6 +106,53 @@ final class CipherStorageAndroidKeystore extends BaseCipherStorage {
             return outputStream.toByteArray();
         } catch (IOException | NoSuchAlgorithmException | InvalidKeyException | NoSuchPaddingException e) {
             throw new CryptoFailedException("Could not encrypt value", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void encrypt(String alias, String value) {
+        try {
+            KeyStore keyStore = getKeyStoreAndLoad();
+
+            KeyGenerator generator = KeyGenerator.getInstance(ENCRYPTION_ALGORITHM, ANDROID_KEY_STORE);
+            generator.init(generateParameterSpec(alias));
+            generator.generateKey();
+
+            Key key = keyStore.getKey(alias, null);
+            byte[] encryptedData = encryptString(key, value);
+            storage.saveKeyBytes(alias, encryptedData);
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException |
+                NoSuchProviderException | UnrecoverableKeyException e) {
+            throw new CryptoFailedException("Could not encrypt data", e);
+        } catch (KeyStoreException | KeyStoreAccessException e) {
+            throw new CryptoFailedException("Could not access Keystore", e);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Nullable
+    @Override
+    public String decrypt(String alias) {
+        try {
+            byte[] storedData = storage.getKeyBytes(alias);
+            if (storedData == null) {
+                return null;
+            }
+            KeyStore keyStore = getKeyStoreAndLoad();
+            Key key = keyStore.getKey(alias, null);
+            if (key == null) {
+                /* Well this should not happen if you do not have a stored byte data, but just in case */
+                return null;
+            }
+            return decryptBytes(key, storedData);
+        } catch (KeyStoreException | UnrecoverableKeyException |
+                NoSuchAlgorithmException | KeyStoreAccessException e) {
+            return null;
         }
     }
 }

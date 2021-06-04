@@ -11,6 +11,7 @@ import com.greenwallet.business.helper.keystore.store.Storage;
 
 import java.math.BigInteger;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -42,12 +43,29 @@ final class CipherStorageSharedPreferencesKeystore extends BaseCipherStorage {
     private static final String KEY_ALGORITHM_AES = "AES";
     private static final String TRANSFORMATION = "RSA/ECB/PKCS1Padding";
     private static final int ENCRYPTION_KEY_SIZE = 128;
-    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+    private static final Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
     private static final String AES_TAG_PREFIX = "aes!";
     private static final BigInteger KEY_SERIAL_NUMBER = BigInteger.valueOf(1338);
 
     CipherStorageSharedPreferencesKeystore(Context context, Storage storage) {
         super(context, storage);
+    }
+
+    private static String makeAesTagForAlias(String alias) {
+        return AES_TAG_PREFIX + alias;
+    }
+
+    private static byte[] cipherEncryption(String transformation, int mode, Key key,
+                                           byte[] inputByteArray) {
+        try {
+            Cipher cipher = Cipher.getInstance(transformation);
+            cipher.init(mode, key);
+            return cipher.doFinal(inputByteArray);
+        } catch (NoSuchPaddingException | NoSuchAlgorithmException |
+                InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
+            throw new CryptoFailedException(String.format(Locale.US,
+                    "Unable to do cipher for transformation %s and mode %d", transformation, mode), e);
+        }
     }
 
     /**
@@ -122,7 +140,7 @@ final class CipherStorageSharedPreferencesKeystore extends BaseCipherStorage {
         }
     }
 
-    private AlgorithmParameterSpec getParameterSpec(String alias)  {
+    private AlgorithmParameterSpec getParameterSpec(String alias) {
         GregorianCalendar start = new GregorianCalendar();
         GregorianCalendar end = new GregorianCalendar();
         end.add(Calendar.YEAR, 5);
@@ -168,23 +186,6 @@ final class CipherStorageSharedPreferencesKeystore extends BaseCipherStorage {
             return generator.generateKey();
         } catch (NoSuchAlgorithmException e) {
             throw new CryptoFailedException("Unable to generate key for alias " + alias, e);
-        }
-    }
-
-    private static String makeAesTagForAlias(String alias) {
-        return AES_TAG_PREFIX + alias;
-    }
-
-    private static byte[] cipherEncryption(String transformation, int mode, Key key,
-                                           byte[] inputByteArray) {
-        try {
-            Cipher cipher = Cipher.getInstance(transformation);
-            cipher.init(mode, key);
-            return cipher.doFinal(inputByteArray);
-        } catch (NoSuchPaddingException | NoSuchAlgorithmException |
-                InvalidKeyException | BadPaddingException | IllegalBlockSizeException e) {
-            throw new CryptoFailedException(String.format(Locale.US,
-                    "Unable to do cipher for transformation %s and mode %d", transformation, mode), e);
         }
     }
 }

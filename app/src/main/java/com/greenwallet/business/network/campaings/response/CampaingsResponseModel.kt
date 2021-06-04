@@ -16,7 +16,7 @@ class CampaingsResponseModel {
     val post_frequency: Int? = null
     val details: String? = null
     val tags: String? = null
-    val campaign_start_time:  Long? = null
+    val campaign_start_time: Long? = null
     val campaign_end_time: Long? = null
     val business_logo: String? = null
     val business_name: String? = null

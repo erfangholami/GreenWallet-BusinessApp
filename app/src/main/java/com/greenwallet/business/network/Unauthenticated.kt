@@ -10,8 +10,8 @@ class Unauthenticated(private val gatewayKey: String) : IAuthenticator {
 
     override fun addAuthHeaders(original: Request): Request {
         return original.newBuilder()
-                .addHeader("x-api-key", gatewayKey)
-                .build()
+            .addHeader("x-api-key", gatewayKey)
+            .build()
     }
 
     override fun refreshAuthentication(): Boolean {
