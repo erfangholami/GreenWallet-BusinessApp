@@ -1,19 +1,22 @@
 package com.greenwallet.business.scenes.shopgreen
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.util.Log
 import com.greenwallet.business.helper.keystore.CipherStorageFactory
 import com.greenwallet.business.helper.keystore.KeystoreKeys
+import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.InteractorFactory
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.campaings.CampaignsResponse
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.product.CategoriesResponse
-import com.greenwallet.business.network.files.FileResponse
+import com.greenwallet.business.network.product.ProductResponse
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
+import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
-import java.util.*
+import kotlin.collections.ArrayList
 
 class ShopGreenPresenter(var context: Context) :
     BasePresenter<ShopGreenView, ShopGreenProcessHandler>(), ShopGreenView.Presenter {
@@ -29,71 +32,76 @@ class ShopGreenPresenter(var context: Context) :
             field = value
             activityHandler?.let {
                 when (state) {
-                    State.SHOP_GREEN -> it.showShopGreenScreen()
+                    State.SHOP_GREEN -> {
+                        it.showShopGreenScreen()
+
+                        if (!fetchedCategories) {
+                            requestCategories()
+                        }
+
+                        if (!fetchedRedeemItems) {
+                            requestRedeems()
+                        }
+
+                        if (!fetchedCampaign) {
+                            requestCampaigns()
+                        }
+                    }
                     State.LOADING -> it.showLoadingScreen()
                     State.ERROR -> it.showErrorMessage()
                 }
             }
         }
 
-    var shopGreenView: ShopGreenView? = null
+    val productInteractor = InteractorFactory(this.context).createProductInteractor()
+    val campaignInteractor = InteractorFactory(this.context).createCampaignsInteractor()
 
-    var campaigns: ArrayList<Pair<CampaingsResponseModel, Bitmap?>> = ArrayList()
+    var fetchedCategories = false
+    var categories: ArrayList<CategoriesResponseModel> = arrayListOf()
 
-    var numberCampaigns = 0
+    var fetchedRedeemItems = false
+    var redeems: ArrayList<ProductResponseModel> = arrayListOf()
+
+    var fetchedCampaign = false
+    var campaigns: ArrayList<CampaignsResponseModel> = ArrayList()
+
+
+//    var shopGreenView: ShopGreenView? = null
 
     override fun onActivityHandlerSubscribed() {
         state = state
-
-        requestCategories()
-        requestCampaigns()
     }
 
-    override fun onViewSubscribed(view: ShopGreenView) {
-        shopGreenView = view
-
-        state = State.SHOP_GREEN
-    }
+    override fun onViewSubscribed(view: ShopGreenView) {}
 
     private fun requestCategories() {
         state = State.LOADING
-
-        val interactor = InteractorFactory(this.context).createProductInteractor()
 
         val cipherStorage = CipherStorageFactory.newInstance(context)
         val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
                 .isNullOrEmpty()
         ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
 
-        interactor.categories(
+        productInteractor.categories(
             merchantId = merchantId!!,
             listener = object :
                 Subscriber<CategoriesResponse> {
                 override fun onRequestSuccess(response: CategoriesResponse) {
                     if (response.response == CategoriesResponse.Result.SUCCESS) {
-                        response.result?.forEach { i ->
-                            i.category?.let {
-                                Log.e(
-                                    "Categories Request",
-                                    it
-                                )
-                            }
-                        }
+                        fetchedCategories = true
+                        categories = (response.result ?: arrayOf()).toCollection(ArrayList())
 
-                        state = State.SHOP_GREEN
-
-                        shopGreenView?.showCategories(response.result?.map { i -> i.category } as ArrayList<String>)
-
+                        checkShopGreenState()
                         Log.e("Categories Request", "Success")
                     } else {
-                        state = State.ERROR
+                        requestCategories()
 
                         Log.e("Categories Request", "Error")
                     }
                 }
 
                 override fun onRequestFailure(t: Throwable) {
-                    state = State.ERROR
+                    requestCategories()
 
                     Log.e("Categories Request", "onRequestFailure")
                 }
@@ -107,44 +115,26 @@ class ShopGreenPresenter(var context: Context) :
     private fun requestCampaigns() {
         state = State.LOADING
 
-        val interactor = InteractorFactory(this.context).createCampaignsInteractor()
-
-        interactor.campaigns(
+        campaignInteractor.campaigns(
             listener = object :
                 Subscriber<CampaignsResponse> {
                 override fun onRequestSuccess(response: CampaignsResponse) {
                     if (response.response == CampaignsResponse.Result.SUCCESS) {
-                        //response.result?.forEach { i -> Log.e("Campaigns Request", i.name ) }
+                        fetchedCampaign = true
+                        campaigns = (response.result ?: arrayOf()).toCollection(ArrayList())
 
-                        state = State.SHOP_GREEN
-
-                        numberCampaigns = response.result!!.count()
-
-                        for (index in 0 until response.result.count()) {
-                            if (response.result[index].default_file_id != null) {
-                                getImage(
-                                    response.result[index].default_file_id!!,
-                                    response.result[index]
-                                )
-                            } else {
-                                campaigns.add((response.result[index] to null))
-
-                                if (campaigns.count() == numberCampaigns) {
-                                    shopGreenView?.showCampaigns(campaigns.toTypedArray())
-                                }
-                            }
-                        }
+                        checkShopGreenState()
 
                         Log.e("Campaigns Request", "Success")
                     } else {
-                        state = State.ERROR
+                        requestCampaigns()
 
                         Log.e("Campaigns Request", "Error")
                     }
                 }
 
                 override fun onRequestFailure(t: Throwable) {
-                    state = State.ERROR
+                    requestCampaigns()
 
                     Log.e("Campaigns Request", "onRequestFailure")
                 }
@@ -155,33 +145,38 @@ class ShopGreenPresenter(var context: Context) :
             })
     }
 
-    private fun getImage(fileId: String, campaingsResponseModel: CampaingsResponseModel) {
-        val interactor = InteractorFactory(this.context).createFilesInteractor()
+    private fun requestRedeems() {
+        state = State.LOADING
 
-        interactor.file(
-            id = fileId,
+        val cipherStorage = CipherStorageFactory.newInstance(context)
+        val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
+                .isNullOrEmpty()
+        ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
+
+        productInteractor.hotDeals(
+            merchantId = merchantId!!,
+            offset = 0,
+            size = 10,
             listener = object :
-                Subscriber<FileResponse> {
-                override fun onRequestSuccess(response: FileResponse) {
-                    if (response.response == FileResponse.Result.SUCCESS) {
-                        campaigns.add((campaingsResponseModel to response.image))
+                Subscriber<ProductResponse> {
+                override fun onRequestSuccess(response: ProductResponse) {
+                    if (response.result == ProductResponse.Result.SUCCESS) {
+                        fetchedRedeemItems = true
+                        redeems = (response.products ?: arrayOf()).toCollection(ArrayList())
 
-                        if (campaigns.count() == numberCampaigns) {
-                            shopGreenView?.showCampaigns(campaigns.toTypedArray())
-                        }
+                        checkShopGreenState()
+                        Log.e("Categories Request", "Success")
+                    } else {
+                        requestCategories()
 
-                        Log.e("Files Request", "Success")
+                        Log.e("Categories Request", "Error")
                     }
                 }
 
                 override fun onRequestFailure(t: Throwable) {
-                    campaigns.add((campaingsResponseModel to null))
+                    requestCategories()
 
-                    if (campaigns.count() == numberCampaigns) {
-                        shopGreenView?.showCampaigns(campaigns.toTypedArray())
-                    }
-
-                    Log.e("Files Request", "onRequestFailure")
+                    Log.e("Categories Request", "onRequestFailure")
                 }
 
                 override fun onUserUnauthorized() {
@@ -190,7 +185,40 @@ class ShopGreenPresenter(var context: Context) :
             })
     }
 
+    private fun checkShopGreenState() {
+        if (fetchedCategories && fetchedCampaign && fetchedRedeemItems) {
+            state = State.SHOP_GREEN
+        }
+    }
+
     override fun onLoginButtonClicked(email: String, password: String) {
         Log.e("ShopGreenPresenter", "email: $email, password: $password")
+    }
+
+    override fun onCartListClicked() {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onShowAllRedeemOptionsClicked() {
+//        TODO("Not yet implemented")
+    }
+
+    override fun fetchReviews(
+        id: String,
+        listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
+    ) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onProductClicked(productModel: ProductResponseModel) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun getRedeemOptions() = redeems
+
+    override fun getCategoryList(): ArrayList<String> {
+
+        return categories.map { i -> i.category } as ArrayList<String>
+
     }
 }

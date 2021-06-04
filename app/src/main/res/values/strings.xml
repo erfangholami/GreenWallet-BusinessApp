@@ -4,4 +4,10 @@
     <string name="title_discover">Discover</string>
 
     <string name="label_search_hint"><font size="12">Search Product, Deals, Merchants</font></string>
+    <string name="label_redeem_options">Redeems</string>
+    <string name="label_see_all">See All</string>
+    <string name="label_coins">%1$d Coins</string>
+    <string name="label_out_of_stock">OUT OF STOCK</string>
+    <string name="label_redeem_up">Redeem up to %1$d Green Coins</string>
+    <string name="label_savings">%1$d%% SAVINGS</string>
 </resources>

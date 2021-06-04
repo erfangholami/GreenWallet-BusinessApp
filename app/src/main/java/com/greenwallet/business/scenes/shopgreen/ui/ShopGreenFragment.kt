@@ -56,6 +56,12 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         presenter.subscribeView(this)
 
         updateCartCount()
+
+        (binding.rvRedeemOptions.adapter as ShopGreenRedeemOptionsAdapter).items =
+            presenter.getRedeemOptions()
+
+        mAdapterCategories?.mModels = presenter.getCategoryList()
+
     }
 
     override fun onStop() {
@@ -66,10 +72,11 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     private fun setup() {
 
         initSearch()
+        initCategories()
+        initRedeemOptions()
 
         binding.ivBuy.setOnClickListener {
-            //todo
-//            presenter.onCartListClicked()
+            presenter.onCartListClicked()
         }
 
         binding.appBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -143,6 +150,35 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         }
     }
 
+    private fun initCategories() {
+        mAdapterCategories = ShopGreenCategoriesAdapter()
+        mAdapterCategories?.onItemClick = { it ->
+            Log.e("Value", ": $it")
+
+            //presenter.onEyeDropSelected(it)
+        }
+
+        binding.rvCategories.layoutManager = GridLayoutManager(context, 3)
+        binding.rvCategories.adapter = mAdapterCategories
+    }
+
+    private fun initRedeemOptions() {
+        binding.tvSeeAllRedeemOptions.setOnClickListener {
+            presenter.onShowAllRedeemOptionsClicked()
+        }
+        binding.rvRedeemOptions.adapter = ShopGreenRedeemOptionsAdapter().apply {
+            itemClickListener = { productModel ->
+                presenter.onProductClicked(productModel)
+            }
+            imageLoaderListener = { id, listener, sizes ->
+                presenter.fetchImage(id, listener, sizes)
+            }
+            reviewsLoaderListener = { id, listener ->
+                presenter.fetchReviews(id, listener)
+            }
+        }
+    }
+
     private fun updateCartCount() {
         binding.ivBadge.visibility = View.VISIBLE
         binding.tvBadgeCount.visibility = View.VISIBLE
@@ -160,19 +196,6 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
 //                binding.tvBadgeCount.text = User.shared.cartProducts.size.toString()
 //            }
 //        }
-    }
-
-    override fun showCategories(categories: ArrayList<String>) {
-        mAdapterCategories = ShopGreenCategoriesAdapter(categories)
-
-        binding.rvCategories.layoutManager = GridLayoutManager(context, 3)
-        binding.rvCategories.adapter = mAdapterCategories
-
-        mAdapterCategories?.onItemClick = { it ->
-            Log.e("Value", ": $it")
-
-            //presenter.onEyeDropSelected(it)
-        }
     }
 
     override fun showCampaigns(campaigns: Array<Pair<CampaignsResponseModel, Bitmap?>>) {

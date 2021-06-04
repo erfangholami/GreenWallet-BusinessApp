@@ -7,10 +7,16 @@ import com.greenwallet.business.R.drawable.*
 import com.greenwallet.business.databinding.ShopgreenRvCategoriesItemBinding
 import java.util.*
 
-class ShopGreenCategoriesAdapter(var mModels: ArrayList<String>) :
+class ShopGreenCategoriesAdapter :
     RecyclerView.Adapter<ShopGreenCategoriesAdapter.ViewHolder>() {
 
     var onItemClick: ((String) -> Unit)? = null
+
+    var mModels: ArrayList<String> = arrayListOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,

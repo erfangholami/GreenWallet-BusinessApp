@@ -25,6 +25,9 @@ class OnboardingActivity : BaseActivity(), OnboardingProcessHandler,
     lateinit var presenter: OnboardingPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Application.context = this
+        Application.app = application
+
         presenter = OnboardingPresenter(this)
 
         super.onCreate(savedInstanceState)
@@ -34,9 +37,6 @@ class OnboardingActivity : BaseActivity(), OnboardingProcessHandler,
         supportActionBar?.setDisplayShowTitleEnabled(false)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.setHomeButtonEnabled(false)
-
-        Application.context = this
-        Application.app = application
     }
 
     override fun onStart() {

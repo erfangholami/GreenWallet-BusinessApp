@@ -8,7 +8,7 @@ class ProductResponse(
     val error: ResponseError = ResponseError.NONE
 ) {
 
-    var products: Array<ProductResponseModel>? = emptyArray()
+    var products: Array<ProductResponseModel>? = null
 
     enum class Result {
         ERROR,
