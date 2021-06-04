@@ -18,8 +18,8 @@ import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 import kotlin.collections.ArrayList
 
-class ShopGreenPresenter(var context: Context) :
-    BasePresenter<ShopGreenView, ShopGreenProcessHandler>(), ShopGreenView.Presenter {
+class ShopGreenPresenter(context: Context) :
+    BasePresenter<ShopGreenView, ShopGreenProcessHandler>(context), ShopGreenView.Presenter {
 
     enum class State {
         SHOP_GREEN,

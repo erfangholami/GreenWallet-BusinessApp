@@ -4,8 +4,8 @@ import android.content.Context
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.onboarding.ui.OnboardingView
 
-class OnboardingPresenter(var context: Context) :
-    BasePresenter<OnboardingView, OnboardingProcessHandler>(), OnboardingView.Presenter {
+class OnboardingPresenter(context: Context) :
+    BasePresenter<OnboardingView, OnboardingProcessHandler>(context), OnboardingView.Presenter {
 
     enum class State {
         ONBOARDING,

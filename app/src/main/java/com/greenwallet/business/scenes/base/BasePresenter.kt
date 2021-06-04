@@ -1,5 +1,11 @@
 package com.greenwallet.business.scenes.base
 
+import android.content.Context
+import android.util.Log
+import com.greenwallet.business.helper.ui.ImageLoaderListener
+import com.greenwallet.business.network.InteractorFactory
+import com.greenwallet.business.network.Subscriber
+import com.greenwallet.business.network.files.FileResponse
 import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 import java.util.*
@@ -13,12 +19,46 @@ import java.util.*
  *
  */
 
-abstract class BasePresenter<T, U> : BaseViewModel<T> {
+abstract class BasePresenter<T, U: BaseProcessHandler>(val context: Context) : BaseViewModel<T> {
 
     protected var views: MutableSet<T> = HashSet()
 
     @Nullable
     protected var activityHandler: U? = null
+
+    protected val fileInteractor = InteractorFactory(this.context).createFilesInteractor()
+
+    fun fetchImage(
+        fileId: String,
+        loaderListener: ImageLoaderListener,
+        sizes: Pair<Int, Int>
+    ) {
+        fileInteractor.file(
+            fileId = fileId,
+            sizes = sizes,
+            listener = object :
+                Subscriber<FileResponse> {
+                override fun onRequestSuccess(response: FileResponse) {
+                    if (response.response == FileResponse.Result.SUCCESS) {
+                        loaderListener.onFetchFinished(response.image)
+
+                        Log.e("image", "Success")
+                    } else {
+                        loaderListener.onFetchFailed()
+                        Log.e("image", "Error")
+                    }
+                }
+
+                override fun onRequestFailure(t: Throwable) {
+                    loaderListener.onFetchFailed()
+                    Log.e("image", "onRequestFailure")
+                }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
+            })
+    }
 
     /**
      * Sets the Views current UI state to represent the Presenters state and subscribes the View to upcoming UI events.

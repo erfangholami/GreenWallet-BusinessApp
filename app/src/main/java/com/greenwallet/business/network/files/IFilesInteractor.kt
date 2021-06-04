@@ -6,7 +6,9 @@ import com.greenwallet.business.network.Subscriber
 interface IFilesInteractor {
 
     fun file(
-        id: String,
-        listener: Subscriber<FileResponse>
+        fileId: String,
+        listener: Subscriber<FileResponse>,
+        sizes: Pair<Int, Int>? = null,
+        reduceQuality: Boolean = true
     ): Disposable?
 }

@@ -10,8 +10,8 @@ import com.greenwallet.business.network.login.LoginResponse
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.login.ui.LoginView
 
-class LoginPresenter(var context: Context) :
-    BasePresenter<LoginView, LoginProcessHandler>(), LoginView.Presenter {
+class LoginPresenter(context: Context) :
+    BasePresenter<LoginView, LoginProcessHandler>(context), LoginView.Presenter {
 
     enum class State {
         LOGIN,

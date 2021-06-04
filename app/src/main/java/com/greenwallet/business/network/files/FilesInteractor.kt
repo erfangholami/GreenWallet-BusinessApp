@@ -12,10 +12,12 @@ import okhttp3.ResponseBody
 open class FilesInteractor(private var api: IRestApi?) : IFilesInteractor {
 
     override fun file(
-        id: String,
-        listener: Subscriber<FileResponse>
+        fileId: String,
+        listener: Subscriber<FileResponse>,
+        sizes: Pair<Int, Int>?,
+        reduceQuality: Boolean
     ): Disposable? {
-        return api?.file(id)
+        return api?.file(fileId)
             ?.execute(object : RequestSubscriber<ResponseBody>() {
                 override fun onUnprocessableEntity() {
                     val result = FileResponse(null, FileResponse.Result.ERROR)
