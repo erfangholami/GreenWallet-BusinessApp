@@ -19,7 +19,7 @@ class InteractorFactory(val context: Context) : IInteractorFactory {
         return LoginInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
     }
 
-    override fun createDealsNoDealsInteractor(): ProductInteractor {
+    override fun createProductInteractor(): ProductInteractor {
         return ProductInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
     }
 

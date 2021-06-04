@@ -10,7 +10,7 @@ interface IInteractorFactory {
     fun isApiReady(): Boolean
 
     fun createLoginInteractor(): ILoginInteractor
-    fun createDealsNoDealsInteractor(): ProductInteractor
+    fun createProductInteractor(): ProductInteractor
     fun createCampaignsInteractor(): ICampaignsInteractor
     fun createFilesInteractor(): IFilesInteractor
 }

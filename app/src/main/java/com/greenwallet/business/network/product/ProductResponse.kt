@@ -4,7 +4,7 @@ import com.greenwallet.business.network.ResponseError
 import com.greenwallet.business.network.product.response.ProductResponseModel
 
 class ProductResponse(
-    val response: Result,
+    val result: Result,
     val error: ResponseError = ResponseError.NONE
 ) {
 
