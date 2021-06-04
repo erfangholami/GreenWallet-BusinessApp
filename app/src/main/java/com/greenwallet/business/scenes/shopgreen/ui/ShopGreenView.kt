@@ -7,6 +7,7 @@ import com.greenwallet.business.network.campaings.response.CampaignsResponseMode
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
 import java.util.*
+import kotlin.collections.ArrayList
 
 interface ShopGreenView {
 
@@ -21,8 +22,6 @@ interface ShopGreenView {
          * To be called when the View gets off screen in onStop()
          */
         fun disposeView(view: ShopGreenView)
-
-        fun onLoginButtonClicked(email: String, password: String)
 
         fun onCartListClicked()
 
@@ -40,9 +39,11 @@ interface ShopGreenView {
         fun getRedeemOptions(): ArrayList<ProductResponseModel>
 
         fun getCategoryList(): ArrayList<String>
+
+        fun onCampaignClicked(campaignsResponseModel: CampaignsResponseModel)
+
+        fun onCategoryItemClicked(categoryName: String)
+
+        fun getCampaignsList(): ArrayList<CampaignsResponseModel>
     }
-
-
-
-    fun showCampaigns(campaigns: Array<Pair<CampaignsResponseModel, Bitmap?>>)
 }

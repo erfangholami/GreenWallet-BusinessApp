@@ -10,9 +10,9 @@ import java.util.*
 class ShopGreenCategoriesAdapter :
     RecyclerView.Adapter<ShopGreenCategoriesAdapter.ViewHolder>() {
 
-    var onItemClick: ((String) -> Unit)? = null
+    lateinit var itemClickListener: ((String) -> Unit)
 
-    var mModels: ArrayList<String> = arrayListOf()
+    var items: ArrayList<String> = arrayListOf()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -32,7 +32,7 @@ class ShopGreenCategoriesAdapter :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val value = mModels[position].lowercase(Locale.getDefault()).replace(" ", "")
+        val value = items[position].lowercase(Locale.getDefault()).replace(" ", "")
 
         when {
             value == "accessories" -> {
@@ -62,11 +62,11 @@ class ShopGreenCategoriesAdapter :
         }
 
         holder.itemView.setOnClickListener {
-            onItemClick?.invoke(mModels[position])
+            itemClickListener.invoke(items[position])
         }
     }
 
-    override fun getItemCount() = mModels.size
+    override fun getItemCount() = items.size
 
     class ViewHolder(private val itemBinding: ShopgreenRvCategoriesItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {

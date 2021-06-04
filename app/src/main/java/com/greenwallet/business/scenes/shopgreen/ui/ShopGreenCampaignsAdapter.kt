@@ -4,13 +4,23 @@ import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ShopgreenRvCampaignsItemBinding
+import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 
-class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaignsResponseModel, Bitmap?>>) :
+class ShopGreenCampaignsAdapter :
     RecyclerView.Adapter<ShopGreenCampaignsAdapter.ViewHolder>() {
 
-    var onItemClick: ((String) -> Unit)? = null
+    lateinit var itemClickListener: ((CampaignsResponseModel) -> Unit)
+    lateinit var imageLoaderListener: (id: String, listener: ImageLoaderListener, sizes: Pair<Int, Int>) -> (Unit)
+
+    var items: ArrayList<CampaignsResponseModel> = arrayListOf()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -26,25 +36,49 @@ class ShopGreenCampaignsAdapter(var mModels: Array<Pair<CampaignsResponseModel, 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.setDescription(mModels[position].first.name)
-        holder.setImageBitmap(mModels[position].second)
+        val model = items[position]
+        holder.bind(model, itemClickListener)
 
-        //holder.itemView.setOnClickListener {
-        //    onItemClick?.invoke(mModels[position])
-        //}
+        if (!model.defaultFileUrl.isNullOrEmpty()) {
+            holder.loadImageUrl(model.defaultFileUrl)
+        } else if (!model.defaultFileId.isNullOrEmpty()) {
+            imageLoaderListener.invoke(model.defaultFileId, object : ImageLoaderListener {
+                override fun onFetchFinished(image: Bitmap?) {
+                    holder.setImageBitmap(image)
+                }
+            }, holder.getImageViewSizes())
+        }
+
     }
 
-    override fun getItemCount(): Int = mModels.size
+    override fun getItemCount(): Int = items.size
 
     class ViewHolder(private val itemBinding: ShopgreenRvCampaignsItemBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun setDescription(description: String?) {
-            itemBinding.tvDescriptionCampaign.text = description
+        fun bind(
+            model: CampaignsResponseModel,
+            itemClickListener: (CampaignsResponseModel) -> Unit
+        ) {
+            itemBinding.root.setOnClickListener {
+                itemClickListener.invoke(model)
+            }
+            itemBinding.tvDescriptionCampaign.text = model.name
         }
 
         fun setImageBitmap(bitmap: Bitmap?) {
             itemBinding.ivIconCampaign.setImageBitmap(bitmap)
         }
+
+        fun loadImageUrl(imageUrl: String) {
+            Glide.with(itemBinding.root)
+                .load(imageUrl)
+                .centerCrop()
+                .placeholder(R.drawable.bg_image_loading)
+                .into(itemBinding.ivIconCampaign)
+        }
+
+        fun getImageViewSizes() =
+            itemBinding.ivIconCampaign.layoutParams.run { width to height }
     }
 }

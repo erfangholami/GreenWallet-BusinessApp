@@ -1,7 +1,6 @@
 package com.greenwallet.business.scenes.shopgreen.ui
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
@@ -22,7 +21,6 @@ import com.google.android.material.appbar.AppBarLayout
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentShopGreenBinding
 import com.greenwallet.business.helper.kotlin.hideKeyboard
-import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import java.util.*
 import kotlin.math.abs
 
@@ -31,11 +29,9 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     private lateinit var presenter: ShopGreenView.Presenter
     private lateinit var binding: FragmentShopGreenBinding
 
-    private var mAdapterCategories: ShopGreenCategoriesAdapter? = null
+    private lateinit var categoriesAdapter: ShopGreenCategoriesAdapter
 
-    private var mAdapterCampaigns: ShopGreenCampaignsAdapter? = null
-
-    private var currentContext: Context? = null
+    private lateinit var campaignsAdapter: ShopGreenCampaignsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,11 +53,12 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
 
         updateCartCount()
 
+        categoriesAdapter.items = presenter.getCategoryList()
+
         (binding.rvRedeemOptions.adapter as ShopGreenRedeemOptionsAdapter).items =
             presenter.getRedeemOptions()
 
-        mAdapterCategories?.mModels = presenter.getCategoryList()
-
+        campaignsAdapter.items = presenter.getCampaignsList()
     }
 
     override fun onStop() {
@@ -74,6 +71,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         initSearch()
         initCategories()
         initRedeemOptions()
+        initCampaigns()
 
         binding.ivBuy.setOnClickListener {
             presenter.onCartListClicked()
@@ -151,15 +149,13 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     }
 
     private fun initCategories() {
-        mAdapterCategories = ShopGreenCategoriesAdapter()
-        mAdapterCategories?.onItemClick = { it ->
-            Log.e("Value", ": $it")
-
-            //presenter.onEyeDropSelected(it)
+        categoriesAdapter = ShopGreenCategoriesAdapter().apply {
+            itemClickListener = {
+                presenter.onCategoryItemClicked(it)
+            }
         }
-
         binding.rvCategories.layoutManager = GridLayoutManager(context, 3)
-        binding.rvCategories.adapter = mAdapterCategories
+        binding.rvCategories.adapter = categoriesAdapter
     }
 
     private fun initRedeemOptions() {
@@ -177,6 +173,37 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
                 presenter.fetchReviews(id, listener)
             }
         }
+    }
+
+    private fun initCampaigns() {
+        campaignsAdapter = ShopGreenCampaignsAdapter().apply {
+            itemClickListener = {
+                presenter.onCampaignClicked(it)
+            }
+
+            imageLoaderListener = { id, listener, sizes ->
+                presenter.fetchImage(id, listener, sizes)
+            }
+        }
+
+        binding.rvCampaigns.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvCampaigns.adapter = campaignsAdapter
+
+        binding.rvCampaigns.addItemDecoration(object : RecyclerView.ItemDecoration() {
+
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State,
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+                if (parent.getChildAdapterPosition(view) > 0) {
+                    outRect.left = 88
+                }
+            }
+        })
     }
 
     private fun updateCartCount() {
@@ -198,35 +225,6 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
 //        }
     }
 
-    override fun showCampaigns(campaigns: Array<Pair<CampaignsResponseModel, Bitmap?>>) {
-        mAdapterCampaigns = ShopGreenCampaignsAdapter(campaigns)
-
-        binding.rvCampaigns.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvCampaigns.adapter = mAdapterCampaigns
-
-        binding.rvCampaigns.addItemDecoration(object : RecyclerView.ItemDecoration() {
-
-            override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State,
-            ) {
-                super.getItemOffsets(outRect, view, parent, state)
-                if (parent.getChildAdapterPosition(view) > 0) {
-                    outRect.left = 88
-                }
-            }
-        })
-
-        mAdapterCampaigns?.onItemClick = { it ->
-            Log.e("Value", ": $it")
-
-            //presenter.onEyeDropSelected(it)
-        }
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
@@ -235,8 +233,6 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         } else {
             throw RuntimeException("$context must implement ShopGreenPresenterProvider")
         }
-
-        currentContext = context
     }
 
     interface ShopGreenPresenterProvider {

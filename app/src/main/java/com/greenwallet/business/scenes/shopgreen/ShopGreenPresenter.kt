@@ -191,8 +191,20 @@ class ShopGreenPresenter(context: Context) :
         }
     }
 
-    override fun onLoginButtonClicked(email: String, password: String) {
-        Log.e("ShopGreenPresenter", "email: $email, password: $password")
+    override fun getCategoryList(): ArrayList<String> {
+        return categories.map { i -> i.category } as ArrayList<String>
+    }
+
+    override fun getRedeemOptions() = redeems
+
+    override fun getCampaignsList() = campaigns
+
+    override fun onCampaignClicked(campaignsResponseModel: CampaignsResponseModel) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onCategoryItemClicked(categoryName: String) {
+//        TODO("Not yet implemented")
     }
 
     override fun onCartListClicked() {
@@ -203,22 +215,14 @@ class ShopGreenPresenter(context: Context) :
 //        TODO("Not yet implemented")
     }
 
+    override fun onProductClicked(productModel: ProductResponseModel) {
+//        TODO("Not yet implemented")
+    }
+
     override fun fetchReviews(
         id: String,
         listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
     ) {
 //        TODO("Not yet implemented")
-    }
-
-    override fun onProductClicked(productModel: ProductResponseModel) {
-//        TODO("Not yet implemented")
-    }
-
-    override fun getRedeemOptions() = redeems
-
-    override fun getCategoryList(): ArrayList<String> {
-
-        return categories.map { i -> i.category } as ArrayList<String>
-
     }
 }
