@@ -8,12 +8,13 @@ import android.view.View
 import com.greenwallet.business.R
 import com.greenwallet.business.app.Application
 import com.greenwallet.business.helper.ui.LoadingFragment
+import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.login.LoginActivity
 import com.greenwallet.business.scenes.onboarding.ui.OnboardingFragment
 import com.greenwallet.business.scenes.onboarding.ui.OnboardingView
 import kotlinx.android.synthetic.main.activity_onboarding.*
 
-class OnboardingActivity : AppCompatActivity(), OnboardingProcessHandler,
+class OnboardingActivity : BaseActivity(), OnboardingProcessHandler,
     OnboardingFragment.OnboardingPresenterProvider {
 
     companion object {

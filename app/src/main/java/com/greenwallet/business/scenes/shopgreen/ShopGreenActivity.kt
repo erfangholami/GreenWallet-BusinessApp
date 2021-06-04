@@ -3,15 +3,14 @@ package com.greenwallet.business.scenes.shopgreen
 import android.app.AlertDialog
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import com.greenwallet.business.R
-import com.greenwallet.business.app.Application
 import com.greenwallet.business.helper.ui.LoadingFragment
+import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenFragment
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 import kotlinx.android.synthetic.main.activity_login.*
 
-class ShopGreenActivity : AppCompatActivity(), ShopGreenProcessHandler,
+class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
     ShopGreenFragment.ShopGreenPresenterProvider {
 
     companion object {
