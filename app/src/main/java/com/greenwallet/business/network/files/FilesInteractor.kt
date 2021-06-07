@@ -28,11 +28,51 @@ open class FilesInteractor(private var api: IRestApi?) : IFilesInteractor {
                 }
 
                 override fun onSuccess(response: ResponseBody) {
-                    val image = BitmapFactory.decodeStream(response.byteStream())
+//                    val image = BitmapFactory.decodeStream(response.byteStream())
 
-                    val result = FileResponse(image, FileResponse.Result.SUCCESS)
+                    val result = FileResponse(null, FileResponse.Result.SUCCESS)
 
-                    listener.onRequestSuccess(result)
+                    BitmapFactory.Options().run {
+
+                        val res = response.bytes()
+
+                        inJustDecodeBounds = true
+                        BitmapFactory.decodeByteArray(res, 0, res.size, this)
+//                        BitmapFactory.decodeStream(response.byteStream(), null, this)
+
+                        //calculate sampling
+                        if (sizes == null || sizes.first == 0 || sizes.second == 0) {
+                            inSampleSize = if (reduceQuality) 4 else 1
+                        } else {
+                            val (height: Int, width: Int) = this.run { outHeight to outWidth }
+                            var sampleSize = 1
+
+                            val reqHeight = sizes.second
+                            val reqWidth = sizes.first
+
+                            if (height > reqHeight || width > reqWidth) {
+
+                                val halfHeight: Int = height / 2
+                                val halfWidth: Int = width / 2
+
+                                while (((halfHeight / sampleSize) >= reqHeight) && ((halfWidth / sampleSize) >= reqWidth)) {
+                                    sampleSize *= 2
+                                }
+                            }
+                            inSampleSize = sampleSize
+                        }
+
+                        inJustDecodeBounds = false
+//                        result.image = BitmapFactory.decodeStream(response.byteStream(), null, this)
+                        result.image = BitmapFactory.decodeByteArray(res, 0, res.size, this)
+
+                        listener.onRequestSuccess(result)
+
+                        Log.e("Request", "onSuccess")
+                    }
+
+
+
 
                     Log.e("Request", "onSuccess")
                 }
