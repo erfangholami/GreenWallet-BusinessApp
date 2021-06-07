@@ -2,8 +2,7 @@ package com.greenwallet.business.scenes.login
 
 import android.content.Context
 import android.util.Log
-import com.greenwallet.business.helper.keystore.CipherStorageFactory
-import com.greenwallet.business.helper.keystore.KeystoreKeys
+import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.network.InteractorFactory
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.login.LoginResponse
@@ -55,8 +54,7 @@ class LoginPresenter(context: Context) :
                 Subscriber<LoginResponse> {
                 override fun onRequestSuccess(response: LoginResponse) {
                     if (response.response == LoginResponse.Result.SUCCESS) {
-                        val cipherStorage = CipherStorageFactory.newInstance(context)
-                        cipherStorage.encrypt(KeystoreKeys.merchantId.name, response.merchant_id)
+                        User.shared.merchantId = response.merchant_id
 
                         state = State.SHOP_GREEN
 

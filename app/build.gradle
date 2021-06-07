@@ -17,6 +17,8 @@ android {
         versionName "0.0.1"
         multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "SECURE_KEY", "\"4wH3BBRPwJuH9t6QKWGIlozVtFF70\"")
     }
 
     buildTypes {

@@ -3,8 +3,7 @@ package com.greenwallet.business.scenes.shopgreen
 import android.content.Context
 import android.util.Log
 import com.greenwallet.business.R
-import com.greenwallet.business.helper.keystore.CipherStorageFactory
-import com.greenwallet.business.helper.keystore.KeystoreKeys
+import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.InteractorFactory
 import com.greenwallet.business.network.Subscriber
@@ -86,13 +85,10 @@ class ShopGreenPresenter(context: Context) :
     private fun requestCategories() {
         state = State.LOADING
 
-        val cipherStorage = CipherStorageFactory.newInstance(context)
-        val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
-                .isNullOrEmpty()
-        ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
+        val merchantId = User.shared.merchantId ?: ""
 
         productInteractor.categories(
-            merchantId = merchantId!!,
+            merchantId = merchantId,
             listener = object :
                 Subscriber<CategoriesResponse> {
                 override fun onRequestSuccess(response: CategoriesResponse) {
@@ -157,13 +153,10 @@ class ShopGreenPresenter(context: Context) :
     private fun requestBestSellers() {
         state = State.LOADING
 
-        val cipherStorage = CipherStorageFactory.newInstance(context)
-        val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
-                .isNullOrEmpty()
-        ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
+        val merchantId = User.shared.merchantId ?: ""
 
         productInteractor.bestSellers(
-            merchantId = merchantId!!,
+            merchantId = merchantId,
             offset = 0,
             size = 10,
             listener = object :
@@ -197,13 +190,10 @@ class ShopGreenPresenter(context: Context) :
     private fun requestRedeems() {
         state = State.LOADING
 
-        val cipherStorage = CipherStorageFactory.newInstance(context)
-        val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
-                .isNullOrEmpty()
-        ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
+        val merchantId = User.shared.merchantId ?: ""
 
         productInteractor.hotDeals(
-            merchantId = merchantId!!,
+            merchantId = merchantId,
             offset = 0,
             size = 10,
             listener = object :

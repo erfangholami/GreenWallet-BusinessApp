@@ -25,8 +25,6 @@ class OnboardingActivity : BaseActivity(), OnboardingProcessHandler,
     lateinit var presenter: OnboardingPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        Application.context = this
-        Application.app = application
 
         presenter = OnboardingPresenter(this)
 

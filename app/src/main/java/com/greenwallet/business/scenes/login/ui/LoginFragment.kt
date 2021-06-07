@@ -16,8 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentLoginBinding
-import com.greenwallet.business.helper.keystore.CipherStorageFactory
-import com.greenwallet.business.helper.keystore.KeystoreKeys
+import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.helper.kotlin.isValidEmail
 import com.greenwallet.business.helper.kotlin.makeLinks
 
@@ -65,9 +64,8 @@ class LoginFragment : Fragment(), LoginView {
         btnLogin.setOnClickListener {
             Log.i("LoginFragment Fragment:", "Login button!")
 
-            val cipherStorage = CipherStorageFactory.newInstance(context)
-            cipherStorage.encrypt(KeystoreKeys.email.name, binding.etEmail.text.toString())
-            cipherStorage.encrypt(KeystoreKeys.password.name, binding.etPassword.text.toString())
+            User.shared.email =  binding.etEmail.text.toString()
+            User.shared.password =  binding.etPassword.text.toString()
 
             presenter.onLoginButtonClicked(
                 binding.etEmail.text.toString(),
@@ -134,14 +132,13 @@ class LoginFragment : Fragment(), LoginView {
     }
 
     private fun loadValuesIfAvailable() {
-        val cipherStorage = CipherStorageFactory.newInstance(context)
 
-        if (!cipherStorage.decrypt(KeystoreKeys.email.name).isNullOrEmpty()) {
-            binding.etEmail.setText(cipherStorage.decrypt(KeystoreKeys.email.name))
+        if (!User.shared.email.isNullOrEmpty()) {
+            binding.etEmail.setText(User.shared.email)
         }
 
-        if (!cipherStorage.decrypt(KeystoreKeys.password.name).isNullOrEmpty()) {
-            binding.etPassword.setText(cipherStorage.decrypt(KeystoreKeys.password.name))
+        if (!User.shared.password.isNullOrEmpty()) {
+            binding.etPassword.setText(User.shared.password)
         }
     }
 
