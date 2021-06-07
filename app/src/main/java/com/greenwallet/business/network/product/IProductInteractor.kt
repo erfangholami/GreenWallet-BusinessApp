@@ -16,4 +16,11 @@ interface IProductInteractor {
         size: Int,
         listener: Subscriber<ProductResponse>
     ): Disposable?
+
+    fun bestSellers(
+        merchantId: String,
+        offset: Int,
+        size: Int,
+        listener: Subscriber<ProductResponse>
+    ): Disposable?
 }

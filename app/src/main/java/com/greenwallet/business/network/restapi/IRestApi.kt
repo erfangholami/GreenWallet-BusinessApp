@@ -21,6 +21,12 @@ interface IRestApi {
         size: Int,
     ): NetworkCall<Array<ProductResponseModel>>
 
+    fun productsBestSellers(
+        merchantId: String,
+        offset: Int,
+        size: Int,
+    ): NetworkCall<Array<ProductResponseModel>>
+
     fun campaigns(): NetworkCall<Array<CampaignsResponseModel>>
 
     fun file(id: String): NetworkCall<ResponseBody>

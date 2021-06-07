@@ -40,6 +40,20 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
         )
     }
 
+    override fun productsBestSellers(
+        merchantId: String,
+        offset: Int,
+        size: Int
+    ): IRestApi.NetworkCall<Array<ProductResponseModel>> {
+        return RetrofitNetworkCall(
+            api.productsBestSellers(
+                offset = offset.toString(),
+                size = size.toString(),
+                query = merchantId
+            )
+        )
+    }
+
     override fun campaigns(): IRestApi.NetworkCall<Array<CampaignsResponseModel>> {
         return RetrofitNetworkCall(api.campaigns())
     }

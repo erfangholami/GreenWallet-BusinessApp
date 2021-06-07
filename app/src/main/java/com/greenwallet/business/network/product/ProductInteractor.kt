@@ -123,4 +123,66 @@ open class ProductInteractor(private var api : IRestApi?) :
                 }
             })
     }
+
+    override fun bestSellers(
+        merchantId: String,
+        offset: Int,
+        size: Int,
+        listener: Subscriber<ProductResponse>
+    ): Disposable? {
+        return api?.productsBestSellers(merchantId, offset, size)
+            ?.execute(object : RequestSubscriber<Array<ProductResponseModel>>() {
+                override fun onSuccess(response: Array<ProductResponseModel>) {
+                    val result =
+                        ProductResponse(ProductResponse.Result.SUCCESS)
+
+                    result.products = response
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onSuccess")
+                }
+
+                override fun onExpectedError(response: String) {
+                    val result =
+                        ProductResponse(ProductResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onExpectedError")
+                }
+
+                override fun onServerError() {
+                    listener.onRequestSuccess(
+                        ProductResponse(
+                            ProductResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
+
+                    Log.e("Request", "onServerError")
+                }
+
+                override fun onUnprocessableEntity() {
+                    val result =
+                        ProductResponse(ProductResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onUnprocessableEntity")
+                }
+
+                override fun onUnauthorizedError() {
+                    listener.onUserUnauthorized()
+
+                    Log.e("Request", "onUnauthorizedError")
+                }
+
+                override fun onUnexpectedError(t: Throwable) {
+                    listener.onRequestFailure(t)
+
+                    Log.e("Request", "onUnexpectedError")
+                }
+            })
+    }
 }

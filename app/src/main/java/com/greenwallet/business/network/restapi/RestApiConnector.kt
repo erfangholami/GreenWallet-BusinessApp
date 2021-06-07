@@ -27,6 +27,16 @@ interface RestApiConnector {
         @Query("is_published") isPublished: Boolean = false
     ): Call<Array<ProductResponseModel>>
 
+    @GET("merchant/search/products")
+    fun productsBestSellers(
+        @Query("name") name: String = "merchant_id",
+        @Query("query") query: String,
+        @Query("type") type: String = "EQ",
+        @Query("offset") offset: String,
+        @Query("size") size: String,
+        @Query("is_published") isPublished: Boolean = false
+    ): Call<Array<ProductResponseModel>>
+
     @GET("campaigns/loyalty_reward")
     fun campaigns(): Call<Array<CampaignsResponseModel>>
 
