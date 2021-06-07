@@ -39,6 +39,10 @@ class ShopGreenPresenter(context: Context) :
                             requestCategories()
                         }
 
+                        if (!fetchedBestSellerItems) {
+                            requestBestSellers()
+                        }
+
                         if (!fetchedRedeemItems) {
                             requestRedeems()
                         }
@@ -58,6 +62,9 @@ class ShopGreenPresenter(context: Context) :
 
     var fetchedCategories = false
     var categories: ArrayList<CategoriesResponseModel> = arrayListOf()
+
+    var fetchedBestSellerItems = false
+    var bestSellers: ArrayList<ProductResponseModel> = arrayListOf()
 
     var fetchedRedeemItems = false
     var redeems: ArrayList<ProductResponseModel> = arrayListOf()
@@ -145,6 +152,46 @@ class ShopGreenPresenter(context: Context) :
             })
     }
 
+    private fun requestBestSellers() {
+        state = State.LOADING
+
+        val cipherStorage = CipherStorageFactory.newInstance(context)
+        val merchantId = if (!cipherStorage.decrypt(KeystoreKeys.merchantId.name)
+                .isNullOrEmpty()
+        ) cipherStorage.decrypt(KeystoreKeys.merchantId.name) else ""
+
+        productInteractor.bestSellers(
+            merchantId = merchantId!!,
+            offset = 0,
+            size = 10,
+            listener = object :
+                Subscriber<ProductResponse> {
+                override fun onRequestSuccess(response: ProductResponse) {
+                    if (response.result == ProductResponse.Result.SUCCESS) {
+                        fetchedBestSellerItems = true
+                        bestSellers = (response.products ?: arrayOf()).toCollection(ArrayList())
+
+                        checkShopGreenState()
+                        Log.e("Best Sellers Request", "Success")
+                    } else {
+                        requestBestSellers()
+
+                        Log.e("Best Sellers Request", "Error")
+                    }
+                }
+
+                override fun onRequestFailure(t: Throwable) {
+                    requestBestSellers()
+
+                    Log.e("Best Sellers Request", "onRequestFailure")
+                }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
+            })
+    }
+
     private fun requestRedeems() {
         state = State.LOADING
 
@@ -165,18 +212,18 @@ class ShopGreenPresenter(context: Context) :
                         redeems = (response.products ?: arrayOf()).toCollection(ArrayList())
 
                         checkShopGreenState()
-                        Log.e("Categories Request", "Success")
+                        Log.e("Redeems Request", "Success")
                     } else {
-                        requestCategories()
+                        requestRedeems()
 
-                        Log.e("Categories Request", "Error")
+                        Log.e("Redeems Request", "Error")
                     }
                 }
 
                 override fun onRequestFailure(t: Throwable) {
-                    requestCategories()
+                    requestRedeems()
 
-                    Log.e("Categories Request", "onRequestFailure")
+                    Log.e("Redeems Request", "onRequestFailure")
                 }
 
                 override fun onUserUnauthorized() {
@@ -194,6 +241,8 @@ class ShopGreenPresenter(context: Context) :
     override fun getCategoryList(): ArrayList<String> {
         return categories.map { i -> i.category } as ArrayList<String>
     }
+
+    override fun getBestSellerItems() = bestSellers
 
     override fun getRedeemOptions() = redeems
 
@@ -215,7 +264,18 @@ class ShopGreenPresenter(context: Context) :
 //        TODO("Not yet implemented")
     }
 
+    override fun onShowAllBestSellersClicked() {
+//        TODO("Not yet implemented")
+    }
+
     override fun onProductClicked(productModel: ProductResponseModel) {
+//        TODO("Not yet implemented")
+    }
+
+    override fun onProductReviewClicked(
+        productId: String,
+        reviews: java.util.ArrayList<ProductReviewsResponseModel>
+    ) {
 //        TODO("Not yet implemented")
     }
 

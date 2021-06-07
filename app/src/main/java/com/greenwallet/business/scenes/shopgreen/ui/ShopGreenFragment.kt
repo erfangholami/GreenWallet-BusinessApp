@@ -55,6 +55,9 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
 
         categoriesAdapter.items = presenter.getCategoryList()
 
+        (binding.rvBestSellers.adapter as ShopGreenBestSellersAdapter).items =
+            presenter.getBestSellerItems()
+
         (binding.rvRedeemOptions.adapter as ShopGreenRedeemOptionsAdapter).items =
             presenter.getRedeemOptions()
 
@@ -70,6 +73,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
 
         initSearch()
         initCategories()
+        initBestSellers()
         initRedeemOptions()
         initCampaigns()
 
@@ -156,6 +160,24 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         }
         binding.rvCategories.layoutManager = GridLayoutManager(context, 3)
         binding.rvCategories.adapter = categoriesAdapter
+    }
+
+    private fun initBestSellers() {
+        binding.tvSeeAllBestSellers.setOnClickListener { presenter.onShowAllBestSellersClicked() }
+        binding.rvBestSellers.adapter = ShopGreenBestSellersAdapter().apply {
+            itemClickListener = { productModel ->
+                presenter.onProductClicked(productModel)
+            }
+            reviewClickListener = { productId, reviews ->
+                presenter.onProductReviewClicked(productId, reviews)
+            }
+            imageLoaderListener = { id, listener, sizes ->
+                presenter.fetchImage(id, listener, sizes)
+            }
+            reviewsLoaderListener = { id, listener ->
+                presenter.fetchReviews(id, listener)
+            }
+        }
     }
 
     private fun initRedeemOptions() {

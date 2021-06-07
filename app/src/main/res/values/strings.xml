@@ -10,4 +10,7 @@
     <string name="label_out_of_stock">OUT OF STOCK</string>
     <string name="label_redeem_up">Redeem up to %1$d Green Coins</string>
     <string name="label_savings">%1$d%% SAVINGS</string>
+    <string name="label_reviews">%1$d Reviews</string>
+    <string name="label_price">£%1$.2f</string>
+    <string name="label_best_sellers">Best Sellers</string>
 </resources>

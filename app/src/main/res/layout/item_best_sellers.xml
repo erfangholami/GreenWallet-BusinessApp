@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="270dp"
+    android:layout_marginStart="@dimen/margin_small"
+    android:layout_marginEnd="@dimen/margin_small"
+    app:cardBackgroundColor="@android:color/white"
+    app:cardCornerRadius="5dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_best_sellers_image"
+            android:layout_width="@dimen/view_card_image_width"
+            android:layout_height="@dimen/view_card_image_height"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_image_loading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_out_of_stock"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/maison_neue_bold"
+            android:paddingStart="@dimen/margin_default"
+            android:paddingTop="@dimen/margin_medium"
+            android:paddingEnd="@dimen/margin_default"
+            android:text="@string/label_out_of_stock"
+            android:textAlignment="textStart"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_small"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_best_sellers_image" />
+
+        <TextView
+            android:id="@+id/tv_best_sellers_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/maison_neue_book"
+            android:lineSpacingExtra="3dp"
+            android:lines="2"
+            android:maxLines="2"
+            android:paddingStart="@dimen/margin_default"
+            android:paddingEnd="@dimen/margin_default"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_out_of_stock"
+            app:layout_constraintBottom_toTopOf="@+id/cl_rating_container"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_rating_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_small"
+            android:paddingStart="@dimen/padding_default"
+            app:layout_constraintStart_toStartOf="@+id/iv_best_sellers_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_best_sellers_name"
+            app:layout_constraintEnd_toEndOf="@+id/iv_best_sellers_image"
+            app:layout_constraintBottom_toTopOf="@+id/tv_price">
+
+            <RatingBar
+                android:id="@+id/rb_rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressBackgroundTint="@color/colorAccent"
+                android:progressTint="@color/colorRatingBar"
+                android:rating="0"
+                android:stepSize="0.1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_reviews"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_small_x"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:fontFamily="@font/maison_neue_book"
+                android:text="@string/label_reviews"
+                android:textAlignment="viewStart"
+                android:textColor="@color/colorDisableDark"
+                android:textSize="@dimen/text_small_xx"
+                app:layout_constraintBottom_toBottomOf="@+id/rb_rating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/rb_rating"
+                app:layout_constraintTop_toTopOf="@+id/rb_rating" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:fontFamily="@font/maison_neue_demi"
+            android:text="@string/label_price"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/text_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

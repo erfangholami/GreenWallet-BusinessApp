@@ -1,12 +1,10 @@
 package com.greenwallet.business.scenes.shopgreen.ui
 
-import android.graphics.Bitmap
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 interface ShopGreenView {
@@ -36,6 +34,8 @@ interface ShopGreenView {
 
         fun onProductClicked(productModel: ProductResponseModel)
 
+        fun getBestSellerItems(): ArrayList<ProductResponseModel>
+
         fun getRedeemOptions(): ArrayList<ProductResponseModel>
 
         fun getCategoryList(): ArrayList<String>
@@ -45,5 +45,12 @@ interface ShopGreenView {
         fun onCategoryItemClicked(categoryName: String)
 
         fun getCampaignsList(): ArrayList<CampaignsResponseModel>
+
+        fun onShowAllBestSellersClicked()
+
+        fun onProductReviewClicked(
+            productId: String,
+            reviews: java.util.ArrayList<ProductReviewsResponseModel>
+        )
     }
 }
