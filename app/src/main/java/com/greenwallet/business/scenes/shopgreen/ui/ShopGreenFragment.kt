@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentShopGreenBinding
+import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.helper.kotlin.hideKeyboard
 import java.util.*
 import kotlin.math.abs
@@ -240,19 +241,18 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         binding.ivBadge.visibility = View.VISIBLE
         binding.tvBadgeCount.visibility = View.VISIBLE
 
-        //todo
-//        when {
-//            User.shared.cartProducts.size == 0 -> {
-//                binding.ivBadge.visibility = View.INVISIBLE
-//                binding.tvBadgeCount.visibility = View.INVISIBLE
-//            }
-//            User.shared.cartProducts.size > 9 -> {
-//                binding.tvBadgeCount.text = "+9"
-//            }
-//            else -> {
-//                binding.tvBadgeCount.text = User.shared.cartProducts.size.toString()
-//            }
-//        }
+        when {
+            User.shared.cartProducts.size == 0 -> {
+                binding.ivBadge.visibility = View.INVISIBLE
+                binding.tvBadgeCount.visibility = View.INVISIBLE
+            }
+            User.shared.cartProducts.size > 9 -> {
+                binding.tvBadgeCount.text = "+9"
+            }
+            else -> {
+                binding.tvBadgeCount.text = User.shared.cartProducts.size.toString()
+            }
+        }
     }
 
     override fun onAttach(context: Context) {
