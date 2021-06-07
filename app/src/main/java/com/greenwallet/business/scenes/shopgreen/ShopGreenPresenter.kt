@@ -2,6 +2,7 @@ package com.greenwallet.business.scenes.shopgreen
 
 import android.content.Context
 import android.util.Log
+import com.greenwallet.business.R
 import com.greenwallet.business.helper.keystore.CipherStorageFactory
 import com.greenwallet.business.helper.keystore.KeystoreKeys
 import com.greenwallet.business.network.CallbackListener
@@ -15,6 +16,7 @@ import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BasePresenter
+import com.greenwallet.business.scenes.shopgreen.ui.HomeOnboardingItem
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 import kotlin.collections.ArrayList
 
@@ -237,6 +239,24 @@ class ShopGreenPresenter(context: Context) :
             state = State.SHOP_GREEN
         }
     }
+
+    override fun createOnboardingItems()= listOf(
+        HomeOnboardingItem(
+            image = R.drawable.discover_deals_illustration,
+            title = R.string.title_onboarding_first,
+            message = R.string.message_onboarding_first
+        ),
+        HomeOnboardingItem(
+            image = R.drawable.onboarding,
+            title = R.string.title_onboarding_second,
+            message = R.string.message_onboarding_second
+        ),
+        HomeOnboardingItem(
+            image = R.drawable.planting_trees_illustration,
+            title = R.string.title_onboarding_third,
+            message = R.string.message_onboarding_third
+        )
+    )
 
     override fun getCategoryList(): ArrayList<String> {
         return categories.map { i -> i.category } as ArrayList<String>

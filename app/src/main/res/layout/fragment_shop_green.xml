@@ -139,6 +139,16 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/padding_big">
 
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_carousel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/view_pager_min_height"
+                android:paddingStart="@dimen/margin_default"
+                android:paddingTop="@dimen/padding_small_x"
+                android:paddingEnd="@dimen/margin_default"
+                android:paddingBottom="@dimen/padding_small_x" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_categories"
                 android:layout_width="match_parent"

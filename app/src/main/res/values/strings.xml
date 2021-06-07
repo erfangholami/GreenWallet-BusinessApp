@@ -13,4 +13,12 @@
     <string name="label_reviews">%1$d Reviews</string>
     <string name="label_price">£%1$.2f</string>
     <string name="label_best_sellers">Best Sellers</string>
+
+    <string name="message_onboarding_first">Find hot deals from hundreds\nof sustainable businesses</string>
+    <string name="message_onboarding_second">Earn 1 Green Coin for every £1\nyou spend. 1% back to you!</string>
+    <string name="message_onboarding_third">We plant a tree with every purchase\nyou make a show your impact.</string>
+    <string name="title_onboarding_first">Green deals &amp;\nproducts at your\nfingertips</string>
+    <string name="title_onboarding_second">Earn Green Coins &amp;\nget rewarded with\nevery purchase</string>
+    <string name="title_onboarding_third">Plant a tree with\nevery purchase you\nmake</string>
+
 </resources>

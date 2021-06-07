@@ -52,5 +52,7 @@ interface ShopGreenView {
             productId: String,
             reviews: java.util.ArrayList<ProductReviewsResponseModel>
         )
+
+        fun createOnboardingItems(): List<HomeOnboardingItem>
     }
 }

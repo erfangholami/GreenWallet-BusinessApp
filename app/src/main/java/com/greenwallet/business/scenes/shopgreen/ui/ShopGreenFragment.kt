@@ -72,6 +72,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
     private fun setup() {
 
         initSearch()
+        initOnboarding()
         initCategories()
         initBestSellers()
         initRedeemOptions()
@@ -150,6 +151,13 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
         binding.btnClear.setOnClickListener {
             binding.etSearch.setText("")
         }
+    }
+
+    private fun initOnboarding() {
+        val onboardingItems = presenter.createOnboardingItems()
+
+        binding.vpCarousel.isUserInputEnabled = false
+        binding.vpCarousel.adapter = OnboardingAdapter(onboardingItems)
     }
 
     private fun initCategories() {
