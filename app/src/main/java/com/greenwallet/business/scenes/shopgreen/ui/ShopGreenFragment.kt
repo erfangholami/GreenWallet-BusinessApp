@@ -5,7 +5,6 @@ import android.graphics.Color
 import android.graphics.Rect
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +21,15 @@ import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentShopGreenBinding
 import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.helper.kotlin.hideKeyboard
+import com.greenwallet.business.helper.ui.ImageLoaderListener
+import com.greenwallet.business.network.CallbackListener
+import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.scenes.base.ProductItemListener
 import java.util.*
 import kotlin.math.abs
 
-class ShopGreenFragment : Fragment(), ShopGreenView {
+class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
 
     private lateinit var presenter: ShopGreenView.Presenter
     private lateinit var binding: FragmentShopGreenBinding
@@ -173,37 +177,14 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
 
     private fun initBestSellers() {
         binding.tvSeeAllBestSellers.setOnClickListener { presenter.onShowAllBestSellersClicked() }
-        binding.rvBestSellers.adapter = ShopGreenBestSellersAdapter().apply {
-            itemClickListener = { productModel ->
-                presenter.onProductClicked(productModel)
-            }
-            reviewClickListener = { productId, reviews ->
-                presenter.onProductReviewClicked(productId, reviews)
-            }
-            imageLoaderListener = { id, listener, sizes ->
-                presenter.fetchImage(id, listener, sizes)
-            }
-            reviewsLoaderListener = { id, listener ->
-                presenter.fetchReviews(id, listener)
-            }
-        }
+        binding.rvBestSellers.adapter = ShopGreenBestSellersAdapter(this)
     }
 
     private fun initRedeemOptions() {
         binding.tvSeeAllRedeemOptions.setOnClickListener {
             presenter.onShowAllRedeemOptionsClicked()
         }
-        binding.rvRedeemOptions.adapter = ShopGreenRedeemOptionsAdapter().apply {
-            itemClickListener = { productModel ->
-                presenter.onProductClicked(productModel)
-            }
-            imageLoaderListener = { id, listener, sizes ->
-                presenter.fetchImage(id, listener, sizes)
-            }
-            reviewsLoaderListener = { id, listener ->
-                presenter.fetchReviews(id, listener)
-            }
-        }
+        binding.rvRedeemOptions.adapter = ShopGreenRedeemOptionsAdapter(this)
     }
 
     private fun initCampaigns() {
@@ -253,6 +234,32 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
                 binding.tvBadgeCount.text = User.shared.cartProducts.size.toString()
             }
         }
+    }
+
+    override fun onItemClicked(product: ProductResponseModel) {
+        presenter.onProductClicked(product)
+    }
+
+    override fun onItemReviewClicked(
+        productID: String,
+        reviews: ArrayList<ProductReviewsResponseModel>
+    ) {
+        presenter.onProductReviewClicked(productID, reviews)
+    }
+
+    override fun fetchImage(
+        id: String,
+        listener: ImageLoaderListener,
+        sizes: Pair<Int, Int>
+    ) {
+        presenter.fetchImage(id, listener, sizes)
+    }
+
+    override fun fetchReviews(
+        id: String,
+        listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
+    ) {
+        presenter.fetchReviews(id, listener)
     }
 
     override fun onAttach(context: Context) {

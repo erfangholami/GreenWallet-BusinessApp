@@ -13,14 +13,10 @@ import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
 import com.greenwallet.business.network.product.response.getPrice
+import com.greenwallet.business.scenes.base.ProductItemListener
 
-class ShopGreenBestSellersAdapter :
+class ShopGreenBestSellersAdapter (private val productItemListener: ProductItemListener) :
     RecyclerView.Adapter<ShopGreenBestSellersAdapter.HomeBestSellersViewHolder>() {
-
-    lateinit var reviewsLoaderListener: (id: String, listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>) -> (Unit)
-    lateinit var itemClickListener: (product: ProductResponseModel) -> (Unit)
-    lateinit var reviewClickListener: (productID: String, reviews: ArrayList<ProductReviewsResponseModel>) -> (Unit)
-    lateinit var imageLoaderListener: (id: String, listener: ImageLoaderListener, sizes: Pair<Int, Int>) -> (Unit)
 
     var items: ArrayList<ProductResponseModel> = arrayListOf()
         set(value) {
@@ -35,7 +31,7 @@ class ShopGreenBestSellersAdapter :
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItemBestSellersBinding.inflate(layoutInflater, parent, false)
 
-        return HomeBestSellersViewHolder(itemBinding)
+        return HomeBestSellersViewHolder(itemBinding, productItemListener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -44,7 +40,7 @@ class ShopGreenBestSellersAdapter :
         if (!items[position].defaultFileUrl.isNullOrEmpty()) {
             holder.loadImageUrl(items[position].defaultFileUrl!!)
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            imageLoaderListener.invoke(items[position].defaultFileID!!, object : ImageLoaderListener {
+            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
                 override fun onFetchFinished(image: Bitmap?) {
                     holder.setImage(image)
                 }
@@ -53,7 +49,7 @@ class ShopGreenBestSellersAdapter :
 
         if (items[position].reviews == null) {
             items[position].productID?.let {
-                reviewsLoaderListener.invoke(
+                productItemListener.fetchReviews(
                     it,
                     object : CallbackListener<ArrayList<ProductReviewsResponseModel>>() {
                         override fun onAPICallFinished(data: ArrayList<ProductReviewsResponseModel>) {
@@ -70,21 +66,21 @@ class ShopGreenBestSellersAdapter :
             holder.updateReviews(items[position].reviews ?: arrayListOf())
         }
 
-        holder.bind(items[position], itemClickListener)
+        holder.bind(items[position])
     }
 
-    inner class HomeBestSellersViewHolder(private val itemBinding: ItemBestSellersBinding) :
+    class HomeBestSellersViewHolder(
+        private val itemBinding: ItemBestSellersBinding,
+        private val productItemListener: ProductItemListener
+    ) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         lateinit var item: ProductResponseModel
-        fun bind(
-            item: ProductResponseModel,
-            itemClickListener: (product: ProductResponseModel) -> Unit
-        ) {
+        fun bind(item: ProductResponseModel) {
 
             this.item = item
             itemBinding.root.setOnClickListener {
-                itemClickListener.invoke(item)
+                productItemListener.onItemClicked(item)
             }
 
             if (item.stock?.available!! > 0) {
@@ -145,7 +141,7 @@ class ShopGreenBestSellersAdapter :
 
         private fun updateReviewListener() {
             itemBinding.clRatingContainer.setOnClickListener {
-                reviewClickListener.invoke(item.productID!!, item.reviews ?: arrayListOf())
+                productItemListener.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
             }
         }
     }

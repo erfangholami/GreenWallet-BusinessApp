@@ -9,16 +9,11 @@ import com.bumptech.glide.Glide
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ItemRedeemOptionsBinding
 import com.greenwallet.business.helper.ui.ImageLoaderListener
-import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.scenes.base.ProductItemListener
 
-class ShopGreenRedeemOptionsAdapter :
+class ShopGreenRedeemOptionsAdapter(private val productItemListener: ProductItemListener) :
     RecyclerView.Adapter<ShopGreenRedeemOptionsAdapter.RedeemOptionsViewHolder>() {
-
-    lateinit var reviewsLoaderListener: (id: String, listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>) -> (Unit)
-    lateinit var itemClickListener: (product: ProductResponseModel) -> (Unit)
-    lateinit var imageLoaderListener: (id: String, listener: ImageLoaderListener, sizes: Pair<Int, Int>) -> (Unit)
 
     var items: ArrayList<ProductResponseModel> = arrayListOf()
         set(value) {
@@ -33,7 +28,7 @@ class ShopGreenRedeemOptionsAdapter :
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItemRedeemOptionsBinding.inflate(layoutInflater, parent, false)
 
-        return RedeemOptionsViewHolder(itemBinding)
+        return RedeemOptionsViewHolder(itemBinding, productItemListener)
     }
 
     override fun getItemCount(): Int = items.size
@@ -43,24 +38,24 @@ class ShopGreenRedeemOptionsAdapter :
         if (!items[position].defaultFileUrl.isNullOrEmpty()) {
             holder.loadImageUrl(items[position].defaultFileUrl!!)
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            imageLoaderListener.invoke(items[position].defaultFileID!!, object : ImageLoaderListener {
+            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
                 override fun onFetchFinished(image: Bitmap?) {
                     holder.setImage(image)
                 }
             }, holder.getImageViewSizes())
         }
 
-        holder.bind(items[position], itemClickListener)
+        holder.bind(items[position])
     }
 
-    inner class RedeemOptionsViewHolder(private val itemBinding: ItemRedeemOptionsBinding) :
+    class RedeemOptionsViewHolder(
+        private val itemBinding: ItemRedeemOptionsBinding,
+        private val productItemListener: ProductItemListener
+    ) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(
-            item: ProductResponseModel,
-            itemClickListener: (product: ProductResponseModel) -> Unit
-        ) {
+        fun bind(item: ProductResponseModel) {
             itemBinding.root.setOnClickListener {
-                itemClickListener.invoke(item)
+                productItemListener.onItemClicked(item)
             }
 
             if (item.stock?.available!! > 0) {

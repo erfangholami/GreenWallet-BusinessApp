@@ -19,15 +19,18 @@ import com.greenwallet.business.databinding.FragmentRedeemBinding
 import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.helper.kotlin.hideKeyboard
 import com.greenwallet.business.helper.ui.ImageLoaderListener
+import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter.Companion.ITEM_VIEW_TYPE_EMPTY
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter.Companion.ITEM_VIEW_TYPE_LOADING
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter.Companion.ITEM_VIEW_TYPE_PRODUCT
 import com.greenwallet.business.scenes.base.LoadMoreCallBack
+import com.greenwallet.business.scenes.base.ProductItemListener
 import kotlin.math.abs
 
-class RedeemFragment : Fragment(), RedeemView {
+class RedeemFragment : Fragment(), RedeemView, ProductItemListener {
 
     companion object {
         const val SPAN_COUNT = 2
@@ -156,24 +159,7 @@ class RedeemFragment : Fragment(), RedeemView {
         binding.rvRedeem.layoutManager = layoutManager
 
         binding.rvRedeem.adapter =
-            RedeemAdapter().apply {
-
-                listener = object : RedeemItemListener {
-                    override fun onLoadImage(
-                        id: String,
-                        listener: ImageLoaderListener,
-                        sizes: Pair<Int, Int>
-                    ) {
-                        presenter.fetchImage(id, listener, sizes)
-                    }
-
-                    override fun onItemClicked(
-                        product: ProductResponseModel
-                    ) {
-                        presenter.onProductClicked(product)
-                    }
-                }
-            }
+            RedeemAdapter(this )
 
         presenter.setLoadCallBack(object :
             LoadMoreCallBack<ProductResponseModel, BaseRecyclerViewAdapter.Mode> {
@@ -235,6 +221,28 @@ class RedeemFragment : Fragment(), RedeemView {
             presenter.onLoadMore()
         }
     }
+
+    override fun onItemClicked(product: ProductResponseModel) {
+        presenter.onProductClicked(product)
+    }
+
+    override fun onItemReviewClicked(
+        productID: String,
+        reviews: java.util.ArrayList<ProductReviewsResponseModel>
+    ) {}
+
+    override fun fetchImage(
+        id: String,
+        listener: ImageLoaderListener,
+        sizes: Pair<Int, Int>
+    ) {
+        presenter.fetchImage(id, listener, sizes)
+    }
+
+    override fun fetchReviews(
+        id: String,
+        listener: CallbackListener<java.util.ArrayList<ProductReviewsResponseModel>>
+    ) {}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

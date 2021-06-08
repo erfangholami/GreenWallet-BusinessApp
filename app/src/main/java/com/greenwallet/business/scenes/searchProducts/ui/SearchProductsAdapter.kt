@@ -15,11 +15,12 @@ import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.*
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter
+import com.greenwallet.business.scenes.base.ProductItemListener
 import java.util.*
 
 class SearchProductsAdapter(
     private val adapterMode: AdapterMode,
-    private val callBack: CallBack?
+    private val productItemListener: ProductItemListener
 ) : BaseRecyclerViewAdapter<ProductResponseModel>() {
 
     override fun onCreateViewHolder2(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -28,12 +29,12 @@ class SearchProductsAdapter(
             AdapterMode.LIST -> {
                 val itemBinding =
                     ItemSearchProductsListBinding.inflate(layoutInflater, parent, false)
-                SearchProductsListViewHolder(itemBinding)
+                SearchProductsListViewHolder(itemBinding, productItemListener)
             }
             AdapterMode.GRID -> {
                 val itemBinding =
                     ItemSearchProductsGridBinding.inflate(layoutInflater, parent, false)
-                SearchProductsViewHolder(itemBinding)
+                SearchProductsViewHolder(itemBinding, productItemListener)
             }
         }
     }
@@ -58,7 +59,7 @@ class SearchProductsAdapter(
                 is SearchProductsListViewHolder -> holder.loadImageUrl(items[position].defaultFileUrl!!)
             }
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            callBack?.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
+            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
                 override fun onFetchFinished(image: Bitmap?) {
                     when (holder) {
                         is SearchProductsViewHolder -> holder.setImage(image)
@@ -70,7 +71,7 @@ class SearchProductsAdapter(
 
         if (item.reviews == null) {
             item.productID?.let {
-                callBack?.fetchReviews(
+                productItemListener.fetchReviews(
                     it,
                     object : CallbackListener<ArrayList<ProductReviewsResponseModel>>() {
                         override fun onAPICallFinished(data: ArrayList<ProductReviewsResponseModel>) {
@@ -101,7 +102,10 @@ class SearchProductsAdapter(
         }
     }
 
-    inner class SearchProductsViewHolder(private val itemBinding: ItemSearchProductsGridBinding) :
+    class SearchProductsViewHolder(
+        private val itemBinding: ItemSearchProductsGridBinding,
+        private val productItemListener: ProductItemListener
+    ) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         lateinit var item: ProductResponseModel
@@ -115,7 +119,7 @@ class SearchProductsAdapter(
                 itemBinding.tvOutOfStock.visibility = VISIBLE
             }
 
-            itemBinding.content.setOnClickListener { callBack?.onItemClicked(item) }
+            itemBinding.content.setOnClickListener { productItemListener.onItemClicked(item) }
 
             updateReviewListener()
 
@@ -193,12 +197,15 @@ class SearchProductsAdapter(
 
         private fun updateReviewListener() {
             itemBinding.clRatingContainer.setOnClickListener {
-                callBack?.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
+                productItemListener.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
             }
         }
     }
 
-    inner class SearchProductsListViewHolder(private val itemBinding: ItemSearchProductsListBinding) :
+    class SearchProductsListViewHolder(
+        private val itemBinding: ItemSearchProductsListBinding,
+        private val productItemListener: ProductItemListener
+    ) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         lateinit var item: ProductResponseModel
@@ -212,7 +219,7 @@ class SearchProductsAdapter(
                 itemBinding.tvOutOfStock.visibility = VISIBLE
             }
 
-            itemBinding.content.setOnClickListener { callBack?.onItemClicked(item) }
+            itemBinding.content.setOnClickListener { productItemListener.onItemClicked(item) }
 
             updateReviewListener()
 
@@ -272,7 +279,7 @@ class SearchProductsAdapter(
 
         private fun updateReviewListener() {
             itemBinding.clRatingContainer.setOnClickListener {
-                callBack?.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
+                productItemListener.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
             }
         }
 
@@ -292,19 +299,6 @@ class SearchProductsAdapter(
 
             updateReviewListener()
         }
-    }
-
-    interface CallBack {
-        fun onItemClicked(product: ProductResponseModel)
-
-        fun onItemReviewClicked(productID: String, reviews: ArrayList<ProductReviewsResponseModel>)
-
-        fun fetchImage(id: String, listener: ImageLoaderListener, sizes: Pair<Int, Int>)
-
-        fun fetchReviews(
-            id: String,
-            listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
-        )
     }
 }
 

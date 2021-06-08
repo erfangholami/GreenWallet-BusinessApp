@@ -25,12 +25,13 @@ import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter
 import com.greenwallet.business.scenes.base.LoadMoreCallBack
+import com.greenwallet.business.scenes.base.ProductItemListener
 import com.greenwallet.business.scenes.searchProducts.SearchProductsPresenter
 import kotlin.math.abs
 
 private const val SPAN_COUNT = 2
 
-class SearchProductsFragment : Fragment(), SearchProductsView, SearchProductsAdapter.CallBack {
+class SearchProductsFragment : Fragment(), SearchProductsView, ProductItemListener {
 
     companion object {
         const val VISIBLE_THRESHOLD = 4
