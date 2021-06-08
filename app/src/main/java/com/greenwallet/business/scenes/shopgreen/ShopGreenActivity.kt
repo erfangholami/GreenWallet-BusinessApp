@@ -1,12 +1,14 @@
 package com.greenwallet.business.scenes.shopgreen
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.redeem.RedeemActivity
 import com.greenwallet.business.scenes.searchProducts.SearchProductActivity
 import com.greenwallet.business.scenes.searchProducts.SearchProductsPresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenFragment
@@ -94,8 +96,9 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
     }
 
     override fun showRedeemListScreen() {
-        //todo: after creating redeem page
-//        SearchProductActivity.start(this, SearchProductsPresenter.Mode.HOT_DEALS)
+        val intent = Intent(this, RedeemActivity::class.java)
+
+        startActivity(intent)
     }
 
     override fun showBestSellerListScreen() {

@@ -23,5 +23,6 @@
     <string name="explanation_oh_no">Oh no!</string>
     <string name="seems_no_products_found">There seems to be no products found.</string>
     <string name="label_off">%1$d%% off</string>
+    <string name="title_redeem">Redeem</string>
 
 </resources>
