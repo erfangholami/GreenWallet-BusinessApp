@@ -22,8 +22,36 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
         return RetrofitNetworkCall(api.login(requestModel))
     }
 
+    override fun search(
+        query: String,
+        offset: Int,
+        size: Int
+    ): IRestApi.NetworkCall<Array<ProductResponseModel>> {
+        return RetrofitNetworkCall(
+            api.search(
+                offset = offset.toString(),
+                size = size.toString(),
+                query = query
+            )
+        )
+    }
+
     override fun categories(merchantId: String): IRestApi.NetworkCall<Array<CategoriesResponseModel>> {
         return RetrofitNetworkCall(api.categories(merchantId))
+    }
+
+    override fun productsByCategory(
+        categoryName: String,
+        offset: Int,
+        size: Int
+    ): IRestApi.NetworkCall<Array<ProductResponseModel>> {
+        return RetrofitNetworkCall(
+            api.productsByCategory(
+                offset = offset.toString(),
+                size = size.toString(),
+                categoryName = categoryName
+            )
+        )
     }
 
     override fun productsHotDeals(

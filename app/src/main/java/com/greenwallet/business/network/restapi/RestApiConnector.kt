@@ -14,8 +14,28 @@ interface RestApiConnector {
     @POST("login")
     fun login(@Body requestModel: LoginRequestModel): Call<LoginResponseModel>
 
+    @GET("merchant/search/products")
+    fun search(
+        @Query("name") name: String = "name",
+        @Query("query") query: String,
+        @Query("type") type: String = "ILIKE",
+        @Query("offset") offset: String,
+        @Query("size") size: String,
+        @Query("is_published") isPublished: Boolean = false
+    ): Call<Array<ProductResponseModel>>
+
     @GET("merchant/search/products/categories")
     fun categories(@Query("merchant_id") merchantId: String): Call<Array<CategoriesResponseModel>>
+
+    @GET("merchant/search/products")
+    fun productsByCategory(
+        @Query("name") name: String = "category",
+        @Query("query") categoryName: String,
+        @Query("type") type: String = "ILIKE",
+        @Query("offset") offset: String,
+        @Query("size") size: String,
+        @Query("is_published") isPublished: Boolean = false
+    ): Call<Array<ProductResponseModel>>
 
     @GET("merchant/search/products")
     fun productsHotDeals(

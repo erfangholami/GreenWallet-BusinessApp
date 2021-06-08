@@ -12,6 +12,68 @@ import com.greenwallet.business.network.product.response.ProductResponseModel
 open class ProductInteractor(private var api : IRestApi?) :
     IProductInteractor {
 
+    override fun search(
+        query: String,
+        offset: Int,
+        size: Int,
+        listener: Subscriber<ProductResponse>
+    ): Disposable? {
+        return api?.search(query, offset, size)
+            ?.execute(object : RequestSubscriber<Array<ProductResponseModel>>() {
+                override fun onSuccess(response: Array<ProductResponseModel>) {
+                    val result =
+                        ProductResponse(ProductResponse.Result.SUCCESS)
+
+                    result.products = response
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onSuccess")
+                }
+
+                override fun onExpectedError(response: String) {
+                    val result =
+                        ProductResponse(ProductResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onExpectedError")
+                }
+
+                override fun onServerError() {
+                    listener.onRequestSuccess(
+                        ProductResponse(
+                            ProductResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
+
+                    Log.e("Request", "onServerError")
+                }
+
+                override fun onUnprocessableEntity() {
+                    val result =
+                        ProductResponse(ProductResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onUnprocessableEntity")
+                }
+
+                override fun onUnauthorizedError() {
+                    listener.onUserUnauthorized()
+
+                    Log.e("Request", "onUnauthorizedError")
+                }
+
+                override fun onUnexpectedError(t: Throwable) {
+                    listener.onRequestFailure(t)
+
+                    Log.e("Request", "onUnexpectedError")
+                }
+            })
+    }
+
     override fun categories(
         merchantId: String,
         listener: Subscriber<CategoriesResponse>
@@ -52,6 +114,68 @@ open class ProductInteractor(private var api : IRestApi?) :
                     listener.onRequestSuccess(result)
 
                     Log.e("Request", "onExpectedError")
+                }
+
+                override fun onUnexpectedError(t: Throwable) {
+                    listener.onRequestFailure(t)
+
+                    Log.e("Request", "onUnexpectedError")
+                }
+            })
+    }
+
+    override fun productsByCategory(
+        categoryName: String,
+        offset: Int,
+        size: Int,
+        listener: Subscriber<ProductResponse>
+    ): Disposable? {
+        return api?.productsByCategory(categoryName, offset, size)
+            ?.execute(object : RequestSubscriber<Array<ProductResponseModel>>() {
+                override fun onSuccess(response: Array<ProductResponseModel>) {
+                    val result =
+                        ProductResponse(ProductResponse.Result.SUCCESS)
+
+                    result.products = response
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onSuccess")
+                }
+
+                override fun onExpectedError(response: String) {
+                    val result =
+                        ProductResponse(ProductResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onExpectedError")
+                }
+
+                override fun onServerError() {
+                    listener.onRequestSuccess(
+                        ProductResponse(
+                            ProductResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
+
+                    Log.e("Request", "onServerError")
+                }
+
+                override fun onUnprocessableEntity() {
+                    val result =
+                        ProductResponse(ProductResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onUnprocessableEntity")
+                }
+
+                override fun onUnauthorizedError() {
+                    listener.onUserUnauthorized()
+
+                    Log.e("Request", "onUnauthorizedError")
                 }
 
                 override fun onUnexpectedError(t: Throwable) {

@@ -13,7 +13,19 @@ interface IRestApi {
 
     fun login(requestModel: LoginRequestModel): NetworkCall<LoginResponseModel>
 
+    fun search(
+        query: String,
+        offset: Int,
+        size: Int,
+    ): NetworkCall<Array<ProductResponseModel>>
+
     fun categories(merchantId: String): NetworkCall<Array<CategoriesResponseModel>>
+
+    fun productsByCategory(
+        categoryName: String,
+        offset: Int,
+        size: Int,
+    ): NetworkCall<Array<ProductResponseModel>>
 
     fun productsHotDeals(
         merchantId: String,
