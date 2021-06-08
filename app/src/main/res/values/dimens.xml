@@ -50,4 +50,6 @@
     <dimen name="view_pager_min_height">136dp</dimen>
     <dimen name="view_card_image_width">220dp</dimen>
     <dimen name="view_card_image_height">122dp</dimen>
+    <dimen name="view_icon_default_size">36dp</dimen>
+    <dimen name="view_card_image_small">95dp</dimen>
 </resources>

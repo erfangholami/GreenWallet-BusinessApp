@@ -32,6 +32,8 @@ interface ShopGreenView {
             listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
         )
 
+        fun onSearchTextChanged(searchQuery: String)
+
         fun onProductClicked(productModel: ProductResponseModel)
 
         fun getBestSellerItems(): ArrayList<ProductResponseModel>

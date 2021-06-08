@@ -262,8 +262,12 @@ class ShopGreenPresenter(context: Context) :
 //        TODO("Not yet implemented")
     }
 
+    override fun onSearchTextChanged(searchQuery: String) {
+        activityHandler?.showSearchProductsScreen(searchQuery)
+    }
+
     override fun onCategoryItemClicked(categoryName: String) {
-//        TODO("Not yet implemented")
+        activityHandler?.showCategoryProductListScreen(categoryName)
     }
 
     override fun onCartListClicked() {
@@ -271,11 +275,11 @@ class ShopGreenPresenter(context: Context) :
     }
 
     override fun onShowAllRedeemOptionsClicked() {
-//        TODO("Not yet implemented")
+        activityHandler?.showRedeemListScreen()
     }
 
     override fun onShowAllBestSellersClicked() {
-//        TODO("Not yet implemented")
+        activityHandler?.showBestSellerListScreen()
     }
 
     override fun onProductClicked(productModel: ProductResponseModel) {

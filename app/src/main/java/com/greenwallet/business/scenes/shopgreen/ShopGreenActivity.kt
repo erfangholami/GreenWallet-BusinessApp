@@ -7,6 +7,8 @@ import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.searchProducts.SearchProductActivity
+import com.greenwallet.business.scenes.searchProducts.SearchProductsPresenter
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenFragment
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 
@@ -77,6 +79,27 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
             }
             .setCancelable(false)
             .show()
+    }
+
+    override fun showSearchProductsScreen(searchQuery: String) {
+        SearchProductActivity.start(
+            this,
+            SearchProductsPresenter.Mode.DISCOVER,
+            searchQuery = searchQuery
+        )
+    }
+
+    override fun showCategoryProductListScreen(categoryName: String) {
+        SearchProductActivity.start(this, SearchProductsPresenter.Mode.CATEGORY, categoryName)
+    }
+
+    override fun showRedeemListScreen() {
+        //todo: after creating redeem page
+//        SearchProductActivity.start(this, SearchProductsPresenter.Mode.HOT_DEALS)
+    }
+
+    override fun showBestSellerListScreen() {
+        SearchProductActivity.start(this, SearchProductsPresenter.Mode.BEST_SELLERS)
     }
 
     override fun onBackPressed() {

@@ -9,4 +9,12 @@ interface ShopGreenProcessHandler: BaseProcessHandler {
     fun showLoadingScreen()
 
     fun showErrorMessage()
+
+    fun showSearchProductsScreen(searchQuery: String)
+
+    fun showCategoryProductListScreen(categoryName: String)
+
+    fun showRedeemListScreen()
+
+    fun showBestSellerListScreen()
 }

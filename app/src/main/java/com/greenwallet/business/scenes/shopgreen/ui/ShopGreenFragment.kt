@@ -128,7 +128,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 hideKeyboard()
                 //todo
-//                presenter.onSearchTextChanged(textView.text.toString())
+                presenter.onSearchTextChanged(textView.text.toString())
                 return@OnEditorActionListener true
             }
             false

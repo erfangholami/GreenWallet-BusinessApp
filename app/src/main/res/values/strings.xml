@@ -20,5 +20,8 @@
     <string name="title_onboarding_first">Green deals &amp;\nproducts at your\nfingertips</string>
     <string name="title_onboarding_second">Earn Green Coins &amp;\nget rewarded with\nevery purchase</string>
     <string name="title_onboarding_third">Plant a tree with\nevery purchase you\nmake</string>
+    <string name="explanation_oh_no">Oh no!</string>
+    <string name="seems_no_products_found">There seems to be no products found.</string>
+    <string name="label_off">%1$d%% off</string>
 
 </resources>

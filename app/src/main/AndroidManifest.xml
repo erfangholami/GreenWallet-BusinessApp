@@ -2,35 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.greenwallet.business">
 
-    <compatible-screens>
-        <!-- all small size screens -->
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="small" />
-        <screen
-            android:screenDensity="mdpi"
-            android:screenSize="small" />
-        <screen
-            android:screenDensity="hdpi"
-            android:screenSize="small" />
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="small" />
-        <!-- all normal size screens -->
-        <screen
-            android:screenDensity="ldpi"
-            android:screenSize="normal" />
-        <screen
-            android:screenDensity="mdpi"
-            android:screenSize="normal" />
-        <screen
-            android:screenDensity="hdpi"
-            android:screenSize="normal" />
-        <screen
-            android:screenDensity="xhdpi"
-            android:screenSize="normal" />
-    </compatible-screens>
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -49,9 +20,14 @@
         </activity>
 
         <activity
-            android:name=".scenes.login.LoginActivity" />
+            android:name=".scenes.login.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity
-            android:name=".scenes.shopgreen.ShopGreenActivity" />
+            android:name=".scenes.shopgreen.ShopGreenActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".scenes.searchProducts.SearchProductActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
