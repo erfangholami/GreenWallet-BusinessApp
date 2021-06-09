@@ -1,13 +1,9 @@
 package com.greenwallet.business.network.product
 
 import android.util.Log
-import com.greenwallet.business.network.Disposable
-import com.greenwallet.business.network.RequestSubscriber
-import com.greenwallet.business.network.ResponseError
-import com.greenwallet.business.network.Subscriber
-import com.greenwallet.business.network.product.response.CategoriesResponseModel
+import com.greenwallet.business.network.*
+import com.greenwallet.business.network.product.response.*
 import com.greenwallet.business.network.restapi.IRestApi
-import com.greenwallet.business.network.product.response.ProductResponseModel
 
 open class ProductInteractor(private var api : IRestApi?) :
     IProductInteractor {
@@ -309,4 +305,202 @@ open class ProductInteractor(private var api : IRestApi?) :
                 }
             })
     }
+
+    override fun shipments(
+        merchantId: String,
+        productId: String,
+        listener: Subscriber<ProductShipmentsResponse>
+    ): Disposable? {
+        return api?.productShipments(merchantId = merchantId, productId = productId)
+            ?.execute(object : RequestSubscriber<Array<ProductShipmentsResponseModel>>() {
+                override fun onUnprocessableEntity() {
+                    val result =
+                        ProductShipmentsResponse(ProductShipmentsResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onUnprocessableEntity")
+                }
+
+                override fun onSuccess(response: Array<ProductShipmentsResponseModel>) {
+                    val result =
+                        ProductShipmentsResponse(ProductShipmentsResponse.Result.SUCCESS)
+
+                    result.shipments = response
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onSuccess")
+                }
+
+                override fun onUnauthorizedError() {
+                    listener.onUserUnauthorized()
+
+                    Log.e("Request", "onUnauthorizedError")
+                }
+
+                override fun onServerError() {
+                    listener.onRequestSuccess(
+                        ProductShipmentsResponse(
+                            ProductShipmentsResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
+
+                    Log.e("Request", "onServerError")
+                }
+
+                override fun onExpectedError(response: String) {
+                    val result =
+                        ProductShipmentsResponse(ProductShipmentsResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onExpectedError")
+                }
+
+                override fun onUnexpectedError(t: Throwable) {
+                    listener.onRequestFailure(t)
+
+                    Log.e("Request", "onUnexpectedError")
+                }
+            })
+    }
+
+    override fun variants(
+        merchantId: String,
+        productId: String,
+        listener: Subscriber<ProductVariantsResponse>
+    ): Disposable? {
+        return api?.productVariants(merchantId = merchantId, productId = productId)
+            ?.execute(object : RequestSubscriber<Array<ProductVariantsResponseModel>>() {
+                override fun onUnprocessableEntity() {
+                    val result =
+                        ProductVariantsResponse(ProductVariantsResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onUnprocessableEntity")
+                }
+
+                override fun onSuccess(response: Array<ProductVariantsResponseModel>) {
+                    val result =
+                        ProductVariantsResponse(ProductVariantsResponse.Result.SUCCESS)
+
+                    result.variants = response
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onSuccess")
+                }
+
+                override fun onUnauthorizedError() {
+                    listener.onUserUnauthorized()
+
+                    Log.e("Request", "onUnauthorizedError")
+                }
+
+                override fun onServerError() {
+                    listener.onRequestSuccess(
+                        ProductVariantsResponse(
+                            ProductVariantsResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
+
+                    Log.e("Request", "onServerError")
+                }
+
+                override fun onExpectedError(response: String) {
+                    if (response == NetworkException.REASON_404) {
+                        val result =
+                            ProductVariantsResponse(ProductVariantsResponse.Result.SUCCESS)
+
+                        result.variants = arrayOf()
+
+                        listener.onRequestSuccess(result)
+                    } else {
+                        val result =
+                            ProductVariantsResponse(ProductVariantsResponse.Result.ERROR)
+
+                        listener.onRequestSuccess(result)
+                    }
+
+                    Log.e("Request", "onExpectedError")
+                }
+
+                override fun onUnexpectedError(t: Throwable) {
+                    listener.onRequestFailure(t)
+
+                    Log.e("Request", "onUnexpectedError")
+                }
+            })
+    }
+
+    override fun variations(
+        merchantId: String,
+        productId: String,
+        variations: Array<Pair<String, String>>,
+        listener: Subscriber<ProductVariationsResponse>
+    ): Disposable? {
+        return api?.productVariations(
+            merchantId = merchantId,
+            productId = productId,
+            variations = variations
+        )
+            ?.execute(object : RequestSubscriber<Array<ProductVariationsResponseModel>>() {
+                override fun onUnprocessableEntity() {
+                    val result =
+                        ProductVariationsResponse(ProductVariationsResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onUnprocessableEntity")
+                }
+
+                override fun onSuccess(response: Array<ProductVariationsResponseModel>) {
+                    val result =
+                        ProductVariationsResponse(ProductVariationsResponse.Result.SUCCESS)
+
+                    result.variations = response
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onSuccess")
+                }
+
+                override fun onUnauthorizedError() {
+                    listener.onUserUnauthorized()
+
+                    Log.e("Request", "onUnauthorizedError")
+                }
+
+                override fun onServerError() {
+                    listener.onRequestSuccess(
+                        ProductVariationsResponse(
+                            ProductVariationsResponse.Result.ERROR,
+                            ResponseError.ERROR_SERVER_500
+                        )
+                    )
+
+                    Log.e("Request", "onServerError")
+                }
+
+                override fun onExpectedError(response: String) {
+                    val result =
+                        ProductVariationsResponse(ProductVariationsResponse.Result.ERROR)
+
+                    listener.onRequestSuccess(result)
+
+                    Log.e("Request", "onExpectedError")
+                }
+
+                override fun onUnexpectedError(t: Throwable) {
+                    listener.onRequestFailure(t)
+
+                    Log.e("Request", "onUnexpectedError")
+                }
+            })
+    }
+
 }

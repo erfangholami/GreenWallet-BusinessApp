@@ -2,9 +2,8 @@ package com.greenwallet.business.network.restapi
 
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.login.request.LoginRequestModel
-import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
-import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.product.response.*
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -66,4 +65,24 @@ interface RestApiConnector {
 
     @GET("reviews/{productId}")
     fun productReviews(@Path("productId") productId: String): Call<Array<ProductReviewsResponseModel>>
+
+    @GET("merchant/{merchantId}/product/{productId}/shipment")
+    fun productShipments(
+        @Path("merchantId") merchantId: String,
+        @Path("productId") productId: String
+    ): Call<Array<ProductShipmentsResponseModel>>
+
+    @GET("merchant/{merchantId}/product/{productId}/variant")
+    fun productVariants(
+        @Path("merchantId") merchantId: String,
+        @Path("productId") productId: String
+    ): Call<Array<ProductVariantsResponseModel>>
+
+    @GET("merchant/{merchantId}/product/{productId}/variation")
+    fun productVariations(
+        @Path("merchantId") merchantId: String,
+        @Path("productId") productId: String,
+        @Query("variant_ids") variantIds: Array<String>,
+        @Query("variants") variants: Array<String>,
+    ): Call<Array<ProductVariationsResponseModel>>
 }

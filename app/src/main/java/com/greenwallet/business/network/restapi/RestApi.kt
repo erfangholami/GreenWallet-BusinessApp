@@ -7,9 +7,8 @@ import com.greenwallet.business.network.NetworkException
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.login.request.LoginRequestModel
-import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
-import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.product.response.*
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -93,6 +92,53 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
 
     override fun productReviews(productId: String): IRestApi.NetworkCall<Array<ProductReviewsResponseModel>> {
         return RetrofitNetworkCall(api.productReviews(productId = productId))
+    }
+
+    override fun productShipments(
+        merchantId: String,
+        productId: String
+    ): IRestApi.NetworkCall<Array<ProductShipmentsResponseModel>> {
+        return RetrofitNetworkCall(
+            api.productShipments(
+                merchantId = merchantId,
+                productId = productId
+            )
+        )
+    }
+
+    override fun productVariants(
+        merchantId: String,
+        productId: String
+    ): IRestApi.NetworkCall<Array<ProductVariantsResponseModel>> {
+        return RetrofitNetworkCall(
+            api.productVariants(
+                merchantId = merchantId,
+                productId = productId
+            )
+        )
+    }
+
+    override fun productVariations(
+        merchantId: String,
+        productId: String,
+        variations: Array<Pair<String, String>>
+    ): IRestApi.NetworkCall<Array<ProductVariationsResponseModel>> {
+        var variantIds = emptyArray<String>()
+        var variants = emptyArray<String>()
+
+        for (variation in variations) {
+            variantIds += variation.first
+            variants += variation.second
+        }
+
+        return RetrofitNetworkCall(
+            api.productVariations(
+                merchantId = merchantId,
+                productId = productId,
+                variantIds = variantIds,
+                variants = variants
+            )
+        )
     }
 
     private val gson = GsonBuilder().create()
