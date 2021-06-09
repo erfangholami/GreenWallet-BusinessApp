@@ -8,7 +8,7 @@ import com.greenwallet.business.network.InteractorFactory
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.product.ProductResponse
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.network.product.response.isHotDeal
 import com.greenwallet.business.network.product.response.isMatchedWithCategory
 import com.greenwallet.business.scenes.base.BasePresenter

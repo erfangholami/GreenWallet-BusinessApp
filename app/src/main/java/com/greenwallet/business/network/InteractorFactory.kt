@@ -8,6 +8,9 @@ import com.greenwallet.business.network.files.FilesInteractor
 import com.greenwallet.business.network.files.IFilesInteractor
 import com.greenwallet.business.network.login.ILoginInteractor
 import com.greenwallet.business.network.login.LoginInteractor
+import com.greenwallet.business.network.productReviews.IProductReviewInteractor
+import com.greenwallet.business.network.productReviews.ProductReviewInteractor
+import okhttp3.logging.HttpLoggingInterceptor
 
 class InteractorFactory(val context: Context) : IInteractorFactory {
 
@@ -29,5 +32,9 @@ class InteractorFactory(val context: Context) : IInteractorFactory {
 
     override fun createFilesInteractor(): IFilesInteractor {
         return FilesInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
+    }
+
+    override fun createProductReviewInteractor(): IProductReviewInteractor {
+        return ProductReviewInteractor(RetrofitFactory.getInstance().getUnauthenticatedApi())
     }
 }

@@ -13,7 +13,7 @@ import com.greenwallet.business.network.product.CategoriesResponse
 import com.greenwallet.business.network.product.ProductResponse
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.HomeOnboardingItem
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView

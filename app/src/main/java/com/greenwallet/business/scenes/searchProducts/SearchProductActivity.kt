@@ -6,7 +6,7 @@ import android.os.Bundle
 import com.greenwallet.business.databinding.ActivitySearchProductsBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
 
 import com.greenwallet.business.scenes.searchProducts.ui.SearchProductsFragment

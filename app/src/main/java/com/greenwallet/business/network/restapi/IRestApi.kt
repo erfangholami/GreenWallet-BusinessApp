@@ -7,6 +7,7 @@ import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import okhttp3.ResponseBody
 
 interface IRestApi {
@@ -42,6 +43,8 @@ interface IRestApi {
     fun campaigns(): NetworkCall<Array<CampaignsResponseModel>>
 
     fun file(id: String): NetworkCall<ResponseBody>
+
+    fun productReviews(productId: String): NetworkCall<Array<ProductReviewsResponseModel>>
 
     interface NetworkCall<T> {
         fun execute(s: Subscriber<T>): Disposable

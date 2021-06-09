@@ -1,4 +1,4 @@
-package com.greenwallet.business.network.product.response
+package com.greenwallet.business.network.productReviews.response
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable

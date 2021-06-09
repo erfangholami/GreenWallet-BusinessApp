@@ -3,7 +3,7 @@ package com.greenwallet.business.scenes.base
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import java.util.ArrayList
 
 interface ProductItemListener {

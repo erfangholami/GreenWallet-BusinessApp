@@ -5,6 +5,7 @@ import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -62,4 +63,7 @@ interface RestApiConnector {
 
     @GET("file/{fileId}")
     fun file(@Path("fileId") fileId: String): Call<ResponseBody>
+
+    @GET("reviews/{productId}")
+    fun productReviews(@Path("productId") productId: String): Call<Array<ProductReviewsResponseModel>>
 }

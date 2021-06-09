@@ -1,7 +1,7 @@
 package com.greenwallet.business.scenes.searchProducts
 
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.product.response.ProductReviewsResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseProcessHandler
 
 interface SearchProductsProcessHandler : BaseProcessHandler {

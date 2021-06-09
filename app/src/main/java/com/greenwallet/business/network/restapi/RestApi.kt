@@ -10,6 +10,7 @@ import com.greenwallet.business.network.login.request.LoginRequestModel
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.login.response.LoginResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -88,6 +89,10 @@ class RestApi(private val api: RestApiConnector) : IRestApi {
 
     override fun file(id: String): IRestApi.NetworkCall<ResponseBody> {
         return RetrofitNetworkCall(api.file(id))
+    }
+
+    override fun productReviews(productId: String): IRestApi.NetworkCall<Array<ProductReviewsResponseModel>> {
+        return RetrofitNetworkCall(api.productReviews(productId = productId))
     }
 
     private val gson = GsonBuilder().create()
