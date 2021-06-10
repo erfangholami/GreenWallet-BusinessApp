@@ -31,7 +31,12 @@ interface RedeemView {
 
         fun onLoadMore()
 
-        fun fetchImage(fileId: String, loaderListener: ImageLoaderListener, sizes: Pair<Int, Int>)
+        fun fetchImage(
+            fileId: String,
+            loaderListener: ImageLoaderListener,
+            sizes: Pair<Int, Int>?,
+            reduceQuality: Boolean
+        )
 
         fun getHotDealItems(): ArrayList<ProductResponseModel?>
 

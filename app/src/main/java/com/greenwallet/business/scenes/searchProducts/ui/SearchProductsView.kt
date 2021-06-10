@@ -27,7 +27,12 @@ interface SearchProductsView {
 
         fun getLastInsertedList(): ArrayList<ProductResponseModel>
 
-        fun fetchImage(fileId: String, loaderListener: ImageLoaderListener, sizes: Pair<Int, Int>)
+        fun fetchImage(
+            fileId: String,
+            loaderListener: ImageLoaderListener,
+            sizes: Pair<Int, Int>?,
+            reduceQuality: Boolean
+        )
 
         fun onSearchTextChanged(query: String)
 

@@ -236,7 +236,7 @@ class RedeemFragment : Fragment(), RedeemView, ProductItemListener {
         listener: ImageLoaderListener,
         sizes: Pair<Int, Int>
     ) {
-        presenter.fetchImage(id, listener, sizes)
+        presenter.fetchImage(id, listener, sizes, true)
     }
 
     override fun fetchReviews(

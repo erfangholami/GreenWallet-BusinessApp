@@ -194,7 +194,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
             }
 
             imageLoaderListener = { id, listener, sizes ->
-                presenter.fetchImage(id, listener, sizes)
+                presenter.fetchImage(id, listener, sizes, true)
             }
         }
 
@@ -252,7 +252,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
         listener: ImageLoaderListener,
         sizes: Pair<Int, Int>
     ) {
-        presenter.fetchImage(id, listener, sizes)
+        presenter.fetchImage(id, listener, sizes, true)
     }
 
     override fun fetchReviews(

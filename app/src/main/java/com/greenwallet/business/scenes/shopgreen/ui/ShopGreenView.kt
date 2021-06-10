@@ -25,7 +25,12 @@ interface ShopGreenView {
 
         fun onShowAllRedeemOptionsClicked()
 
-        fun fetchImage(id: String, listener: ImageLoaderListener, sizes: Pair<Int, Int>)
+        fun fetchImage(
+            fileId: String,
+            loaderListener: ImageLoaderListener,
+            sizes: Pair<Int, Int>?,
+            reduceQuality: Boolean
+        )
 
         fun fetchReviews(
             id: String,

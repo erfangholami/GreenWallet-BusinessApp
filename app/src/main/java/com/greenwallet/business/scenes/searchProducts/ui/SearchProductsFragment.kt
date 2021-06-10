@@ -317,7 +317,7 @@ class SearchProductsFragment : Fragment(), SearchProductsView, ProductItemListen
     }
 
     override fun fetchImage(id: String, listener: ImageLoaderListener, sizes: Pair<Int, Int>) {
-        presenter.fetchImage(id, listener, sizes)
+        presenter.fetchImage(id, listener, sizes, true)
     }
 
     override fun fetchReviews(
