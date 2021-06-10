@@ -24,5 +24,21 @@
     <string name="seems_no_products_found">There seems to be no products found.</string>
     <string name="label_off">%1$d%% off</string>
     <string name="title_redeem">Redeem</string>
+    <string name="label_created_by">by %1$s</string>
+    <string name="label_about_this_item">About This Item</string>
+    <string name="label_show_more">Show more</string>
+    <string name="label_available_colours">AVAILABLE COLOURS</string>
+    <string name="label_available_sizes">AVAILABLE SIZES (UK)</string>
+    <string name="label_find_size">Find my size</string>
+    <string name="label_variation">VARIATION</string>
+    <string name="label_reviews_end">REVIEWS (%1$d)</string>
+    <string name="label_related_products">Related PRODUCTS</string>
+    <string name="label_by_now">Buy now</string>
+    <string name="label_current_reviews">%.1f</string>
+    <string name="title_find_my_size">Find my size</string>
+    <string name="try_again">TRT AGAIN</string>
+    <string name="something_went_wrong">Something went wrong.</string>
+    <string name="oops">Oops!</string>
+    <string name="dismiss">Dismiss</string>
 
 </resources>

@@ -86,8 +86,6 @@ class User {
         }
 
 
-    //todo: after adding variations
-    /*
     fun addProductToCart(cartProduct: CartProduct): Boolean {
 
         val currentItems = cartProducts
@@ -283,5 +281,5 @@ class User {
         }
 
         buyNowCartProducts = currentItems
-    } */
+    }
 }

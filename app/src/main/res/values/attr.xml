@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CircleView">
+        <attr name="strokeWidth" format="dimension" />
+        <attr name="strokeColor" format="color|reference" />
+        <attr name="fillColor" format="color|reference" />
+        <attr name="circleRadius" format="dimension" />
+        <attr name="circleGap" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="InputBase">
+        <attr name="input_hint" format="reference|string" />
+        <attr name="android:enabled" />
+        <attr name="upper_case" format="boolean" />
+        <attr name="max_size" format="integer" />
+        <attr name="hint" format="string" />
+    </declare-styleable>
+
+</resources>

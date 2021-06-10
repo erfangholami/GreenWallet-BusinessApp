@@ -31,11 +31,13 @@ abstract class BasePresenter<T, U: BaseProcessHandler>(val context: Context) : B
     fun fetchImage(
         fileId: String,
         loaderListener: ImageLoaderListener,
-        sizes: Pair<Int, Int>
+        sizes: Pair<Int, Int>? = null,
+        reduceQuality: Boolean = true
     ) {
         fileInteractor.file(
             fileId = fileId,
             sizes = sizes,
+            reduceQuality = reduceQuality,
             listener = object :
                 Subscriber<FileResponse> {
                 override fun onRequestSuccess(response: FileResponse) {

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    android:background="@drawable/bg_spinner_bordered"
+    tools:parentTag="androidx.constraintlayout.widget.ConstraintLayout">
+
+    <ImageView
+        android:id="@+id/iv_arrow"
+        style="?attr/actionButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_small"
+        app:layout_constraintBottom_toBottomOf="@id/input_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_spinner_arrow"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/input_value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:padding="@dimen/margin_default"
+        android:saveEnabled="false"
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/text_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="Autofill,TextFields"
+        tools:text="Content value" />
+
+    <com.greenwallet.business.helper.ui.widget.AppSpinner
+        android:id="@+id/input_spinner"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:popupBackground="@drawable/bg_bordered_white"
+        android:popupElevation="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/input_value"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+</androidx.constraintlayout.widget.ConstraintLayout>
