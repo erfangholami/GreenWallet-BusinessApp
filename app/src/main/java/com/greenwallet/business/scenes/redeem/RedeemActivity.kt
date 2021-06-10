@@ -5,6 +5,7 @@ import com.greenwallet.business.databinding.ActivityRedeemBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
 import com.greenwallet.business.scenes.redeem.ui.RedeemFragment
 import com.greenwallet.business.scenes.redeem.ui.RedeemView
 
@@ -60,8 +61,7 @@ class RedeemActivity : BaseActivity(),
     }
 
     override fun showProductDetailsScreen(selectedProduct: ProductResponseModel) {
-        //todo: After adding product details
-//        ProductFeaturesActivity.start(this, selectedProduct)
+        ProductFeaturesActivity.start(this, selectedProduct)
     }
 
     override fun shoeCartScreen() {

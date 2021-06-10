@@ -1,5 +1,6 @@
 package com.greenwallet.business.scenes.shopgreen
 
+import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseProcessHandler
 
 interface ShopGreenProcessHandler: BaseProcessHandler {
@@ -17,4 +18,6 @@ interface ShopGreenProcessHandler: BaseProcessHandler {
     fun showRedeemListScreen()
 
     fun showBestSellerListScreen()
+
+    fun onProductClicked(productModel: ProductResponseModel)
 }

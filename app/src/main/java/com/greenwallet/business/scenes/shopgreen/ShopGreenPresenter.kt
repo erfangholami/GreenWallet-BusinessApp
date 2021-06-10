@@ -283,7 +283,7 @@ class ShopGreenPresenter(context: Context) :
     }
 
     override fun onProductClicked(productModel: ProductResponseModel) {
-//        TODO("Not yet implemented")
+        activityHandler?.onProductClicked(productModel)
     }
 
     override fun onProductReviewClicked(

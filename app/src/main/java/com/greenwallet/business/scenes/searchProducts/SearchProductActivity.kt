@@ -8,6 +8,7 @@ import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
 
 import com.greenwallet.business.scenes.searchProducts.ui.SearchProductsFragment
 import com.greenwallet.business.scenes.searchProducts.ui.SearchProductsFragment.SearchProductsPresenterProvider
@@ -97,8 +98,7 @@ class SearchProductActivity : BaseActivity(),
     }
 
     override fun onItemClicked(product: ProductResponseModel) {
-        //TODO: Add after adding product details page
-//        ProductFeaturesActivity.start(this, product)
+        ProductFeaturesActivity.start(this, product)
     }
 
     override fun onItemReviewClicked(

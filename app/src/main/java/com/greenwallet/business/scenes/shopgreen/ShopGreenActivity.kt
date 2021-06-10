@@ -7,7 +7,9 @@ import android.view.View
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
+import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
 import com.greenwallet.business.scenes.redeem.RedeemActivity
 import com.greenwallet.business.scenes.searchProducts.SearchProductActivity
 import com.greenwallet.business.scenes.searchProducts.SearchProductsPresenter
@@ -103,6 +105,10 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
 
     override fun showBestSellerListScreen() {
         SearchProductActivity.start(this, SearchProductsPresenter.Mode.BEST_SELLERS)
+    }
+
+    override fun onProductClicked(productModel: ProductResponseModel) {
+        ProductFeaturesActivity.start(this, productModel)
     }
 
     override fun onBackPressed() {
