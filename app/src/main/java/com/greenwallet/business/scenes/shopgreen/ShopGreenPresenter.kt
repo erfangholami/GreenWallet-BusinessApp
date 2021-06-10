@@ -13,6 +13,7 @@ import com.greenwallet.business.network.product.CategoriesResponse
 import com.greenwallet.business.network.product.ProductResponse
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.productReviews.ProductReviewsResponse
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.shopgreen.ui.HomeOnboardingItem
@@ -60,6 +61,7 @@ class ShopGreenPresenter(context: Context) :
 
     val productInteractor = InteractorFactory(this.context).createProductInteractor()
     val campaignInteractor = InteractorFactory(this.context).createCampaignsInteractor()
+    private val productReviewInteractor = InteractorFactory(context).createProductReviewInteractor()
 
     var fetchedCategories = false
     var categories: ArrayList<CategoriesResponseModel> = arrayListOf()
@@ -297,6 +299,38 @@ class ShopGreenPresenter(context: Context) :
         id: String,
         listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
     ) {
-//        TODO("Not yet implemented")
+        productReviewInteractor.reviews(
+            productId = id,
+            listener = object :
+                Subscriber<ProductReviewsResponse> {
+                override fun onRequestSuccess(response: ProductReviewsResponse) {
+                    if (response.response == ProductReviewsResponse.Result.SUCCESS) {
+
+                        listener.onAPICallFinished(
+                            (response.reviews ?: arrayOf()).toCollection(
+                                ArrayList()
+                            )
+                        )
+
+                        Log.e("ProductReviews", "reviews: ${response.reviews?.size}")
+
+                        Log.e("ProductReviews", "Success")
+                    } else {
+                        listener.onAPICallFailed()
+
+                        Log.e("ProductReviews", "Error")
+                    }
+                }
+
+                override fun onRequestFailure(t: Throwable) {
+                    listener.onAPICallFailed()
+
+                    Log.e("ProductReviews", "onRequestFailure")
+                }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
+            })
     }
 }

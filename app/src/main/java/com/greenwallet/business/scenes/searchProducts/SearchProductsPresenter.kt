@@ -11,6 +11,7 @@ import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.network.product.response.isHotDeal
 import com.greenwallet.business.network.product.response.isMatchedWithCategory
+import com.greenwallet.business.network.productReviews.ProductReviewsResponse
 import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter
 import com.greenwallet.business.scenes.base.LoadMoreCallBack
@@ -47,8 +48,8 @@ class SearchProductsPresenter(context: Context) :
 
     private val productInteractor = InteractorFactory(context).createProductInteractor()
     //todo: After adding reviews
-//    private val productReviewInteractor =
-//        InteractorFactory(this.context).createProductReviewInteractor()
+    private val productReviewInteractor =
+        InteractorFactory(this.context).createProductReviewInteractor()
 
     var mode = Mode.HOT_DEALS
     var categoryName: String? = null
@@ -321,40 +322,38 @@ class SearchProductsPresenter(context: Context) :
         productId: String,
         listener: CallbackListener<ArrayList<ProductReviewsResponseModel>>
     ) {
+        productReviewInteractor.reviews(
+            productId = productId,
+            listener = object :
+                Subscriber<ProductReviewsResponse> {
+                override fun onRequestSuccess(response: ProductReviewsResponse) {
+                    if (response.response == ProductReviewsResponse.Result.SUCCESS) {
+                        listener.onAPICallFinished(
+                            (response.reviews ?: arrayOf()).toCollection(
+                                ArrayList()
+                            )
+                        )
 
-        //todo
-//        productReviewInteractor.reviews(
-//            productId = productId,
-//            listener = object :
-//                Subscriber<ProductReviewsResponse> {
-//                override fun onRequestSuccess(response: ProductReviewsResponse) {
-//                    if (response.response == ProductReviewsResponse.Result.SUCCESS) {
-//                        listener.onAPICallFinished(
-//                            (response.reviews ?: arrayOf()).toCollection(
-//                                ArrayList()
-//                            )
-//                        )
-//
-//                        Log.e("ProductReviews", "reviews: ${response.reviews?.size}")
-//
-//                        Log.e("ProductReviews", "Success")
-//                    } else {
-//                        listener.onAPICallFailed()
-//
-//                        Log.e("ProductReviews", "Error")
-//                    }
-//                }
-//
-//                override fun onRequestFailure(t: Throwable) {
-//                    listener.onAPICallFailed()
-//
-//                    Log.e("ProductReviews", "onRequestFailure")
-//                }
-//
-//                override fun onUserUnauthorized() {
-//                    activityHandler?.userShouldReAuthenticate()
-//                }
-//            })
+                        Log.e("ProductReviews", "reviews: ${response.reviews?.size}")
+
+                        Log.e("ProductReviews", "Success")
+                    } else {
+                        listener.onAPICallFailed()
+
+                        Log.e("ProductReviews", "Error")
+                    }
+                }
+
+                override fun onRequestFailure(t: Throwable) {
+                    listener.onAPICallFailed()
+
+                    Log.e("ProductReviews", "onRequestFailure")
+                }
+
+                override fun onUserUnauthorized() {
+                    activityHandler?.userShouldReAuthenticate()
+                }
+            })
     }
 
     override fun getSearchText(): String {
