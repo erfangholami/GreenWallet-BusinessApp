@@ -10,7 +10,6 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.SimpleItemAnimator
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentProductFeaturesBinding
@@ -273,51 +272,33 @@ class ProductFeaturesFragment(val product: ProductResponseModel) : Fragment(), P
             binding.clSizeContainer.visibility = VISIBLE
             binding.clSizeContainer.requestLayout()
             binding.tvSizes.visibility = VISIBLE
-            binding.rvSizes.visibility = VISIBLE
+            binding.cgSizes.visibility = VISIBLE
             context?.let {
 
-                val spacingInPixels = resources.getDimensionPixelSize(R.dimen.margin_small)
-                val itemWidth = resources.getDimensionPixelSize(R.dimen.available_size_width)
-
-                val calculatedSpanCount =
-                    ((binding.root.width - (6 * spacingInPixels)) - spacingInPixels) / (spacingInPixels + itemWidth)
-                val spanCount = if (calculatedSpanCount > 0) calculatedSpanCount else 4
-
-                binding.rvSizes.layoutManager = GridLayoutManager(
-                    it, spanCount, GridLayoutManager.VERTICAL, false
-                )
-
-                binding.rvSizes.addItemDecoration(
-                    GridSpacingItemDecoration(spanCount, spacingInPixels, false)
-                )
-                (binding.rvSizes.itemAnimator as SimpleItemAnimator).supportsChangeAnimations =
-                    false
-
                 val selectedSizeVariant = presenter.getSelectedVariant("SIZE")
-                val selectedPosition = if (selectedSizeVariant != null) {
-                    sizes.indexOfFirst {
+                val selectedSize: ProductVariantsResponseModel = if (selectedSizeVariant != null) {
+                    sizes.find {
                         it.variantId == selectedSizeVariant.variantId
-                    }
+                    }!!
                 } else {
-                    0
+                    sizes[0]
                 }
-                sizeAdapter = AvailableSizesAdapter(sizes).apply {
-                    selectedItemPosition = selectedPosition
+                sizeAdapter = AvailableSizesAdapter(sizes, binding.cgSizes).apply {
+                    selectItem(selectedSize)
                     sizeChangeListener = {
                         updateVariant(it)
                         presenter.setCurrentPicturePosition(0)
                         updateDetailsBasedOnVariants()
-                        binding.nsContent.fullScroll(View.FOCUS_UP)
+                        binding.nsContent.fullScroll(FOCUS_UP)
                         binding.appBar.setExpanded(true)
                     }
                 }
-                binding.rvSizes.adapter = sizeAdapter
-                updateVariant(selectedSizeVariant ?: sizes[0])
+                updateVariant(selectedSizeVariant ?: selectedSize)
             }
         } else {
             binding.clSizeContainer.visibility = VISIBLE
             binding.tvSizes.visibility = GONE
-            binding.rvSizes.visibility = GONE
+            binding.cgSizes.visibility = GONE
             //hide view
         }
     }

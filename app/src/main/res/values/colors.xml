@@ -20,4 +20,5 @@
     <color name="black">#000000</color>
 
     <color name="divider">#DCDCDC</color>
+    <color name="available_color_selected">#F6BD8D</color>
 </resources>

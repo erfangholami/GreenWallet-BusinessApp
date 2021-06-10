@@ -1,67 +1,69 @@
 package com.greenwallet.business.scenes.productFeatures.ui.details.adapter
 
 import android.view.LayoutInflater
-import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.core.view.children
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipDrawable
+import com.google.android.material.chip.ChipGroup
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ItemAvailableSizesBinding
 import com.greenwallet.business.network.product.response.ProductVariantsResponseModel
 
-class AvailableSizesAdapter(val items: ArrayList<ProductVariantsResponseModel>) :
-    RecyclerView.Adapter<AvailableSizesAdapter.AvailableSizesViewHolder>() {
+class AvailableSizesAdapter(val items: ArrayList<ProductVariantsResponseModel>, val cgSizes: ChipGroup) {
 
     lateinit var sizeChangeListener: (ProductVariantsResponseModel) -> (Unit)
-    var selectedItemPosition = 0
+    var selectedItem: ProductVariantsResponseModel = items[0]
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): AvailableSizesViewHolder {
-        val layoutInflater = LayoutInflater.from(parent.context)
-        val itemBinding = ItemAvailableSizesBinding.inflate(layoutInflater, parent, false)
-        return AvailableSizesViewHolder(itemBinding)
-    }
+    private val selectedTextColor = cgSizes.context.resources.getColor(R.color.white, null)
+    private val unSelectedTextColor =
+        cgSizes.context.resources.getColor(R.color.colorDisableDark, null)
 
-    override fun getItemCount(): Int = items.size
+    init {
+        with (cgSizes) {
 
-    override fun onBindViewHolder(holder: AvailableSizesViewHolder, position: Int) {
-        holder.bind(items[position], position == selectedItemPosition)
-        holder.setOnClickListener {
-            if (position != selectedItemPosition) {
-                val prevPos = selectedItemPosition
-                selectedItemPosition = position
-                notifyItemChanged(prevPos)
-                notifyItemChanged(selectedItemPosition)
-                sizeChangeListener.invoke(items[position])
+            removeAllViews()
+
+            val layoutInflater = LayoutInflater.from(context)
+            for (item in items) {
+
+                val itemBinding = ItemAvailableSizesBinding.inflate(layoutInflater)
+                itemBinding.tvSize.text = item.value
+
+                updateItemView(itemBinding.tvSize, item == selectedItem)
+
+                itemBinding.tvSize.setOnClickListener {
+                    selectItem(item)
+                    if (this@AvailableSizesAdapter::sizeChangeListener.isInitialized) {
+                        sizeChangeListener.invoke(item)
+                    }
+                }
+
+                addView(itemBinding.tvSize)
             }
         }
     }
 
-    inner class AvailableSizesViewHolder(private val itemBinding: ItemAvailableSizesBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
+    fun selectItem(item: ProductVariantsResponseModel) {
 
-        private val selectedTextColor = itemBinding.root.context.resources.getColor(R.color.white, null)
-        private val unSelectedTextColor =
-            itemBinding.root.context.resources.getColor(R.color.colorDisableDark, null)
+        if (item != selectedItem) {
+            selectedItem = item
+            val itemPosition = items.indexOf(selectedItem)
 
-        fun bind(
-            item: ProductVariantsResponseModel,
-            isSelected: Boolean
-        ) {
-            itemBinding.tvSize.text = item.value
-            itemBinding.tvSize.isSelected = isSelected
-
-            if (isSelected) {
-                itemBinding.tvSize.setTextColor(selectedTextColor)
-            } else {
-                itemBinding.tvSize.setTextColor(unSelectedTextColor)
+            cgSizes.children.forEachIndexed { index, view ->
+                updateItemView(view as Chip, index == itemPosition)
             }
         }
-
-        fun setOnClickListener(function: () -> Unit) {
-            itemBinding.root.setOnClickListener {
-                function.invoke()
-            }
+    }
+    
+    private fun updateItemView(chip: Chip, isSelected: Boolean) {
+        if (isSelected) {
+            chip.isSelected = true
+            chip.setTextColor(selectedTextColor)
+            (chip.chipDrawable as ChipDrawable).setChipBackgroundColorResource(R.color.available_color_selected)
+        } else {
+            chip.isSelected = false
+            chip.setTextColor(unSelectedTextColor)
+            (chip.chipDrawable as ChipDrawable).setChipBackgroundColorResource(R.color.white)
         }
     }
 }

@@ -7,6 +7,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="MaterialTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
     <style name="SearchEditTextStyle">
         <item name="android:background">@drawable/bg_search_edit_text</item>
         <item name="android:textColor">@color/colorText</item>
@@ -53,5 +60,23 @@
         <item name="android:textColor">@color/colorText</item>
     </style>
 
+
+    <style name="Widget.MyApp.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="shapeAppearanceOverlay">@style/MaterialComponents.AvailableSize.ShapeAppearance</item>
+        <item name="android:textAppearance">@style/MaterialComponents.AvailableSize.TextAppearance</item>
+    </style>
+
+    <style name="MaterialComponents.AvailableSize.ShapeAppearance" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+    </style>
+
+    <style name="MaterialComponents.AvailableSize.TextAppearance" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="fontFamily">@font/maison_neue_book</item>
+        <item name="android:fontFamily">@font/maison_neue_book</item>
+    </style>
 
 </resources>

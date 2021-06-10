@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tv_size"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tv_size"
-        android:layout_width="@dimen/available_size_width"
-        android:layout_height="@dimen/available_size_height"
-        android:background="@drawable/bg_text_size"
-        android:gravity="center" />
-</FrameLayout>
+    android:layout_height="@dimen/available_size_height"
+    app:chipMinHeight="@dimen/available_size_height"
+    app:chipStartPadding="@dimen/padding_default"
+    app:chipEndPadding="@dimen/padding_default"
+    style="@style/Widget.MyApp.Chip.Choice" />
