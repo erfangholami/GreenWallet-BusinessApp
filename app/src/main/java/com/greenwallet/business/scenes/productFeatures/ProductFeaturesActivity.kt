@@ -8,6 +8,7 @@ import com.greenwallet.business.helper.ui.dialog.SuccessDialog
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.basket.BasketActivity
 import com.greenwallet.business.scenes.findMySize.ui.FindMySizeFragment
 import com.greenwallet.business.scenes.findMySize.ui.FindMySizeView
 import com.greenwallet.business.scenes.productFeatures.ui.aboutThisItem.ProductFeaturesAboutItemFragment
@@ -103,8 +104,7 @@ class ProductFeaturesActivity : BaseActivity(),
     }
 
     override fun showBasketScreen() {
-        //todo: after implementing basket page
-//        BasketActivity.start(this)
+        BasketActivity.start(this)
     }
 
     override fun showCheckoutScreen() {
@@ -113,8 +113,7 @@ class ProductFeaturesActivity : BaseActivity(),
     }
 
     override fun showFindMySizeScreen() {
-        //todo after adding FindMy size page
-//        replaceFragment(FindMySizeFragment(), FRAGMENT_FIND_MY_SIZE)
+        replaceFragment(FindMySizeFragment(), FRAGMENT_FIND_MY_SIZE)
     }
 
     override fun showAddToCartSuccessDialog() {

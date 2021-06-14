@@ -273,7 +273,7 @@ class ShopGreenPresenter(context: Context) :
     }
 
     override fun onCartListClicked() {
-//        TODO("Not yet implemented")
+        activityHandler?.showBasketScreen()
     }
 
     override fun onShowAllRedeemOptionsClicked() {

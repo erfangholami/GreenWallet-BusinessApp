@@ -9,6 +9,7 @@ import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.basket.BasketActivity
 import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
 import com.greenwallet.business.scenes.redeem.RedeemActivity
 import com.greenwallet.business.scenes.searchProducts.SearchProductActivity
@@ -109,6 +110,10 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
 
     override fun onProductClicked(productModel: ProductResponseModel) {
         ProductFeaturesActivity.start(this, productModel)
+    }
+
+    override fun showBasketScreen() {
+        BasketActivity.start(this)
     }
 
     override fun onBackPressed() {

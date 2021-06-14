@@ -20,4 +20,6 @@ interface ShopGreenProcessHandler: BaseProcessHandler {
     fun showBestSellerListScreen()
 
     fun onProductClicked(productModel: ProductResponseModel)
+
+    fun showBasketScreen()
 }

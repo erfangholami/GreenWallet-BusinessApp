@@ -47,7 +47,6 @@ class SearchProductsPresenter(context: Context) :
         }
 
     private val productInteractor = InteractorFactory(context).createProductInteractor()
-    //todo: After adding reviews
     private val productReviewInteractor =
         InteractorFactory(this.context).createProductReviewInteractor()
 

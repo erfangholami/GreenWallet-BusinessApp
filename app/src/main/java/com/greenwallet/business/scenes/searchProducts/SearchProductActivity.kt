@@ -8,6 +8,7 @@ import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
+import com.greenwallet.business.scenes.basket.BasketActivity
 import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
 
 import com.greenwallet.business.scenes.searchProducts.ui.SearchProductsFragment
@@ -110,8 +111,7 @@ class SearchProductActivity : BaseActivity(),
     }
 
     override fun shoeCartScreen() {
-        //Todo: Add after adding basket page
-//        BasketActivity.start(this)
+        BasketActivity.start(this)
     }
 
     private fun actionBackButton() {
