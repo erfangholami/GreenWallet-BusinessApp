@@ -58,4 +58,6 @@
     <dimen name="back_icon_default_size">60dp</dimen>
     <dimen name="spinner_corner_radius">4dp</dimen>
     <dimen name="stroke">1dp</dimen>
+    <dimen name="view_card_image_default_width">172dp</dimen>
+    <dimen name="view_card_image_default_height">130dp</dimen>
 </resources>

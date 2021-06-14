@@ -4,6 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.greenwallet.business.R
+import com.greenwallet.business.helper.ui.dialog.BaseDialog
+import com.greenwallet.business.helper.ui.dialog.ErrorDialog
+import com.greenwallet.business.helper.ui.dialog.SuccessDialog
 import com.greenwallet.business.scenes.login.LoginActivity
 
 open class BaseActivity : AppCompatActivity() {
@@ -32,4 +35,45 @@ open class BaseActivity : AppCompatActivity() {
 
         startActivity(intent)
     }
+
+    fun showSuccessDialog(title: String, explanation: String) {
+        SuccessDialog(this).apply {
+            buttonListener = {
+                dismiss()
+            }
+            this.title = title
+            this.explanation = explanation
+        }.show()
+    }
+
+    fun showErrorDialog(
+        title: String? = null,
+        errorMessage: String? = null,
+        buttonText: String? = null,
+        listener: ((BaseDialog) -> (Unit))? = null
+    ) {
+        ErrorDialog(this).apply {
+            if (title != null) {
+                this.title = title
+            }
+
+            if (errorMessage != null) {
+                this.explanation = errorMessage
+            }
+
+            if (buttonText != null) {
+                this.buttonText = buttonText
+            }
+
+            if (listener != null) {
+                buttonListener = listener
+            } else {
+                buttonListener = {
+                    dismiss()
+                    //todo: Implement send request again
+                }
+            }
+        }.show()
+    }
+
 }

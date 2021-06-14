@@ -43,5 +43,21 @@
     <string name="title_basket">My Basket</string>
     <string name="your_basket_is_empty">Your basket is empty.</string>
     <string name="label_proceed_checkout">PROCEED TO CHECKOUT</string>
+    <string name="label_free_shipping">FREE Shipping for a minimum spend of £%1$d on all %2$s products</string>
+    <string name="label_products_count">(%1$s Items)</string>
+    <string name="title_checkout">Checkout</string>
+    <string name="label_payment">PAYMENT</string>
+    <string name="label_shipping_address">SHIPPING ADDRESS</string>
+    <string name="label_purchase_summary">PURCHASE SUMMARY</string>
+    <string name="label_subtotal">Subtotal</string>
+    <string name="label_vat">VAT</string>
+    <string name="label_total_shipping_fee">Total Shipping Fee</string>
+    <string name="label_green_coins_redeemed">Green Coins Redeemed</string>
+    <string name="label_green_coins_redeemed_value">-£%1$.2f</string>
+    <string name="label_free">FREE</string>
+    <string name="label_grand_total">Grand Total</string>
+    <string name="label_coins_number">YOU HAVE %1$d GREEN COINS</string>
+    <string name="label_redeemed_coins">%1$d Green Coins Redeemed (£%2$.2f)</string>
+    <string name="label_payment_card_end">Card that ends in %1$s</string>
 
 </resources>
