@@ -34,6 +34,9 @@
         <activity
             android:name=".scenes.productFeatures.ProductFeaturesActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".scenes.basket.BasketActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

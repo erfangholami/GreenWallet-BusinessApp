@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+        android:id="@+id/fl_view_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/bg_basket_item">
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="@dimen/margin_small"
+            app:srcCompat="@drawable/ic_delete"
+            app:tint="@color/colorAccent" />
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_view_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_small"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="66dp"
+                android:layout_height="99dp"
+                android:layout_marginStart="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_small"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_image_loading"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_big"
+                android:layout_marginEnd="@dimen/margin_big"
+                android:ellipsize="end"
+                android:fontFamily="@font/maison_neue_demi"
+                android:maxLines="2"
+                android:textColor="@color/colorText"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/iv_image"
+                app:layout_constraintTop_toTopOf="@+id/iv_image"
+                tools:text="CANO Mara Huarache Womens Natural Cognac" />
+
+            <TextView
+                android:id="@+id/tv_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small_x"
+                android:ellipsize="end"
+                android:fontFamily="@font/maison_neue_book"
+                android:maxLines="1"
+                android:textColor="@color/colorText"
+                android:textSize="@dimen/text_small_x"
+                app:layout_constraintHorizontal_bias="0"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="@+id/tv_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name"
+                app:layout_constraintWidth_default="wrap"
+                tools:text="Womens, Brown, 7(UK)" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:fontFamily="@font/maison_neue_demi"
+                android:text="@string/label_price"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/text_small_x"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_image"
+                app:layout_constraintStart_toStartOf="@+id/tv_name" />
+
+            <ImageButton
+                android:id="@+id/btn_count_up"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginBottom="@dimen/padding_medium"
+                android:background="@android:color/transparent"
+                android:padding="14dp"
+                android:src="@drawable/ic_count_up"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginEnd="@dimen/margin_small_x"
+                android:fontFamily="@font/maison_neue_bold"
+                android:textAlignment="center"
+                android:textColor="@color/colorText"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_count_up"
+                app:layout_constraintEnd_toStartOf="@+id/btn_count_up"
+                app:layout_constraintTop_toTopOf="@+id/btn_count_up" />
+
+            <ImageButton
+                android:id="@+id/btn_count_down"
+                android:layout_width="36dp"
+                android:layout_height="30dp"
+                android:layout_marginEnd="@dimen/margin_small_x"
+                android:background="@android:color/transparent"
+                android:padding="14dp"
+                android:src="@drawable/ic_count_down"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_count_up"
+                app:layout_constraintEnd_toStartOf="@+id/tv_count"
+                app:layout_constraintTop_toTopOf="@+id/btn_count_up" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+</FrameLayout>

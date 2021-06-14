@@ -40,5 +40,8 @@
     <string name="something_went_wrong">Something went wrong.</string>
     <string name="oops">Oops!</string>
     <string name="dismiss">Dismiss</string>
+    <string name="title_basket">My Basket</string>
+    <string name="your_basket_is_empty">Your basket is empty.</string>
+    <string name="label_proceed_checkout">PROCEED TO CHECKOUT</string>
 
 </resources>
