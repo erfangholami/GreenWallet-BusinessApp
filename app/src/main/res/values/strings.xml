@@ -59,5 +59,10 @@
     <string name="label_coins_number">YOU HAVE %1$d GREEN COINS</string>
     <string name="label_redeemed_coins">%1$d Green Coins Redeemed (£%2$.2f)</string>
     <string name="label_payment_card_end">Card that ends in %1$s</string>
+    <string name="delivery_options">Delivery Options</string>
+    <string name="label_standard_delivery">Standard Delivery</string>
+    <string name="label_next_day_delivery">Next Day Delivery</string>
+    <string name="label_express_delivery">Express Delivery</string>
+    <string name="label_international_delivery">International Delivery</string>
 
 </resources>

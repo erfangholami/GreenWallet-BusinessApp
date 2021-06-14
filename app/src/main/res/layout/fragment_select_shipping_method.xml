@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackgroundContent">
+
+    <ImageView
+        android:id="@+id/iv_back_button"
+        android:layout_width="@dimen/back_icon_default_size"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_big"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="@dimen/padding_medium"
+        android:src="@drawable/ic_arrow_back_light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/maison_neue_bold"
+        android:gravity="center"
+        android:text="@string/delivery_options"
+        android:textColor="@color/colorPrimary"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_back_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/iv_back_button" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_purchase_summary_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_large"
+        android:layout_marginTop="@dimen/margin_large"
+        android:layout_marginEnd="@dimen/margin_large"
+        app:cardBackgroundColor="@android:color/white"
+        app:cardCornerRadius="10dp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_standard_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/ib_standard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_big"
+                    android:background="@android:color/white"
+                    android:src="@drawable/selector_shipping_method"
+                    app:layout_constraintStart_toStartOf="@+id/standard_divider"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_standard"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:text="@string/label_standard_delivery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/ib_standard"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_standard_value"
+                    app:layout_constraintStart_toEndOf="@+id/ib_standard"
+                    app:layout_constraintTop_toTopOf="@+id/ib_standard" />
+
+                <TextView
+                    android:id="@+id/tv_standard_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_default"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_standard"
+                    app:layout_constraintEnd_toEndOf="@+id/standard_divider"
+                    app:layout_constraintTop_toTopOf="@+id/tv_standard" />
+
+                <View
+                    android:id="@+id/standard_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:background="@color/colorDisable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_standard" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_next_day_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_standard_container">
+
+                <ImageButton
+                    android:id="@+id/ib_next_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_big"
+                    android:background="@android:color/white"
+                    android:src="@drawable/selector_shipping_method"
+                    app:layout_constraintStart_toStartOf="@+id/next_day_divider"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_next_day"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:text="@string/label_next_day_delivery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/ib_next_day"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_next_day_value"
+                    app:layout_constraintStart_toEndOf="@+id/ib_next_day"
+                    app:layout_constraintTop_toTopOf="@+id/ib_next_day" />
+
+                <TextView
+                    android:id="@+id/tv_next_day_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_default"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_next_day"
+                    app:layout_constraintEnd_toEndOf="@+id/next_day_divider"
+                    app:layout_constraintTop_toTopOf="@+id/tv_next_day" />
+
+                <View
+                    android:id="@+id/next_day_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:background="@color/colorDisable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_next_day" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_express_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_next_day_container">
+
+                <ImageButton
+                    android:id="@+id/ib_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:layout_marginBottom="@dimen/margin_big"
+                    android:background="@android:color/white"
+                    android:src="@drawable/selector_shipping_method"
+                    app:layout_constraintStart_toStartOf="@+id/express_divider"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_express"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:text="@string/label_express_delivery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/ib_express"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_express_value"
+                    app:layout_constraintStart_toEndOf="@+id/ib_express"
+                    app:layout_constraintTop_toTopOf="@+id/ib_express" />
+
+                <TextView
+                    android:id="@+id/tv_express_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_default"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_express"
+                    app:layout_constraintEnd_toEndOf="@+id/express_divider"
+                    app:layout_constraintTop_toTopOf="@+id/tv_express" />
+
+                <View
+                    android:id="@+id/express_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:background="@color/colorDisable"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_express" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_international_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_express_container">
+
+                <ImageButton
+                    android:id="@+id/ib_international"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:layout_marginTop="@dimen/margin_large"
+                    android:layout_marginBottom="@dimen/margin_large"
+                    android:background="@android:color/white"
+                    android:src="@drawable/selector_shipping_method"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_international"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_large"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:text="@string/label_international_delivery"
+                    android:textColor="@color/colorText"
+                    android:textSize="@dimen/text_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/ib_international"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_international_value"
+                    app:layout_constraintStart_toEndOf="@+id/ib_international"
+                    app:layout_constraintTop_toTopOf="@+id/ib_international" />
+
+                <TextView
+                    android:id="@+id/tv_international_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_large"
+                    android:fontFamily="@font/maison_neue_book"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_default"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_international"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_international" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

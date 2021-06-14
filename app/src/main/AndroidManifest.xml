@@ -40,6 +40,9 @@
         <activity
             android:name=".scenes.checkout.CheckoutActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".scenes.selectShipping.SelectShippingMethodActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

@@ -3,12 +3,15 @@ package com.greenwallet.business.scenes.checkout
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.greenwallet.business.databinding.ActivityCheckoutBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.product.response.CartProduct
 import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.checkout.ui.CheckoutFragment
 import com.greenwallet.business.scenes.checkout.ui.CheckoutView
+import com.greenwallet.business.scenes.selectShipping.SelectShippingMethodActivity
 
 class CheckoutActivity : BaseActivity(), CheckoutProcessHandler,
     CheckoutFragment.CheckoutPresenterProvider {
@@ -80,11 +83,10 @@ class CheckoutActivity : BaseActivity(), CheckoutProcessHandler,
     }
 
     override fun showShippingMethodSelectionScreen(productItem: CartProduct) {
-        //todo
-//        SelectShippingMethodActivity.start(
-//            this,
-//            productItem
-//        )
+        SelectShippingMethodActivity.start(
+            this,
+            productItem
+        )
     }
 
     override fun showCheckoutScreen() {
@@ -94,18 +96,17 @@ class CheckoutActivity : BaseActivity(), CheckoutProcessHandler,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            //todo
-//            SelectShippingMethodActivity.SHIPPING_SELECTION_REQUEST_CODE -> {
-//                if (resultCode == RESULT_OK) {
-//                    val product: CartProduct = GsonBuilder().create().fromJson(
-//                        data?.extras?.getString(SelectShippingMethodActivity.KEY_PRODUCT)!!,
-//                        object : TypeToken<CartProduct>() {}.type
-//                    )
-//
-//                    checkoutPresenter.itemDeliveryMethodChanged(product)
-//
-//                }
-//            }
+            SelectShippingMethodActivity.SHIPPING_SELECTION_REQUEST_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    val product: CartProduct = GsonBuilder().create().fromJson(
+                        data?.extras?.getString(SelectShippingMethodActivity.KEY_PRODUCT)!!,
+                        object : TypeToken<CartProduct>() {}.type
+                    )
+
+                    checkoutPresenter.itemDeliveryMethodChanged(product)
+
+                }
+            }
         }
     }
 
