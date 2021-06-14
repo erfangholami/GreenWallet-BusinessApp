@@ -9,6 +9,7 @@ import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.basket.BasketActivity
+import com.greenwallet.business.scenes.checkout.CheckoutActivity
 import com.greenwallet.business.scenes.findMySize.ui.FindMySizeFragment
 import com.greenwallet.business.scenes.findMySize.ui.FindMySizeView
 import com.greenwallet.business.scenes.productFeatures.ui.aboutThisItem.ProductFeaturesAboutItemFragment
@@ -108,8 +109,7 @@ class ProductFeaturesActivity : BaseActivity(),
     }
 
     override fun showCheckoutScreen() {
-        //todo: after implementing checkout page
-//        CheckoutActivity.start(this, CheckoutActivity.Mode.BUY_NOW)
+        CheckoutActivity.start(this, CheckoutActivity.Mode.BUY_NOW)
     }
 
     override fun showFindMySizeScreen() {

@@ -7,6 +7,7 @@ import com.greenwallet.business.databinding.ActivityBasketBinding
 import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.basket.ui.BasketFeatureView
 import com.greenwallet.business.scenes.basket.ui.BasketFragment
+import com.greenwallet.business.scenes.checkout.CheckoutActivity
 
 class BasketActivity : BaseActivity(), BasketFragment.BasketFeatureProvider,
     BasketProcessHandler {
@@ -54,7 +55,6 @@ class BasketActivity : BaseActivity(), BasketFragment.BasketFeatureProvider,
     }
 
     override fun onProceedCheckoutCLick() {
-        //TODO
-//        CheckoutActivity.start(this)
+        CheckoutActivity.start(this)
     }
 }
