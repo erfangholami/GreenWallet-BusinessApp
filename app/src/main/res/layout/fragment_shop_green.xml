@@ -26,7 +26,7 @@
                 android:fontFamily="@font/maison_neue_bold"
                 android:gravity="top|center_horizontal"
                 android:paddingTop="@dimen/padding_big"
-                android:text="@string/title_discover"
+                android:text="@string/title_preview"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_large_xxx"
                 android:textStyle="bold"
