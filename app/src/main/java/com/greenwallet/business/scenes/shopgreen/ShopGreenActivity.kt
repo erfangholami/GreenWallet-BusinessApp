@@ -11,6 +11,8 @@ import com.greenwallet.business.network.campaings.response.CampaignsResponseMode
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.basket.BasketActivity
+import com.greenwallet.business.scenes.campaignDetails.CampaignDetailsActivity
+import com.greenwallet.business.scenes.campaignDetails.CampaignDetailsActivity.Companion.CAMPAIGN_DETAIL_KEY
 import com.greenwallet.business.scenes.campaignList.ExploreCampaignsFragment
 import com.greenwallet.business.scenes.campaignList.ExploreCampaignsView
 import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
@@ -125,7 +127,10 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
     }
 
     override fun showCampaignDetails(campaignsResponseModel: CampaignsResponseModel) {
-        //todo
+        val intent = Intent(this, CampaignDetailsActivity::class.java)
+        intent.putExtra(CAMPAIGN_DETAIL_KEY, campaignsResponseModel)
+
+        startActivity(intent)
     }
 
     override fun onBackPressed() {

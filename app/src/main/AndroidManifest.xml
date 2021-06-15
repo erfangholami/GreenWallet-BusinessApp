@@ -43,6 +43,9 @@
         <activity
             android:name=".scenes.selectShipping.SelectShippingMethodActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".scenes.campaignDetails.CampaignDetailsActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

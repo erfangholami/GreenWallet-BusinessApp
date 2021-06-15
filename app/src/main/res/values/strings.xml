@@ -67,5 +67,13 @@
     <string name="explore_campaigns">Explore Campaigns</string>
     <string name="label_explore_campaigns">Take part in merchant campaigns, share your experience in instagram and get rewarded.</string>
     <string name="seems_no_campaign_found">There seems to be no campaign found.</string>
+    <string name="campaign_about_title">ABOUT THE CAMPAIGN</string>
+    <string name="campaign_need_to_do_title">WHAT YOU NEED TO DO</string>
+    <string name="campaign_tags_title">WHAT TAGS AND HANDLES TO INCLUDE</string>
+    <string name="campaign_details_tag_notice">Make sure your instagram account is connected to Green Wallet before posting.</string>
+    <string name="campaign_inspirations_title">INSPIRATIONS</string>
+    <string name="campaign_rules_title">HOUSE RULES</string>
+    <string name="link_instagram">Link Instagram</string>
+    <string name="tag_copied">Tag copied to clipboard.</string>
 
 </resources>
