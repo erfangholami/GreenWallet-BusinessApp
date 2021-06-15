@@ -14,7 +14,6 @@ data class CheckoutItem(
     var isPaying: Boolean = false,
     var payed: Boolean = false,
     var earnedGreenCoins: Int = 0
-    //todo: fix shipment and delivery option
 )
 
 fun CheckoutItem.findProductById(productId: String): Pair<Int, CartProduct?> {

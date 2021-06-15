@@ -64,5 +64,8 @@
     <string name="label_next_day_delivery">Next Day Delivery</string>
     <string name="label_express_delivery">Express Delivery</string>
     <string name="label_international_delivery">International Delivery</string>
+    <string name="explore_campaigns">Explore Campaigns</string>
+    <string name="label_explore_campaigns">Take part in merchant campaigns, share your experience in instagram and get rewarded.</string>
+    <string name="seems_no_campaign_found">There seems to be no campaign found.</string>
 
 </resources>

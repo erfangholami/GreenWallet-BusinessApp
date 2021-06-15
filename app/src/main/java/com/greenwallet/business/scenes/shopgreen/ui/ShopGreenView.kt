@@ -49,9 +49,11 @@ interface ShopGreenView {
 
         fun onCampaignClicked(campaignsResponseModel: CampaignsResponseModel)
 
+        fun onShowAllCampaignsClicked()
+
         fun onCategoryItemClicked(categoryName: String)
 
-        fun getCampaignsList(): ArrayList<CampaignsResponseModel>
+        fun getCampaigns(): ArrayList<CampaignsResponseModel>
 
         fun onShowAllBestSellersClicked()
 

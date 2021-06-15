@@ -16,15 +16,19 @@ import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.ProductReviewsResponse
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BasePresenter
+import com.greenwallet.business.scenes.campaignList.ExploreCampaignsView
 import com.greenwallet.business.scenes.shopgreen.ui.HomeOnboardingItem
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 import kotlin.collections.ArrayList
 
 class ShopGreenPresenter(context: Context) :
-    BasePresenter<ShopGreenView, ShopGreenProcessHandler>(context), ShopGreenView.Presenter {
+    BasePresenter<ShopGreenView, ShopGreenProcessHandler>(context),
+    ShopGreenView.Presenter,
+    ExploreCampaignsView.Presenter {
 
     enum class State {
         SHOP_GREEN,
+        EXPLORE_CAMPAIGNS,
         LOADING,
         ERROR
     }
@@ -53,6 +57,7 @@ class ShopGreenPresenter(context: Context) :
                             requestCampaigns()
                         }
                     }
+                    State.EXPLORE_CAMPAIGNS -> it.showCampaignListScreen()
                     State.LOADING -> it.showLoadingScreen()
                     State.ERROR -> it.showErrorMessage()
                 }
@@ -73,7 +78,7 @@ class ShopGreenPresenter(context: Context) :
     var redeems: ArrayList<ProductResponseModel> = arrayListOf()
 
     var fetchedCampaign = false
-    var campaigns: ArrayList<CampaignsResponseModel> = ArrayList()
+    var campaignList: ArrayList<CampaignsResponseModel> = ArrayList()
 
 
 //    var shopGreenView: ShopGreenView? = null
@@ -128,7 +133,7 @@ class ShopGreenPresenter(context: Context) :
                 override fun onRequestSuccess(response: CampaignsResponse) {
                     if (response.response == CampaignsResponse.Result.SUCCESS) {
                         fetchedCampaign = true
-                        campaigns = (response.result ?: arrayOf()).toCollection(ArrayList())
+                        campaignList = (response.result ?: arrayOf()).toCollection(ArrayList())
 
                         checkShopGreenState()
 
@@ -258,10 +263,27 @@ class ShopGreenPresenter(context: Context) :
 
     override fun getRedeemOptions() = redeems
 
-    override fun getCampaignsList() = campaigns
+    override fun getCampaigns() = campaignList
+
+    override fun subscribeView(view: ExploreCampaignsView) {
+
+    }
+
+    override fun disposeView(view: ExploreCampaignsView) {
+
+    }
+
+    override fun onBackButtonClicked() {
+        state = State.SHOP_GREEN
+    }
 
     override fun onCampaignClicked(campaignsResponseModel: CampaignsResponseModel) {
-//        TODO("Not yet implemented")
+
+        activityHandler?.showCampaignDetails(campaignsResponseModel)
+    }
+
+    override fun onShowAllCampaignsClicked() {
+        state = State.EXPLORE_CAMPAIGNS
     }
 
     override fun onSearchTextChanged(searchQuery: String) {

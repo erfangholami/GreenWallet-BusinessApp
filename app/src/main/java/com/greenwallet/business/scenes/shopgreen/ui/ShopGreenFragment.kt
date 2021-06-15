@@ -66,7 +66,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
         (binding.rvRedeemOptions.adapter as ShopGreenRedeemOptionsAdapter).items =
             presenter.getRedeemOptions()
 
-        campaignsAdapter.items = presenter.getCampaignsList()
+        campaignsAdapter.items = presenter.getCampaigns()
     }
 
     override fun onStop() {
@@ -188,6 +188,9 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
     }
 
     private fun initCampaigns() {
+        binding.tvSeeAllCampaigns.setOnClickListener {
+            presenter.onShowAllCampaignsClicked()
+        }
         campaignsAdapter = ShopGreenCampaignsAdapter().apply {
             itemClickListener = {
                 presenter.onCampaignClicked(it)

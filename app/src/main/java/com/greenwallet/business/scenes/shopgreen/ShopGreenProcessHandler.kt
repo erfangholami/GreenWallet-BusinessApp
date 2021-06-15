@@ -1,5 +1,6 @@
 package com.greenwallet.business.scenes.shopgreen
 
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseProcessHandler
 
@@ -22,4 +23,8 @@ interface ShopGreenProcessHandler: BaseProcessHandler {
     fun onProductClicked(productModel: ProductResponseModel)
 
     fun showBasketScreen()
+
+    fun showCampaignListScreen()
+
+    fun showCampaignDetails(campaignsResponseModel: CampaignsResponseModel)
 }

@@ -7,9 +7,12 @@ import android.view.View
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
+import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.basket.BasketActivity
+import com.greenwallet.business.scenes.campaignList.ExploreCampaignsFragment
+import com.greenwallet.business.scenes.campaignList.ExploreCampaignsView
 import com.greenwallet.business.scenes.productFeatures.ProductFeaturesActivity
 import com.greenwallet.business.scenes.redeem.RedeemActivity
 import com.greenwallet.business.scenes.searchProducts.SearchProductActivity
@@ -18,11 +21,12 @@ import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenFragment
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
 
 class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
-    ShopGreenFragment.ShopGreenPresenterProvider {
+    ShopGreenFragment.ShopGreenPresenterProvider,
+    ExploreCampaignsFragment.ExploreCampaignsPresenterProvider {
 
     companion object {
         const val FRAGMENT_SHOP_GREEN = "fragment_shop_green"
-        const val FRAGMENT_LOADING = "fragment_loading"
+        const val FRAGMENT_EXPLORE_CAMPAIGNS = "fragment_explore_campaigns"
     }
 
     lateinit var presenter: ShopGreenPresenter
@@ -116,6 +120,14 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
         BasketActivity.start(this)
     }
 
+    override fun showCampaignListScreen() {
+        replaceFragment(ExploreCampaignsFragment(), FRAGMENT_EXPLORE_CAMPAIGNS)
+    }
+
+    override fun showCampaignDetails(campaignsResponseModel: CampaignsResponseModel) {
+        //todo
+    }
+
     override fun onBackPressed() {
         actionBackButton()
     }
@@ -137,6 +149,10 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
     }
 
     override fun getShopGreenPresenter(): ShopGreenView.Presenter {
+        return presenter
+    }
+
+    override fun getExploreCampaignsPresenter(): ExploreCampaignsView.Presenter {
         return presenter
     }
 }
