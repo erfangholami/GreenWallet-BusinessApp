@@ -28,7 +28,7 @@
     <string name="label_about_this_item">About This Item</string>
     <string name="label_show_more">Show more</string>
     <string name="label_available_colours">AVAILABLE COLOURS</string>
-    <string name="label_available_sizes">AVAILABLE SIZES (UK)</string>
+    <string name="label_available_sizes">AVAILABLE SIZES</string>
     <string name="label_find_size">Find my size</string>
     <string name="label_variation">VARIATION</string>
     <string name="label_reviews_end">REVIEWS (%1$d)</string>
@@ -75,5 +75,6 @@
     <string name="campaign_rules_title">HOUSE RULES</string>
     <string name="link_instagram">Link Instagram</string>
     <string name="tag_copied">Tag copied to clipboard.</string>
+    <string name="title_preview">Preview</string>
 
 </resources>
