@@ -25,7 +25,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField("String", "GATEWAY_URL", "\"https://greenwallet.com/\"")
+            buildConfigField("String", "GATEWAY_URL", "\"https://spiral.greenwallet.com/\"")
             buildConfigField("String", "GATEWAY_KEY", "\"\"")
             resValue "string", "app_name", "GW Business"
         }
