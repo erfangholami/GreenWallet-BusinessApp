@@ -73,20 +73,20 @@ class CheckoutProductAdapter(
             var imageId: String? = null
 
             if (item.variation != null) {
-                if (!item.variation!!.defaultFileUrl.isNullOrEmpty()){
+                if (!item.variation!!.defaultFileUrl.isNullOrEmpty()) {
                     imageUrl = item.variation!!.defaultFileUrl!!
                 } else if (!item.variation!!.defaultFileId.isNullOrEmpty()) {
                     imageId = item.variation!!.defaultFileId!!
                 }
             } else {
-                if (!item.product!!.defaultFileUrl.isNullOrEmpty()){
+                if (!item.product!!.defaultFileUrl.isNullOrEmpty()) {
                     imageUrl = item.product!!.defaultFileUrl!!
                 } else if (!item.product!!.defaultFileID.isNullOrEmpty()) {
                     imageId = item.product!!.defaultFileID!!
                 }
             }
 
-            if(imageUrl != null) {
+            if (imageUrl != null) {
                 loadImageUrl(imageUrl)
             } else if (imageId != null) {
                 productItemListener.onImageLoadListener(imageId, this, sizes = getImageViewSizes())

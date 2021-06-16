@@ -2,7 +2,6 @@ package com.greenwallet.business.scenes.campaignDetails
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.greenwallet.business.R

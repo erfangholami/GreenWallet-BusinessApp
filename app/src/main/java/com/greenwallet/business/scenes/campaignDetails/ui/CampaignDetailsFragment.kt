@@ -70,14 +70,16 @@ class CampaignDetailsFragment(private val campaignDetails: CampaignsResponseMode
                 .placeholder(R.drawable.bg_image_loading)
                 .into(binding.ivImage)
         } else if (!campaignDetails.defaultFileId.isNullOrEmpty()) {
-            presenter.fetchImage(campaignDetails.defaultFileId, object : ImageLoaderListener {
-                override fun onFetchFinished(image: Bitmap?) {
-                    binding.ivImage.setImageBitmap(image)
-                    binding.root.requestLayout()
-                }
-            },
+            presenter.fetchImage(
+                campaignDetails.defaultFileId, object : ImageLoaderListener {
+                    override fun onFetchFinished(image: Bitmap?) {
+                        binding.ivImage.setImageBitmap(image)
+                        binding.root.requestLayout()
+                    }
+                },
                 reduceQuality = true,
-                sizes = null)
+                sizes = null
+            )
         }
 
         binding.tvTitle.text = campaignDetails.name

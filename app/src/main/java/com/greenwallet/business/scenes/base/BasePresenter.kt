@@ -19,7 +19,7 @@ import java.util.*
  *
  */
 
-abstract class BasePresenter<T, U: BaseProcessHandler>(val context: Context) : BaseViewModel<T> {
+abstract class BasePresenter<T, U : BaseProcessHandler>(val context: Context) : BaseViewModel<T> {
 
     protected var views: MutableSet<T> = HashSet()
 

@@ -34,7 +34,7 @@ class FindMySizeFragment : Fragment(), FindMySizeView {
             hasZoom = true
             items = presenter.getSizesFiles()
             imageListener = { id, listener ->
-                presenter.fetchImage(id, listener, null,false)
+                presenter.fetchImage(id, listener, null, false)
             }
         }, false)
     }

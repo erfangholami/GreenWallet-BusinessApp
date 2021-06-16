@@ -5,7 +5,6 @@ import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
-import kotlin.collections.ArrayList
 
 interface ShopGreenView {
 

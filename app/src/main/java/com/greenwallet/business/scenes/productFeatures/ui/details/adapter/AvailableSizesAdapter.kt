@@ -9,7 +9,10 @@ import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ItemAvailableSizesBinding
 import com.greenwallet.business.network.product.response.ProductVariantsResponseModel
 
-class AvailableSizesAdapter(val items: ArrayList<ProductVariantsResponseModel>, val cgSizes: ChipGroup) {
+class AvailableSizesAdapter(
+    val items: ArrayList<ProductVariantsResponseModel>,
+    val cgSizes: ChipGroup
+) {
 
     lateinit var sizeChangeListener: (ProductVariantsResponseModel) -> (Unit)
     var selectedItem: ProductVariantsResponseModel = items[0]
@@ -19,7 +22,7 @@ class AvailableSizesAdapter(val items: ArrayList<ProductVariantsResponseModel>, 
         cgSizes.context.resources.getColor(R.color.colorDisableDark, null)
 
     init {
-        with (cgSizes) {
+        with(cgSizes) {
 
             removeAllViews()
 
@@ -54,7 +57,7 @@ class AvailableSizesAdapter(val items: ArrayList<ProductVariantsResponseModel>, 
             }
         }
     }
-    
+
     private fun updateItemView(chip: Chip, isSelected: Boolean) {
         if (isSelected) {
             chip.isSelected = true

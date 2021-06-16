@@ -4,7 +4,7 @@ import com.greenwallet.business.network.campaings.response.CampaignsResponseMode
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseProcessHandler
 
-interface ShopGreenProcessHandler: BaseProcessHandler {
+interface ShopGreenProcessHandler : BaseProcessHandler {
 
     fun showShopGreenScreen()
 

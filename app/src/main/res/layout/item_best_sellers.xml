@@ -53,21 +53,21 @@
             android:paddingEnd="@dimen/margin_default"
             android:textColor="@color/colorText"
             android:textSize="@dimen/text_small"
+            app:layout_constraintBottom_toTopOf="@+id/cl_rating_container"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_out_of_stock"
-            app:layout_constraintBottom_toTopOf="@+id/cl_rating_container"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_out_of_stock" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_rating_container"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/margin_small"
             android:paddingStart="@dimen/padding_default"
-            app:layout_constraintStart_toStartOf="@+id/iv_best_sellers_image"
-            app:layout_constraintTop_toBottomOf="@+id/tv_best_sellers_name"
+            android:paddingBottom="@dimen/margin_small"
+            app:layout_constraintBottom_toTopOf="@+id/tv_price"
             app:layout_constraintEnd_toEndOf="@+id/iv_best_sellers_image"
-            app:layout_constraintBottom_toTopOf="@+id/tv_price">
+            app:layout_constraintStart_toStartOf="@+id/iv_best_sellers_image"
+            app:layout_constraintTop_toBottomOf="@+id/tv_best_sellers_name">
 
             <RatingBar
                 android:id="@+id/rb_rating"

@@ -69,10 +69,10 @@
             android:textAlignment="textStart"
             android:textColor="@color/colorAccent"
             android:textSize="@dimen/text_small_x"
+            app:layout_constraintBottom_toTopOf="@+id/tv_redeem_options_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_out_of_stock"
-            app:layout_constraintBottom_toTopOf="@+id/tv_redeem_options_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_out_of_stock" />
 
         <TextView
             android:id="@+id/tv_redeem_options_name"
@@ -87,10 +87,10 @@
             android:paddingEnd="@dimen/margin_default"
             android:textColor="@color/colorText"
             android:textSize="@dimen/text_small"
+            app:layout_constraintBottom_toTopOf="@+id/tv_savings"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_green_coins"
-            app:layout_constraintBottom_toTopOf="@+id/tv_savings"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_green_coins" />
 
         <TextView
             android:id="@+id/tv_savings"

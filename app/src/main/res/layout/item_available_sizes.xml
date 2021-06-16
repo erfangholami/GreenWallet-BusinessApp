@@ -2,9 +2,9 @@
 <com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tv_size"
+    style="@style/Widget.MyApp.Chip.Choice"
     android:layout_width="wrap_content"
     android:layout_height="@dimen/available_size_height"
-    app:chipMinHeight="@dimen/available_size_height"
-    app:chipStartPadding="@dimen/padding_default"
     app:chipEndPadding="@dimen/padding_default"
-    style="@style/Widget.MyApp.Chip.Choice" />
+    app:chipMinHeight="@dimen/available_size_height"
+    app:chipStartPadding="@dimen/padding_default" />

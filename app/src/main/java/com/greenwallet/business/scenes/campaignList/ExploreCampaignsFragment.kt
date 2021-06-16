@@ -57,7 +57,8 @@ class ExploreCampaignsFragment : Fragment(), ExploreCampaignsView {
             binding.clNoCampaignContainer.visibility = View.GONE
 
             if (binding.rvCampaignList.adapter != null) {
-                (binding.rvCampaignList.adapter as ExploreCampaignListAdapter).campaignList = campaignList
+                (binding.rvCampaignList.adapter as ExploreCampaignListAdapter).campaignList =
+                    campaignList
             } else {
                 binding.rvCampaignList.adapter =
                     ExploreCampaignListAdapter().apply {

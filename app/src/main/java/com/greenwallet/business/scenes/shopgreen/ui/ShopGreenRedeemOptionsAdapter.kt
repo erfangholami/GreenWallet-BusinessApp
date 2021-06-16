@@ -38,11 +38,15 @@ class ShopGreenRedeemOptionsAdapter(private val productItemListener: ProductItem
         if (!items[position].defaultFileUrl.isNullOrEmpty()) {
             holder.loadImageUrl(items[position].defaultFileUrl!!)
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
-                override fun onFetchFinished(image: Bitmap?) {
-                    holder.setImage(image)
-                }
-            }, holder.getImageViewSizes())
+            productItemListener.fetchImage(
+                items[position].defaultFileID!!,
+                object : ImageLoaderListener {
+                    override fun onFetchFinished(image: Bitmap?) {
+                        holder.setImage(image)
+                    }
+                },
+                holder.getImageViewSizes()
+            )
         }
 
         holder.bind(items[position])

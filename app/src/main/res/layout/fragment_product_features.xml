@@ -80,29 +80,29 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="150dp"
-            android:paddingTop="@dimen/padding_small">
+            android:paddingTop="@dimen/padding_small"
+            android:paddingBottom="150dp">
 
             <TextView
                 android:id="@+id/tv_out_of_stock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/maison_neue_bold"
                 android:layout_marginStart="@dimen/margin_large"
                 android:layout_marginTop="@dimen/margin_big"
+                android:background="@drawable/bg_out_of_stock"
+                android:fontFamily="@font/maison_neue_bold"
+                android:includeFontPadding="false"
                 android:paddingStart="@dimen/margin_medium"
                 android:paddingTop="@dimen/margin_small"
                 android:paddingEnd="@dimen/margin_medium"
                 android:paddingBottom="@dimen/padding_small_x"
                 android:text="@string/label_out_of_stock"
-                android:includeFontPadding="false"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_small"
                 android:visibility="gone"
-                android:background="@drawable/bg_out_of_stock"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -398,20 +398,20 @@
                     android:paddingEnd="@dimen/margin_large"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_sizes"/>
+                    app:layout_constraintTop_toBottomOf="@+id/tv_sizes" />
 
-<!--                <androidx.recyclerview.widget.RecyclerView-->
-<!--                    android:id="@+id/rv_sizes"-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginTop="@dimen/margin_default"-->
-<!--                    android:clipToPadding="false"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:paddingStart="@dimen/margin_large"-->
-<!--                    android:paddingEnd="@dimen/margin_large"-->
-<!--                    app:layout_constraintEnd_toEndOf="parent"-->
-<!--                    app:layout_constraintStart_toStartOf="parent"-->
-<!--                    app:layout_constraintTop_toBottomOf="@+id/tv_sizes" />-->
+                <!--                <androidx.recyclerview.widget.RecyclerView-->
+                <!--                    android:id="@+id/rv_sizes"-->
+                <!--                    android:layout_width="0dp"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_marginTop="@dimen/margin_default"-->
+                <!--                    android:clipToPadding="false"-->
+                <!--                    android:orientation="vertical"-->
+                <!--                    android:paddingStart="@dimen/margin_large"-->
+                <!--                    android:paddingEnd="@dimen/margin_large"-->
+                <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+                <!--                    app:layout_constraintStart_toStartOf="parent"-->
+                <!--                    app:layout_constraintTop_toBottomOf="@+id/tv_sizes" />-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

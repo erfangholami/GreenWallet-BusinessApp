@@ -64,8 +64,8 @@ class LoginFragment : Fragment(), LoginView {
         btnLogin.setOnClickListener {
             Log.i("LoginFragment Fragment:", "Login button!")
 
-            User.shared.email =  binding.etEmail.text.toString()
-            User.shared.password =  binding.etPassword.text.toString()
+            User.shared.email = binding.etEmail.text.toString()
+            User.shared.password = binding.etPassword.text.toString()
 
             presenter.onLoginButtonClicked(
                 binding.etEmail.text.toString(),

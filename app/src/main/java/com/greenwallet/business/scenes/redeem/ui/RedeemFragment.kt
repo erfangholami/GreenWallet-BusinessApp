@@ -72,7 +72,9 @@ class RedeemFragment : Fragment(), RedeemView, ProductItemListener {
 
         binding.appToolbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 
-            val newStartMarginOfSearch = smallestMargin + ((-1 * verticalOffset * (biggestMargin - smallestMargin)).toFloat().div( binding.clTitle.height)).toInt()
+            val newStartMarginOfSearch =
+                smallestMargin + ((-1 * verticalOffset * (biggestMargin - smallestMargin)).toFloat()
+                    .div(binding.clTitle.height)).toInt()
 
             val lp = (binding.etSearch.layoutParams as ConstraintLayout.LayoutParams)
 
@@ -159,7 +161,7 @@ class RedeemFragment : Fragment(), RedeemView, ProductItemListener {
         binding.rvRedeem.layoutManager = layoutManager
 
         binding.rvRedeem.adapter =
-            RedeemAdapter(this )
+            RedeemAdapter(this)
 
         presenter.setLoadCallBack(object :
             LoadMoreCallBack<ProductResponseModel, BaseRecyclerViewAdapter.Mode> {
@@ -229,7 +231,8 @@ class RedeemFragment : Fragment(), RedeemView, ProductItemListener {
     override fun onItemReviewClicked(
         productID: String,
         reviews: java.util.ArrayList<ProductReviewsResponseModel>
-    ) {}
+    ) {
+    }
 
     override fun fetchImage(
         id: String,
@@ -242,7 +245,8 @@ class RedeemFragment : Fragment(), RedeemView, ProductItemListener {
     override fun fetchReviews(
         id: String,
         listener: CallbackListener<java.util.ArrayList<ProductReviewsResponseModel>>
-    ) {}
+    ) {
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

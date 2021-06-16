@@ -11,11 +11,11 @@ import com.greenwallet.business.databinding.ItemBestSellersBinding
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
-import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.network.product.response.getPrice
+import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.ProductItemListener
 
-class ShopGreenBestSellersAdapter (private val productItemListener: ProductItemListener) :
+class ShopGreenBestSellersAdapter(private val productItemListener: ProductItemListener) :
     RecyclerView.Adapter<ShopGreenBestSellersAdapter.HomeBestSellersViewHolder>() {
 
     var items: ArrayList<ProductResponseModel> = arrayListOf()
@@ -40,11 +40,15 @@ class ShopGreenBestSellersAdapter (private val productItemListener: ProductItemL
         if (!items[position].defaultFileUrl.isNullOrEmpty()) {
             holder.loadImageUrl(items[position].defaultFileUrl!!)
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
-                override fun onFetchFinished(image: Bitmap?) {
-                    holder.setImage(image)
-                }
-            }, holder.getImageViewSizes())
+            productItemListener.fetchImage(
+                items[position].defaultFileID!!,
+                object : ImageLoaderListener {
+                    override fun onFetchFinished(image: Bitmap?) {
+                        holder.setImage(image)
+                    }
+                },
+                holder.getImageViewSizes()
+            )
         }
 
         if (items[position].reviews == null) {
@@ -141,7 +145,10 @@ class ShopGreenBestSellersAdapter (private val productItemListener: ProductItemL
 
         private fun updateReviewListener() {
             itemBinding.clRatingContainer.setOnClickListener {
-                productItemListener.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
+                productItemListener.onItemReviewClicked(
+                    item.productID!!,
+                    item.reviews ?: arrayListOf()
+                )
             }
         }
     }

@@ -77,7 +77,8 @@ class CheckoutAdapter(
 
         fun bind(item: CheckoutItem) {
 
-            adapter.isSelectingShippingMethodAvailable = (item.totalAmount < item.freeShippingAmount) || (item.freeShippingAmount == 0)
+            adapter.isSelectingShippingMethodAvailable =
+                (item.totalAmount < item.freeShippingAmount) || (item.freeShippingAmount == 0)
             adapter.items = item.products
 
             itemBinding.tvType.text = item.type

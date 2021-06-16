@@ -4,7 +4,7 @@ import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
-import java.util.ArrayList
+import java.util.*
 
 interface ProductItemListener {
     fun onItemClicked(product: ProductResponseModel)

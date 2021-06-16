@@ -6,9 +6,11 @@ import com.franmontiel.persistentcookiejar.cache.SetCookieCache
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.google.gson.GsonBuilder
 import com.greenwallet.business.BuildConfig
+import com.greenwallet.business.app.Application
 import com.greenwallet.business.app.Application.Companion.context
 import com.greenwallet.business.network.restapi.RestApi
 import com.greenwallet.business.network.restapi.RestApiConnector
+import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -95,6 +97,7 @@ class RetrofitFactory {
 
     private fun getClientBuilder(): OkHttpClient.Builder {
         return OkHttpClient.Builder()
+            .addInterceptor(ChuckInterceptor(context))
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
     }

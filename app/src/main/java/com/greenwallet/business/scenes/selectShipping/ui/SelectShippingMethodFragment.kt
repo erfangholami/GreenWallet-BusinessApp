@@ -51,28 +51,32 @@ class SelectShippingMethodFragment : Fragment(), SelectShippingMethodView {
         val options = presenter.getShippingOptions()
         val selectedOption = presenter.getSelectedShippingOption()
 
-        val standardMethod = options.find { it.getShippingMethod() == ShippingMethod.STANDARD_DELIVERY }
+        val standardMethod =
+            options.find { it.getShippingMethod() == ShippingMethod.STANDARD_DELIVERY }
         if (standardMethod != null) {
             binding.clStandardContainer.visibility = VISIBLE
         } else {
             binding.clStandardContainer.visibility = GONE
         }
 
-        val nextDayMethod = options.find { it.getShippingMethod() == ShippingMethod.NEXT_DAY_DELIVERY }
+        val nextDayMethod =
+            options.find { it.getShippingMethod() == ShippingMethod.NEXT_DAY_DELIVERY }
         if (nextDayMethod != null && (nextDayMethod.amount ?: 0) > 0) {
             binding.clNextDayContainer.visibility = VISIBLE
         } else {
             binding.clNextDayContainer.visibility = GONE
         }
 
-        val expressMethod = options.find { it.getShippingMethod() == ShippingMethod.EXPRESS_DELIVERY }
+        val expressMethod =
+            options.find { it.getShippingMethod() == ShippingMethod.EXPRESS_DELIVERY }
         if (expressMethod != null && (expressMethod.amount ?: 0) > 0) {
             binding.clExpressContainer.visibility = VISIBLE
         } else {
             binding.clExpressContainer.visibility = GONE
         }
 
-        val internationalMethod = options.find { it.getShippingMethod() == ShippingMethod.INTERNATIONAL_DELIVERY }
+        val internationalMethod =
+            options.find { it.getShippingMethod() == ShippingMethod.INTERNATIONAL_DELIVERY }
         if (internationalMethod != null && (internationalMethod.amount ?: 0) > 0) {
             binding.clInternationalContainer.visibility = VISIBLE
         } else {
@@ -102,7 +106,8 @@ class SelectShippingMethodFragment : Fragment(), SelectShippingMethodView {
                     binding.tvInternationalValue.text =
                         context?.getString(R.string.label_price, option.amount?.toFloat()?.div(100))
                 }
-                ShippingMethod.NONE -> {}
+                ShippingMethod.NONE -> {
+                }
             }
         }
 
@@ -160,7 +165,8 @@ class SelectShippingMethodFragment : Fragment(), SelectShippingMethodView {
                 binding.ibExpress.isSelected = false
                 binding.ibInternational.isSelected = true
             }
-            ShippingMethod.NONE -> {}
+            ShippingMethod.NONE -> {
+            }
         }
     }
 

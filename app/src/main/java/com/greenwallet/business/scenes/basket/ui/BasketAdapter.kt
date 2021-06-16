@@ -56,21 +56,29 @@ class BasketAdapter :
             if (!item.variation!!.defaultFileUrl.isNullOrEmpty()) {
                 holder.loadImageUrl(item.variation!!.defaultFileUrl!!)
             } else if (!item.variation!!.defaultFileId.isNullOrEmpty()) {
-                imageLoaderListener.invoke(item.variation!!.defaultFileId!!, object : ImageLoaderListener {
-                    override fun onFetchFinished(image: Bitmap?) {
-                        holder.setImage(image)
-                    }
-                }, holder.getImageViewSizes())
+                imageLoaderListener.invoke(
+                    item.variation!!.defaultFileId!!,
+                    object : ImageLoaderListener {
+                        override fun onFetchFinished(image: Bitmap?) {
+                            holder.setImage(image)
+                        }
+                    },
+                    holder.getImageViewSizes()
+                )
             }
         } else {
             if (!item.product?.defaultFileUrl.isNullOrEmpty()) {
                 holder.loadImageUrl(item.product?.defaultFileUrl!!)
             } else if (!item.product?.defaultFileID.isNullOrEmpty()) {
-                imageLoaderListener.invoke(item.product?.defaultFileID!!, object : ImageLoaderListener {
-                    override fun onFetchFinished(image: Bitmap?) {
-                        holder.setImage(image)
-                    }
-                }, holder.getImageViewSizes())
+                imageLoaderListener.invoke(
+                    item.product?.defaultFileID!!,
+                    object : ImageLoaderListener {
+                        override fun onFetchFinished(image: Bitmap?) {
+                            holder.setImage(image)
+                        }
+                    },
+                    holder.getImageViewSizes()
+                )
             }
         }
 

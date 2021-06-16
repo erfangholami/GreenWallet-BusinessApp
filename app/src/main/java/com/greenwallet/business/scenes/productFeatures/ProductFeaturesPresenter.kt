@@ -523,7 +523,7 @@ class ProductFeaturesPresenter(context: Context) :
     override fun getProductFiles(): Pair<FileMode, ArrayList<String>> {
 
         val variation = getVariation()
-        var fileList : ArrayList<String>? = null
+        var fileList: ArrayList<String>? = null
         var mode = FileMode.ID
 //            ((variation?.fileUrls ?: variation?.files) ?: ((product.fileUrls ?: product.files) ?: arrayOf())).toCollection(ArrayList())
 

@@ -32,11 +32,15 @@ class ExploreCampaignListAdapter :
         if (!campaignList[position].defaultFileUrl.isNullOrEmpty()) {
             holder.loadImageUrl(campaignList[position].defaultFileUrl!!)
         } else if (!campaignList[position].defaultFileId.isNullOrEmpty()) {
-            imageLoaderListener.invoke(campaignList[position].defaultFileId!!, object : ImageLoaderListener {
-                override fun onFetchFinished(image: Bitmap?) {
-                    holder.setImage(image)
-                }
-            }, holder.getImageViewSizes())
+            imageLoaderListener.invoke(
+                campaignList[position].defaultFileId!!,
+                object : ImageLoaderListener {
+                    override fun onFetchFinished(image: Bitmap?) {
+                        holder.setImage(image)
+                    }
+                },
+                holder.getImageViewSizes()
+            )
         }
         holder.bind(campaignList[position], itemClickListener)
     }

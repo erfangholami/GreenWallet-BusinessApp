@@ -3,7 +3,6 @@ package com.greenwallet.business.scenes.shopgreen.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.greenwallet.business.R
 import com.greenwallet.business.R.drawable.*
 import com.greenwallet.business.databinding.ShopgreenRvCategoriesItemBinding
 import java.util.*

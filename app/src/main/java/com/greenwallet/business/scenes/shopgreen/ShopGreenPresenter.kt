@@ -19,7 +19,6 @@ import com.greenwallet.business.scenes.base.BasePresenter
 import com.greenwallet.business.scenes.campaignList.ExploreCampaignsView
 import com.greenwallet.business.scenes.shopgreen.ui.HomeOnboardingItem
 import com.greenwallet.business.scenes.shopgreen.ui.ShopGreenView
-import kotlin.collections.ArrayList
 
 class ShopGreenPresenter(context: Context) :
     BasePresenter<ShopGreenView, ShopGreenProcessHandler>(context),
@@ -237,7 +236,7 @@ class ShopGreenPresenter(context: Context) :
         }
     }
 
-    override fun createOnboardingItems()= listOf(
+    override fun createOnboardingItems() = listOf(
         HomeOnboardingItem(
             image = R.drawable.discover_deals_illustration,
             title = R.string.title_onboarding_first,

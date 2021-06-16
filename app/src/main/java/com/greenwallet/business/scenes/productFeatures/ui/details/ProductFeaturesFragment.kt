@@ -392,14 +392,15 @@ class ProductFeaturesFragment(val product: ProductResponseModel) : Fragment(), P
                 override fun onAPICallFinished(data: Array<ProductShipmentsResponseModel>) {
 
                     var hasAnyThreshold = false
-                    data.find { it.getShippingMethod() ==  ShippingMethod.STANDARD_DELIVERY}?.let { item ->
-                        if (item.threshold ?: 0 > 0) {
-                            hasAnyThreshold = true
-                            val amount = String.format("%.2f", item.threshold!!.toFloat() / 100)
-                            binding.tvShippingInfo.text =
-                                "FREE Shipping for a minimum spend of £$amount"
+                    data.find { it.getShippingMethod() == ShippingMethod.STANDARD_DELIVERY }
+                        ?.let { item ->
+                            if (item.threshold ?: 0 > 0) {
+                                hasAnyThreshold = true
+                                val amount = String.format("%.2f", item.threshold!!.toFloat() / 100)
+                                binding.tvShippingInfo.text =
+                                    "FREE Shipping for a minimum spend of £$amount"
+                            }
                         }
-                    }
 
                     if (hasAnyThreshold) {
                         binding.clShippingContainer.visibility = VISIBLE
@@ -420,24 +421,27 @@ class ProductFeaturesFragment(val product: ProductResponseModel) : Fragment(), P
     private fun initRelatedProducts() {
 //        val relatedProductsItems = presenter.createRelatedProductsList()
         binding.rvRelatedProducts.adapter =
-            ShopGreenBestSellersAdapter(object: ProductItemListener {
+            ShopGreenBestSellersAdapter(object : ProductItemListener {
                 override fun onItemClicked(product: ProductResponseModel) {}
 
                 override fun onItemReviewClicked(
                     productID: String,
                     reviews: java.util.ArrayList<ProductReviewsResponseModel>
-                ) {}
+                ) {
+                }
 
                 override fun fetchImage(
                     id: String,
                     listener: ImageLoaderListener,
                     sizes: Pair<Int, Int>
-                ) {}
+                ) {
+                }
 
                 override fun fetchReviews(
                     id: String,
                     listener: CallbackListener<java.util.ArrayList<ProductReviewsResponseModel>>
-                ) {}
+                ) {
+                }
 
             })
     }

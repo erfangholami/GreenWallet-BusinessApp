@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.ColorInt
 import com.greenwallet.business.R
-import java.lang.IllegalArgumentException
 
 class CircleView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0

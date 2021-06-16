@@ -13,8 +13,8 @@ import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter
 import com.greenwallet.business.scenes.base.ProductItemListener
 
-class RedeemAdapter (private val productItemListener: ProductItemListener)
-    : BaseRecyclerViewAdapter<ProductResponseModel>() {
+class RedeemAdapter(private val productItemListener: ProductItemListener) :
+    BaseRecyclerViewAdapter<ProductResponseModel>() {
 
     override fun onCreateViewHolder2(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
@@ -30,11 +30,15 @@ class RedeemAdapter (private val productItemListener: ProductItemListener)
         if (!items[position].defaultFileUrl.isNullOrEmpty()) {
             holder.loadImageUrl(items[position].defaultFileUrl!!)
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
-                override fun onFetchFinished(image: Bitmap?) {
-                    (holder).setImage(image)
-                }
-            }, holder.getImageViewSizes())
+            productItemListener.fetchImage(
+                items[position].defaultFileID!!,
+                object : ImageLoaderListener {
+                    override fun onFetchFinished(image: Bitmap?) {
+                        (holder).setImage(image)
+                    }
+                },
+                holder.getImageViewSizes()
+            )
         }
     }
 

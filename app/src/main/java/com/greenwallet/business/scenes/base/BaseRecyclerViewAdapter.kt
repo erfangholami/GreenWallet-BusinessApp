@@ -96,11 +96,13 @@ abstract class BaseRecyclerViewAdapter<T> : RecyclerView.Adapter<RecyclerView.Vi
             } else if (isEmpty) {
                 when (mode) {
                     Mode.NORMAL -> {
-                        (holder as EmptyItemViewHolder).setDrawable(ResourcesCompat.getDrawable(
-                            context.resources,
-                            R.drawable.ic_common_empty_state,
-                            null
-                        ))
+                        (holder as EmptyItemViewHolder).setDrawable(
+                            ResourcesCompat.getDrawable(
+                                context.resources,
+                                R.drawable.ic_common_empty_state,
+                                null
+                            )
+                        )
                     }
                     Mode.SEARCH -> {
                         (holder as EmptyItemViewHolder).setDrawable(

@@ -33,10 +33,18 @@ class ImageSliderAdapter : SliderViewAdapter<ImageSliderAdapter.ImageViewHolder>
     override fun onCreateViewHolder(parent: ViewGroup?): ImageViewHolder {
         val view =
             if (hasZoom) {
-                ItemProductDetailsImageZoomBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
+                ItemProductDetailsImageZoomBinding.inflate(
+                    LayoutInflater.from(parent?.context),
+                    parent,
+                    false
+                )
                     .root
             } else {
-                ItemProductDetailsImageBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
+                ItemProductDetailsImageBinding.inflate(
+                    LayoutInflater.from(parent?.context),
+                    parent,
+                    false
+                )
                     .root
             }
         return ImageViewHolder(view, hasZoom)

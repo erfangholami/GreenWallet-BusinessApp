@@ -13,7 +13,10 @@ import com.greenwallet.business.databinding.ItemSearchProductsGridBinding
 import com.greenwallet.business.databinding.ItemSearchProductsListBinding
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
-import com.greenwallet.business.network.product.response.*
+import com.greenwallet.business.network.product.response.ProductResponseModel
+import com.greenwallet.business.network.product.response.getOldPrice
+import com.greenwallet.business.network.product.response.getPrice
+import com.greenwallet.business.network.product.response.isHotDeal
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseRecyclerViewAdapter
 import com.greenwallet.business.scenes.base.ProductItemListener
@@ -60,14 +63,18 @@ class SearchProductsAdapter(
                 is SearchProductsListViewHolder -> holder.loadImageUrl(items[position].defaultFileUrl!!)
             }
         } else if (!items[position].defaultFileID.isNullOrEmpty()) {
-            productItemListener.fetchImage(items[position].defaultFileID!!, object : ImageLoaderListener {
-                override fun onFetchFinished(image: Bitmap?) {
-                    when (holder) {
-                        is SearchProductsViewHolder -> holder.setImage(image)
-                        is SearchProductsListViewHolder -> holder.setImage(image)
+            productItemListener.fetchImage(
+                items[position].defaultFileID!!,
+                object : ImageLoaderListener {
+                    override fun onFetchFinished(image: Bitmap?) {
+                        when (holder) {
+                            is SearchProductsViewHolder -> holder.setImage(image)
+                            is SearchProductsListViewHolder -> holder.setImage(image)
+                        }
                     }
-                }
-            }, sizes)
+                },
+                sizes
+            )
         }
 
         if (item.reviews == null) {
@@ -198,7 +205,10 @@ class SearchProductsAdapter(
 
         private fun updateReviewListener() {
             itemBinding.clRatingContainer.setOnClickListener {
-                productItemListener.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
+                productItemListener.onItemReviewClicked(
+                    item.productID!!,
+                    item.reviews ?: arrayListOf()
+                )
             }
         }
     }
@@ -280,7 +290,10 @@ class SearchProductsAdapter(
 
         private fun updateReviewListener() {
             itemBinding.clRatingContainer.setOnClickListener {
-                productItemListener.onItemReviewClicked(item.productID!!, item.reviews ?: arrayListOf())
+                productItemListener.onItemReviewClicked(
+                    item.productID!!,
+                    item.reviews ?: arrayListOf()
+                )
             }
         }
 
