@@ -12,5 +12,25 @@
 /captures
 .externalNativeBuild
 .cxx
+.project
+.settings/
+.vscode/
 
+app/.classpath
+
+app/.project
+
+app/debug/
+
+app/devRelease/
+
+app/release/
+
+fastlane/
+
+Gemfile
+
+Gemfile.lock
+
+release-notes.txt
 .idea/
