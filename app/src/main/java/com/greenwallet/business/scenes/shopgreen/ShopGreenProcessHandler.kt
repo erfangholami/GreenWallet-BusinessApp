@@ -1,6 +1,7 @@
 package com.greenwallet.business.scenes.shopgreen
 
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseProcessHandler
 
@@ -14,7 +15,7 @@ interface ShopGreenProcessHandler : BaseProcessHandler {
 
     fun showSearchProductsScreen(searchQuery: String)
 
-    fun showCategoryProductListScreen(categoryName: String)
+    fun showCategoryProductListScreen(category: CategoriesResponseModel)
 
     fun showRedeemListScreen()
 

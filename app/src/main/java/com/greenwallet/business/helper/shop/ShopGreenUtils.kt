@@ -1,8 +1,39 @@
 package com.greenwallet.business.helper.shop
 
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
+import androidx.core.content.res.ResourcesCompat
+import com.greenwallet.business.R
 import com.greenwallet.business.network.product.response.*
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.basket.model.CheckoutItem
+
+fun getCategoryItem(resources: Resources, itemName: String): Pair<String, Drawable?>? {
+    val resourceId = when (itemName) {
+        "Accessories" -> R.drawable.category_accessories_icon
+        "Apparel" -> R.drawable.category_apparel_icon
+        "Ethical Fashion" -> R.drawable.category_ethical_fashion_icon
+        "Health & Beauty" -> R.drawable.category_health_and_beauty_icon
+        "Health and Beauty" -> R.drawable.category_health_and_beauty_icon
+        "Home Goods" -> R.drawable.category_home_goods_icon
+        "Plant-based Nutrition" -> R.drawable.category_nutrition_icon
+        "Nutrition" -> R.drawable.category_nutrition_icon
+        else -> -1
+    }
+
+    val name = when (itemName) {
+        "Plant-based Nutrition" -> "Nutrition"
+        "Health & Beauty" -> "Health and Beauty"
+        else -> itemName
+    }
+
+    return if (resourceId == -1) {
+        null
+    } else {
+        Pair(
+            name, ResourcesCompat.getDrawable(resources, resourceId, null))
+    }
+}
 
 fun getOverallRating(reviews: ArrayList<ProductReviewsResponseModel>?): Float {
     if (reviews == null) {

@@ -21,12 +21,14 @@ import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentShopGreenBinding
 import com.greenwallet.business.helper.keystore.User
 import com.greenwallet.business.helper.kotlin.hideKeyboard
+import com.greenwallet.business.helper.shop.getCategoryItem
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.ProductItemListener
 import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
@@ -58,7 +60,7 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
 
         updateCartCount()
 
-        categoriesAdapter.items = presenter.getCategoryList()
+        categoriesAdapter.items = presenter.getCategoryList().filter { getCategoryItem(resources, it.category!!) != null }.toCollection(ArrayList())
 
         (binding.rvBestSellers.adapter as ShopGreenBestSellersAdapter).items =
             presenter.getBestSellerItems()

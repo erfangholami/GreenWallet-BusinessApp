@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.greenwallet.business.databinding.ActivitySearchProductsBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
@@ -24,20 +25,20 @@ class SearchProductActivity : BaseActivity(),
         const val FRAGMENT_LOADING = "fragment_loading"
 
         const val KEY_MODE = "mode_key"
-        const val KEY_CATEGORY_NAME = "category_name"
+        const val KEY_CATEGORY_NAME = "category"
         const val KEY_SEARCH_QUERY = "search_query"
 
         fun start(
             context: Context,
             mode: SearchProductsPresenter.Mode = SearchProductsPresenter.Mode.HOT_DEALS,
-            categoryName: String? = null,
+            category: CategoriesResponseModel? = null,
             searchQuery: String? = null
         ) {
             val intent = Intent(context, SearchProductActivity::class.java)
             intent.putExtra(KEY_MODE, mode)
 
             if (mode == SearchProductsPresenter.Mode.CATEGORY) {
-                intent.putExtra(KEY_CATEGORY_NAME, categoryName)
+                intent.putExtra(KEY_CATEGORY_NAME, category)
             }
 
             if (searchQuery != null) {
@@ -65,7 +66,7 @@ class SearchProductActivity : BaseActivity(),
                 intent.extras?.getSerializable(KEY_MODE) as SearchProductsPresenter.Mode
 
             if (presenter.mode == SearchProductsPresenter.Mode.CATEGORY) {
-                presenter.categoryName = intent.extras?.getString(KEY_CATEGORY_NAME)!!
+                presenter.category = intent.extras?.getSerializable(KEY_CATEGORY_NAME)!! as CategoriesResponseModel
             }
         }
 

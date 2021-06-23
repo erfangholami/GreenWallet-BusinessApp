@@ -254,8 +254,8 @@ class ShopGreenPresenter(context: Context) :
         )
     )
 
-    override fun getCategoryList(): ArrayList<String> {
-        return categories.map { i -> i.category } as ArrayList<String>
+    override fun getCategoryList(): ArrayList<CategoriesResponseModel> {
+        return categories
     }
 
     override fun getBestSellerItems() = bestSellers
@@ -289,8 +289,8 @@ class ShopGreenPresenter(context: Context) :
         activityHandler?.showSearchProductsScreen(searchQuery)
     }
 
-    override fun onCategoryItemClicked(categoryName: String) {
-        activityHandler?.showCategoryProductListScreen(categoryName)
+    override fun onCategoryItemClicked(category: CategoriesResponseModel) {
+        activityHandler?.showCategoryProductListScreen(category)
     }
 
     override fun onCartListClicked() {

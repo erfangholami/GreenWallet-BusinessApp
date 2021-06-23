@@ -3,6 +3,7 @@ package com.greenwallet.business.scenes.shopgreen.ui
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 
@@ -44,13 +45,13 @@ interface ShopGreenView {
 
         fun getRedeemOptions(): ArrayList<ProductResponseModel>
 
-        fun getCategoryList(): ArrayList<String>
+        fun getCategoryList(): ArrayList<CategoriesResponseModel>
 
         fun onCampaignClicked(campaignsResponseModel: CampaignsResponseModel)
 
         fun onShowAllCampaignsClicked()
 
-        fun onCategoryItemClicked(categoryName: String)
+        fun onCategoryItemClicked(category: CategoriesResponseModel)
 
         fun getCampaigns(): ArrayList<CampaignsResponseModel>
 

@@ -8,6 +8,7 @@ import com.greenwallet.business.R
 import com.greenwallet.business.databinding.ActivityShopGreenBinding
 import com.greenwallet.business.helper.ui.LoadingFragment
 import com.greenwallet.business.network.campaings.response.CampaignsResponseModel
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.scenes.base.BaseActivity
 import com.greenwallet.business.scenes.basket.BasketActivity
@@ -100,8 +101,8 @@ class ShopGreenActivity : BaseActivity(), ShopGreenProcessHandler,
         )
     }
 
-    override fun showCategoryProductListScreen(categoryName: String) {
-        SearchProductActivity.start(this, SearchProductsPresenter.Mode.CATEGORY, categoryName)
+    override fun showCategoryProductListScreen(category: CategoriesResponseModel) {
+        SearchProductActivity.start(this, SearchProductsPresenter.Mode.CATEGORY, category)
     }
 
     override fun showRedeemListScreen() {

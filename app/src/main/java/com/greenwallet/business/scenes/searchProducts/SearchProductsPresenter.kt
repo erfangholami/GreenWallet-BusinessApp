@@ -7,6 +7,7 @@ import com.greenwallet.business.network.CallbackListener
 import com.greenwallet.business.network.InteractorFactory
 import com.greenwallet.business.network.Subscriber
 import com.greenwallet.business.network.product.ProductResponse
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.product.response.isHotDeal
 import com.greenwallet.business.network.product.response.isMatchedWithCategory
@@ -51,7 +52,7 @@ class SearchProductsPresenter(context: Context) :
         InteractorFactory(this.context).createProductReviewInteractor()
 
     var mode = Mode.HOT_DEALS
-    var categoryName: String? = null
+    var category: CategoriesResponseModel? = null
 
     private lateinit var loadCallBack: LoadMoreCallBack<ProductResponseModel, BaseRecyclerViewAdapter.Mode>
     var items: ArrayList<ProductResponseModel> = arrayListOf()
@@ -65,7 +66,7 @@ class SearchProductsPresenter(context: Context) :
     var searchQuery = ""
 
     override fun onViewSubscribed(view: SearchProductsView) {
-        view.initValues(mode, categoryName, null)
+        view.initValues(mode, category!!.category!!, null)
     }
 
     override fun onActivityHandlerSubscribed() {
@@ -267,7 +268,7 @@ class SearchProductsPresenter(context: Context) :
                             Mode.CATEGORY -> {
                                 (response.products ?: emptyArray()).toCollection(ArrayList())
                                     .filter {
-                                        it.isMatchedWithCategory(categoryName!!)
+                                        it.isMatchedWithCategory(category!!.category!!)
                                     }.toCollection(ArrayList())
                             }
                             Mode.BEST_SELLERS -> {
@@ -376,7 +377,7 @@ class SearchProductsPresenter(context: Context) :
             if (searchQuery.isEmpty()) {
                 when (mode) {
                     Mode.DISCOVER -> search(searchQuery)
-                    Mode.CATEGORY -> fetchProductsByCategory(categoryName!!)
+                    Mode.CATEGORY -> fetchProductsByCategory(category!!.category!!)
                     Mode.HOT_DEALS -> fetchHotDeals()
                     Mode.BEST_SELLERS -> fetchBestSellers()
                 }
