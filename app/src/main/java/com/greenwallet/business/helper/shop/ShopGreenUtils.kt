@@ -18,6 +18,7 @@ fun getCategoryItem(resources: Resources, itemName: String): Pair<String, Drawab
         "Home Goods" -> R.drawable.category_home_goods_icon
         "Plant-based Nutrition" -> R.drawable.category_nutrition_icon
         "Nutrition" -> R.drawable.category_nutrition_icon
+        "Food and Drink" -> R.drawable.ic_food_drink
         else -> -1
     }
 
