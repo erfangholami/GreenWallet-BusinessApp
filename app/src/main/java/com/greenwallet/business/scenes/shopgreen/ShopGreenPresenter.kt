@@ -231,7 +231,7 @@ class ShopGreenPresenter(context: Context) :
     }
 
     private fun checkShopGreenState() {
-        if (fetchedCategories && fetchedCampaign && fetchedRedeemItems) {
+        if (fetchedCategories && fetchedBestSellerItems && fetchedCampaign && fetchedRedeemItems) {
             state = State.SHOP_GREEN
         }
     }
