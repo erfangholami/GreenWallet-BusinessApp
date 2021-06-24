@@ -149,13 +149,22 @@
                 android:paddingEnd="@dimen/margin_default"
                 android:paddingBottom="@dimen/padding_small_x" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_categories"
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vp_categories"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_big"
                 android:layout_marginTop="@dimen/margin_big"
-                android:layout_marginEnd="@dimen/margin_big" />
+                android:layout_marginEnd="@dimen/margin_big"
+                android:minHeight="@dimen/view_pager_min_height" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tl_categories_indicator"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                app:tabBackground="@drawable/selector_indicator"
+                app:tabGravity="center"
+                app:tabIndicatorHeight="0dp" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_best_seller_container"

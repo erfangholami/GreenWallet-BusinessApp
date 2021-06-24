@@ -7,6 +7,8 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
@@ -17,6 +19,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.tabs.TabLayoutMediator
 import com.greenwallet.business.R
 import com.greenwallet.business.databinding.FragmentShopGreenBinding
 import com.greenwallet.business.helper.keystore.User
@@ -24,6 +27,7 @@ import com.greenwallet.business.helper.kotlin.hideKeyboard
 import com.greenwallet.business.helper.shop.getCategoryItem
 import com.greenwallet.business.helper.ui.ImageLoaderListener
 import com.greenwallet.business.network.CallbackListener
+import com.greenwallet.business.network.product.response.CategoriesResponseModel
 import com.greenwallet.business.network.product.response.ProductResponseModel
 import com.greenwallet.business.network.productReviews.response.ProductReviewsResponseModel
 import com.greenwallet.business.scenes.base.ProductItemListener
@@ -32,6 +36,10 @@ import kotlin.collections.ArrayList
 import kotlin.math.abs
 
 class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
+
+    companion object {
+        const val CATEGORE_MAX_ITEM = 6
+    }
 
     private lateinit var presenter: ShopGreenView.Presenter
     private lateinit var binding: FragmentShopGreenBinding
@@ -60,7 +68,13 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
 
         updateCartCount()
 
-        categoriesAdapter.items = presenter.getCategoryList().filter { getCategoryItem(resources, it.category!!) != null }.toCollection(ArrayList())
+        categoriesAdapter.items = organizeCategoryItems(presenter.getCategoryList())
+
+        if (presenter.getCategoryList().size > 6) {
+            binding.tlCategoriesIndicator.visibility = VISIBLE
+        } else {
+            binding.tlCategoriesIndicator.visibility = GONE
+        }
 
         (binding.rvBestSellers.adapter as ShopGreenBestSellersAdapter).items =
             presenter.getBestSellerItems()
@@ -173,8 +187,23 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
                 presenter.onCategoryItemClicked(it)
             }
         }
-        binding.rvCategories.layoutManager = GridLayoutManager(context, 3)
-        binding.rvCategories.adapter = categoriesAdapter
+        binding.vpCategories.adapter = categoriesAdapter
+        TabLayoutMediator(binding.tlCategoriesIndicator, binding.vpCategories) { _, _ -> }.attach()
+    }
+
+    private fun organizeCategoryItems(categoryList: ArrayList<CategoriesResponseModel>): ArrayList<ArrayList<CategoriesResponseModel>> {
+
+        val categories = categoryList.filter { getCategoryItem(resources, it.category!!) != null }.toCollection(ArrayList())
+        val list = arrayListOf<ArrayList<CategoriesResponseModel>>()
+
+        for (index in categories.indices) {
+            if (index % CATEGORE_MAX_ITEM == 0) {
+                list.add(arrayListOf())
+            }
+            list[index / CATEGORE_MAX_ITEM].add(categories[index])
+        }
+
+        return list
     }
 
     private fun initBestSellers() {

@@ -61,4 +61,5 @@
     <dimen name="view_card_image_default_width">172dp</dimen>
     <dimen name="view_card_image_default_height">130dp</dimen>
     <dimen name="view_card_image_height_large_x">150dp</dimen>
+    <dimen name="view_category_default">36dp</dimen>
 </resources>
