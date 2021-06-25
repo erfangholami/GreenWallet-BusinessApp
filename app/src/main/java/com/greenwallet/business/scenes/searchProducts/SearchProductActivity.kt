@@ -66,7 +66,8 @@ class SearchProductActivity : BaseActivity(),
                 intent.extras?.getSerializable(KEY_MODE) as SearchProductsPresenter.Mode
 
             if (presenter.mode == SearchProductsPresenter.Mode.CATEGORY) {
-                presenter.category = intent.extras?.getSerializable(KEY_CATEGORY_NAME)!! as CategoriesResponseModel
+                presenter.category =
+                    intent.extras?.getSerializable(KEY_CATEGORY_NAME)!! as CategoriesResponseModel
             }
         }
 

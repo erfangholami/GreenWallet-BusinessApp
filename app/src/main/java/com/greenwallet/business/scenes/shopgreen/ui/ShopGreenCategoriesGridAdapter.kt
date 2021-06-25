@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.greenwallet.business.databinding.ItemCategoryBinding
 import com.greenwallet.business.helper.shop.getCategoryItem
 import com.greenwallet.business.network.product.response.CategoriesResponseModel
-import java.util.ArrayList
+import java.util.*
 
 class ShopGreenCategoriesGridAdapter(
     val items: ArrayList<CategoriesResponseModel>,
@@ -31,7 +31,10 @@ class ShopGreenCategoriesGridAdapter(
 
     inner class HomeCategoriesGridViewHolder(private val itemBinding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(item: CategoriesResponseModel, itemClickListener: (category: CategoriesResponseModel) -> Unit) {
+        fun bind(
+            item: CategoriesResponseModel,
+            itemClickListener: (category: CategoriesResponseModel) -> Unit
+        ) {
             val categoryItem = getCategoryItem(
                 itemBinding.root.resources,
                 item.category!!

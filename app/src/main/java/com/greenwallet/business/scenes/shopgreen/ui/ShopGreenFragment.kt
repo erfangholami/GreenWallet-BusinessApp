@@ -15,7 +15,6 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.appbar.AppBarLayout
@@ -193,7 +192,8 @@ class ShopGreenFragment : Fragment(), ShopGreenView, ProductItemListener {
 
     private fun organizeCategoryItems(categoryList: ArrayList<CategoriesResponseModel>): ArrayList<ArrayList<CategoriesResponseModel>> {
 
-        val categories = categoryList.filter { getCategoryItem(resources, it.category!!) != null }.toCollection(ArrayList())
+        val categories = categoryList.filter { getCategoryItem(resources, it.category!!) != null }
+            .toCollection(ArrayList())
         val list = arrayListOf<ArrayList<CategoriesResponseModel>>()
 
         for (index in categories.indices) {
